@@ -404,7 +404,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
               if (!_this.$route.params.id) {
-                _context.next = 14;
+                _context.next = 17;
                 break;
               }
 
@@ -456,10 +456,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 exact: true
               });
 
-              _context.next = 15;
-              break;
+              _context.next = 14;
+              return _this.$nextTick();
 
             case 14:
+              _this.form.slug = res.slug;
+              _context.next = 18;
+              break;
+
+            case 17:
               _this.bread.push({
                 text: "Add",
                 to: {
@@ -469,7 +474,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 exact: true
               });
 
-            case 15:
+            case 18:
             case "end":
               return _context.stop();
           }

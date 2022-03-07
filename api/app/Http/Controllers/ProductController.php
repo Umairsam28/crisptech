@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Product, RelatedProduct};
+use App\Models\{Product, RelatedProduct, User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\ProductRequest;
 use App\Repositories\FileRepository;
+use App\Jobs\ImportProductsSheet;
 
 class ProductController extends Controller
 {
@@ -69,7 +70,11 @@ class ProductController extends Controller
             $product->related()->createMany($related);
         }
         if($request->image){
-            $this->file->create([$request->image], 'products', $product->id, 1);
+            $this->file->create([$request->image], 'products', $product->id, 1, [
+                ['width'=>264,'height'=>199],
+                ['width'=>456,'height'=>344],
+                ['width'=>264,'height'=>264],
+            ]);
         }
         return new ProductResource($product);
     }
@@ -106,7 +111,11 @@ class ProductController extends Controller
             $product->related()->createMany($related);
         }
         if($request->image){
-            $this->file->create([$request->image], 'products', $product->id, 1);
+            $this->file->create([$request->image], 'products', $product->id, 1, [
+                ['width'=>264,'height'=>199],
+                ['width'=>456,'height'=>344],
+                ['width'=>264,'height'=>264],
+            ]);
         }
         return new ProductResource($product);
     }
@@ -122,5 +131,10 @@ class ProductController extends Controller
         Gate::authorize('delete',$product);
         $product->delete();
         return response()->json(null, 204);
+    }
+
+    public function uploadcsv(Request $request){
+        $result = $this->file->create([$request->file], 'importproductsheet', time(), 1);
+        ImportProductsSheet::dispatch($result[0], User::find($request->user()->id))->onQueue('high');
     }
 }

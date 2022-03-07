@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
             'slug'=>'required|max:300|unique:App\Models\Product,slug'.($id>0?(','.$id):''),
             'price'=>'required',
             'description'=>'required',
-            'image'=>'image|dimensions:min_width=500,min_height=500',
+            'image'=>'image|dimensions:min_width=455,min_height=436',
             'related_products'=>'sometimes|array',
             'category_id'=>'required|exists:App\Models\Category,id',
             'brand_id'=>'required|exists:App\Models\Brand,id',

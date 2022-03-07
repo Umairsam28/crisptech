@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Product, Category};
+use App\Http\Requests\ProductQuoteRequest;
+use App\Models\{Product, Category, ProductQuote};
 class ProductController extends Controller
 {
     public function categories(){
@@ -55,10 +56,23 @@ class ProductController extends Controller
     }
     public function get($slug){
         $product = Product::where('slug',$slug)->with('related')->firstOrfail();
-        $product->load('category','category.parent','category.parent.parent','category.parent.parent.parent');
-        return response()->json(['product'=>$product]);
+        $parents = ($this->getParents($product->category));
+        $parents = array_reverse($parents);
+        $product->load('brand');
+        return response()->json(['product'=>$product,'parents'=>$parents]);
     }
     public function category(Category $category){
         return response()->json(['category'=>$category]);
+    }
+    public function quote(ProductQuoteRequest $request){
+        $quote = ProductQuote::create($request->only('email','qty','product_id','message'));
+        return response()->json(['quote'=>$quote]);
+    }
+    public static function getParents($category, $arr = []){
+        $arr[] = $category;
+        if($category->parent){
+            $arr = self::getParents($category->parent, ($arr));
+        }
+        return $arr;
     }
 }

@@ -323,6 +323,40 @@
         <v-list-item
           class="pa-0"
           link
+          :to="{ name: (permissions.indexOf(153)>=0?'auth.banners.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-image-album'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Banners</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list v-if="permissions.indexOf(155)>=0">
+              <v-list-item exact link :to="{ name: 'auth.banners.add' }">
+                <v-list-item-title>Add Banner</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
           :to="{ name: (permissions.indexOf(143)>=0?'auth.product_quotes.listing':'auth.dashboard') }"
         >
           <v-menu
@@ -349,6 +383,37 @@
             </template>
           </v-menu>
         </v-list-item>
+
+        <v-list-item
+          class="pa-0"
+          link
+          :to="{ name: (permissions.indexOf(158)>=0?'auth.productscsv':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-file-delimited-outline'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Upload Product CSV</v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-menu>
+        </v-list-item>
+        
       </v-list>
     </v-navigation-drawer>
     </v-hover>
@@ -397,6 +462,11 @@ export default {
         name: 'Brand',
         to: 'auth.brands.add',
         permission_id: 140,
+      },
+      {
+        name: 'Upload Product CSV',
+        to: 'auth.productscsv',
+        permission_id: 158,
       },
     ]
   }),

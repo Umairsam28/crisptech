@@ -11,6 +11,11 @@ export default [
         component: () => import('@/views/Notifications.vue'),
     },
     {
+        path: '/upload-products-csv',
+        name: 'auth.productscsv',
+        component: () => import('@/views/UploadProductsCSV.vue'),
+    },
+    {
         path: '/profile',
         name: 'auth.profile',
         component: () => import('@/views/Profile.vue'),
@@ -173,6 +178,29 @@ export default [
                 path: 'edit/:id',
                 component: ()=> import('@/views/Brand/Form.vue'),
                 name: 'auth.brands.edit'
+            }
+        ],
+        beforeEnter: admin,
+    },
+    {
+        path: '/banners/',
+        name: 'auth.banners',
+        component: ()=> import('@/views/Banner/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/Banner/List.vue'),
+                name: 'auth.banners.listing'
+            },
+            {
+                path: 'add',
+                component: ()=> import('@/views/Banner/Form.vue'),
+                name: 'auth.banners.add'
+            },
+            {
+                path: 'edit/:id',
+                component: ()=> import('@/views/Banner/Form.vue'),
+                name: 'auth.banners.edit'
             }
         ],
         beforeEnter: admin,

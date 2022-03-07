@@ -25,7 +25,7 @@ class ProductQuoteRequest extends FormRequest
     {
         return [
             'email'=>'required|email|max:255',
-            'qty'=>'integer|min:1',
+            'qty'=>'required|integer|min:1',
             'product_id'=>'required|exists:App\Models\Product,id',
         ];
     }

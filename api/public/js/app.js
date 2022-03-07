@@ -2447,6 +2447,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "sidebar",
   components: {},
@@ -2483,6 +2548,10 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Brand',
         to: 'auth.brands.add',
         permission_id: 140
+      }, {
+        name: 'Upload Product CSV',
+        to: 'auth.productscsv',
+        permission_id: 158
       }]
     };
   },
@@ -2872,6 +2941,12 @@ __webpack_require__.r(__webpack_exports__);
     return __webpack_require__.e(/*! import() */ "resources_js_views_Notifications_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Notifications.vue */ "./resources/js/views/Notifications.vue"));
   }
 }, {
+  path: '/upload-products-csv',
+  name: 'auth.productscsv',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_UploadProductsCSV_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/UploadProductsCSV.vue */ "./resources/js/views/UploadProductsCSV.vue"));
+  }
+}, {
   path: '/profile',
   name: 'auth.profile',
   component: function component() {
@@ -3057,6 +3132,32 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ "resources_js_views_Brand_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Brand/Form.vue */ "./resources/js/views/Brand/Form.vue"));
     },
     name: 'auth.brands.edit'
+  }],
+  beforeEnter: _middleware_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '/banners/',
+  name: 'auth.banners',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_Banner_Main_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Banner/Main.vue */ "./resources/js/views/Banner/Main.vue"));
+  },
+  children: [{
+    path: '',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Banner_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Banner/List.vue */ "./resources/js/views/Banner/List.vue"));
+    },
+    name: 'auth.banners.listing'
+  }, {
+    path: 'add',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Banner_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Banner/Form.vue */ "./resources/js/views/Banner/Form.vue"));
+    },
+    name: 'auth.banners.add'
+  }, {
+    path: 'edit/:id',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Banner_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Banner/Form.vue */ "./resources/js/views/Banner/Form.vue"));
+    },
+    name: 'auth.banners.edit'
   }],
   beforeEnter: _middleware_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
@@ -3294,6 +3395,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
       setTimeout(function () {
         state.notificationStatus = false;
       }, 1000);
+    },
+    setUserNotification: function setUserNotification(state, count) {
+      state.loggedInUser.notification_count = count;
     }
   },
   getters: {
@@ -23163,6 +23267,127 @@ var render = function () {
                                         link: "",
                                         to: {
                                           name:
+                                            _vm.permissions.indexOf(153) >= 0
+                                              ? "auth.banners.listing"
+                                              : "auth.dashboard",
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "v-menu",
+                                        {
+                                          staticStyle: { "max-width": "600px" },
+                                          attrs: {
+                                            "open-on-hover": "",
+                                            "offset-x": "",
+                                            "close-on-content-click": false,
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function (ref) {
+                                                  var on = ref.on
+                                                  var attrs = ref.attrs
+                                                  return [
+                                                    _c(
+                                                      "v-list-item-icon",
+                                                      _vm._g(
+                                                        _vm._b(
+                                                          {
+                                                            staticClass:
+                                                              "d-block",
+                                                            staticStyle: {
+                                                              width: "100%",
+                                                              "text-align":
+                                                                "center",
+                                                            },
+                                                            attrs: {
+                                                              color: "primary",
+                                                              dark: "",
+                                                            },
+                                                          },
+                                                          "v-list-item-icon",
+                                                          attrs,
+                                                          false
+                                                        ),
+                                                        on
+                                                      ),
+                                                      [
+                                                        _c("v-icon", {
+                                                          domProps: {
+                                                            textContent:
+                                                              _vm._s(
+                                                                "mdi-image-album"
+                                                              ),
+                                                          },
+                                                        }),
+                                                      ],
+                                                      1
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "v-list-item-content",
+                                                      [
+                                                        _c(
+                                                          "v-list-item-title",
+                                                          [_vm._v("Banners")]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    ),
+                                                  ]
+                                                },
+                                              },
+                                            ],
+                                            null,
+                                            true
+                                          ),
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _vm.permissions.indexOf(155) >= 0
+                                            ? _c(
+                                                "v-list",
+                                                [
+                                                  _c(
+                                                    "v-list-item",
+                                                    {
+                                                      attrs: {
+                                                        exact: "",
+                                                        link: "",
+                                                        to: {
+                                                          name: "auth.banners.add",
+                                                        },
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("v-list-item-title", [
+                                                        _vm._v("Add Banner"),
+                                                      ]),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ],
+                                                1
+                                              )
+                                            : _vm._e(),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item",
+                                    {
+                                      staticClass: "pa-0",
+                                      attrs: {
+                                        link: "",
+                                        to: {
+                                          name:
                                             _vm.permissions.indexOf(143) >= 0
                                               ? "auth.product_quotes.listing"
                                               : "auth.dashboard",
@@ -23242,6 +23467,94 @@ var render = function () {
                                     ],
                                     1
                                   ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item",
+                                    {
+                                      staticClass: "pa-0",
+                                      attrs: {
+                                        link: "",
+                                        to: {
+                                          name:
+                                            _vm.permissions.indexOf(158) >= 0
+                                              ? "auth.productscsv"
+                                              : "auth.dashboard",
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("v-menu", {
+                                        staticStyle: { "max-width": "600px" },
+                                        attrs: {
+                                          "open-on-hover": "",
+                                          "offset-x": "",
+                                          "close-on-content-click": false,
+                                        },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "activator",
+                                              fn: function (ref) {
+                                                var on = ref.on
+                                                var attrs = ref.attrs
+                                                return [
+                                                  _c(
+                                                    "v-list-item-icon",
+                                                    _vm._g(
+                                                      _vm._b(
+                                                        {
+                                                          staticClass:
+                                                            "d-block",
+                                                          staticStyle: {
+                                                            width: "100%",
+                                                            "text-align":
+                                                              "center",
+                                                          },
+                                                          attrs: {
+                                                            color: "primary",
+                                                            dark: "",
+                                                          },
+                                                        },
+                                                        "v-list-item-icon",
+                                                        attrs,
+                                                        false
+                                                      ),
+                                                      on
+                                                    ),
+                                                    [
+                                                      _c("v-icon", {
+                                                        domProps: {
+                                                          textContent: _vm._s(
+                                                            "mdi-file-delimited-outline"
+                                                          ),
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-list-item-content",
+                                                    [
+                                                      _c("v-list-item-title", [
+                                                        _vm._v(
+                                                          "Upload Product CSV"
+                                                        ),
+                                                      ]),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ]
+                                              },
+                                            },
+                                          ],
+                                          null,
+                                          true
+                                        ),
+                                      }),
+                                    ],
+                                    1
+                                  ),
                                 ],
                                 1
                               ),
@@ -23255,7 +23568,7 @@ var render = function () {
               ],
               null,
               false,
-              4169061494
+              2662447254
             ),
           }),
         ],
@@ -85573,7 +85886,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\Yaseen\\\
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_UploadProductsCSV_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_Banner_Main_vue":1,"resources_js_views_Banner_List_vue":1,"resources_js_views_Banner_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

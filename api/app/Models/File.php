@@ -10,7 +10,7 @@ class File extends Model
     use HasFactory;
     protected $appends = ['full_url','created_at_formatted'];
     protected $fillable = [
-        'url', 'fileable_id', 'fileable_type', 'table_name',
+        'url', 'fileable_id', 'fileable_type', 'table_name','extension',
     ];
     public function fileable()
     {

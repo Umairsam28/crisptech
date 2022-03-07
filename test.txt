@@ -1,0 +1,17 @@
+<div class="card-loader mx-3 mt-3"></div>
+
+
+.card-loader {
+    -webkit-animation: shine 1.5s linear infinite;
+    animation: shine 1.5s linear infinite;
+    background: linear-gradient(110deg,#ececec 13%,#f5f5f5 28%,#ececec 38%);
+    background-size: 200% 150%;
+    border-radius: 0.25rem;
+    height: 100rem;
+}
+
+@keyframes shine {
+    100% {
+        background-position-x: -200%;
+    }
+}

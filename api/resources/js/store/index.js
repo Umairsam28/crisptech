@@ -36,6 +36,9 @@ export const store = new Vuex.Store({
             setTimeout(()=>{
                 state.notificationStatus = false
             },1000)
+        },
+        setUserNotification(state,count){
+            state.loggedInUser.notification_count = count
         }
     },
     getters: {

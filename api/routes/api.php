@@ -3,12 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BrandController, CategoryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
 use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
+use App\Http\Controllers\Public\HomeController;
 
 
 /*
@@ -22,6 +23,8 @@ use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
 |
 */
 
+Route::get('/front/home', [HomeController::class,'index'])->name('home.api.create');
+
 Route::post('/front/inquiry', [InquiryFrontController::class,'index'])->name('inquiry.api.create');
 
 Route::post('/front/cart', [CartFrontController::class,'index'])->name('cart.api.create');
@@ -32,7 +35,9 @@ Route::get('/front/products', [ProductFrontController::class,'index'])->name('pr
 Route::post('/front/products-viaslug', [ProductFrontController::class,'getViaSlug'])->name('products.getViaSlug.api');
 Route::get('/front/category/{category}', [ProductFrontController::class,'category'])->name('category.api');
 Route::get('/front/categories', [ProductFrontController::class,'categories'])->name('categories.api');
+
 Route::get('/front/products/{slug}', [ProductFrontController::class,'get'])->name('product.api');
+Route::post('/front/products/quote', [ProductFrontController::class,'quote'])->name('product.quote.api');
 
 Route::post('/front/orders', [OrderFrontController::class,'store'])->name('orders.api.store');
 Route::get('/front/orders/{order}', [OrderFrontController::class,'index'])->name('orders.api.get');
@@ -54,6 +59,7 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     ]);
     Route::post('/file/{table}/{id}/{type}', [FileController::class,'findByTable']);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('banners', BannerController::class);
     Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('user', UserController::class);
     Route::apiResource('products', ProductController::class);
@@ -63,6 +69,9 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('brands', BrandController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
+
+    //additional
+    Route::post('/a/products/uploadcsv', [ProductController::class,'uploadcsv']);
 });
 Route::middleware('auth:api')->get('/me', function (Request $request) {
     $notificationsCount = $request->user()->unreadNotifications()->count();

@@ -374,6 +374,8 @@ export default {
           disabled: false,
           exact: true,
         })
+        await this.$nextTick()
+        this.form.slug = res.slug
     }else{
         this.bread.push({
           text: "Add",

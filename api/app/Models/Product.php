@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url','actual_price','discount_amount','home_image','detail_image'];
     protected $with = ['image'];
     protected $fillable = [
         'name','slug','price','description','short_description',
         'is_featured','category_id','discount','brand_id',
-        'crawl_url','crawl_site','in_stock','manage_stock','stock_qty',
+        'crawl_url','crawl_site','in_sstock','manage_stock','stock_qty',
         'part_number','condition','sku'
     ];
     public function related(){
@@ -34,5 +34,32 @@ class Product extends Model
         }else{
             return config('app.noimage');
         }
+    }
+    public function getActualPriceAttribute(){
+        $price = $this->price;
+        if($this->discount>0){
+            $price = ($price-(($price/100)*$this->discount));
+        }
+        return $price;
+    }
+    public function getDiscountAmountAttribute(){
+        $discount = 0;
+        $price = $this->price;
+        if($this->discount>0){
+            $discount = (($price/100)*$this->discount);
+        }
+        return $discount;
+    }
+    public function getHomeImageAttribute(){
+        if($this->image){
+            return asset('resized/'.$this->image->id.'-264x264.'.$this->image->extension);
+        }
+        return $this->image_url;
+    }
+    public function getDetailImageAttribute(){
+        if($this->image){
+            return asset('resized/'.$this->image->id.'-344x456.'.$this->image->extension);
+        }
+        return $this->image_url;
     }
 }
