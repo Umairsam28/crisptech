@@ -15,3 +15,6 @@
         background-position-x: -200%;
     }
 }
+
+
+/usr/local/bin/ea-php80 /home/rubarant/crisptechllc.rubarants.com/artisan

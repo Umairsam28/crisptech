@@ -179,7 +179,8 @@ export default {
   async asyncData({ params, $axios }) {
     let lastSlug = '';
     if(params.pathMatch.indexOf('/')>=0){
-      lastSlug = params.pathMatch.split('/')[0]
+      let fullUri = params.pathMatch.split('/')
+      lastSlug = fullUri[(fullUri.length-1)]
     }else{
       lastSlug=params.pathMatch
     }
