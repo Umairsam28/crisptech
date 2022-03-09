@@ -15,7 +15,28 @@
           <b-col md="3" class="sidebar">
             <h4 class="side-heading">Shop By</h4>
             <div class="accordion" role="tablist">
-              <b-card no-body class="mb-1">
+              <b-card v-if="category.children&&category.children.length>0" no-body class="mb-1">
+                <b-card-header header-tag="header" class="p-1" role="tab">
+                  <b-button block v-b-toggle.accordion-3
+                    >Categories <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
+                  >
+                </b-card-header>
+                <b-collapse
+                  id="accordion-3"
+                  visible
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <b-card-text>
+                      <ul>
+                        <li v-for="childcat in category.children" :key="childcat.id"><nuxt-link :to="'/'+childcat.slug">{{childcat.name}} {{childcat.children.length>0?'>':''}}</nuxt-link></li>
+                      </ul>
+                    </b-card-text>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+              <b-card v-if="brands.length>0" no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button block v-b-toggle.accordion-1
                     >Manufacturer <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
@@ -31,16 +52,7 @@
                     
                     <b-card-text>
                       <ul>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">Dell <span>(1100)</span></nuxt-link></li>
+                        <li v-for="brand in brands" :key="brand.id"><nuxt-link :to="'/product-brand/'+brand.slug">{{brand.name}} <span>({{brand.products_count}})</span></nuxt-link></li>
                       </ul>
 
                     </b-card-text>
@@ -48,7 +60,7 @@
                 </b-collapse>
               </b-card>
 
-              <b-card no-body class="mb-1">
+              <!-- <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button block v-b-toggle.accordion-2
                     >Price <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
@@ -69,7 +81,7 @@
                     </b-card-text>
                   </b-card-body>
                 </b-collapse>
-              </b-card>
+              </b-card> -->
 
               <!-- <b-card no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
@@ -92,7 +104,7 @@
 
           <b-col md="9" class="p-area"> 
             <div class="cat-name">
-              <h4>Category Name</h4>
+              <h4>{{category.name}}</h4>
             </div>
             <div class="cat-filter">
               <b-row>
@@ -102,7 +114,7 @@
                       <li><nuxt-link to="/products"><font-awesome-icon icon="fa-solid fa-border-all" /></nuxt-link></li>
                       <li><nuxt-link to="/productslist"><font-awesome-icon icon="fa-solid fa-list" /></nuxt-link></li>
                     </ul>
-                    <span>Items 1-12 of 31079</span>
+                    <span>Items {{page}}-{{totalPages}} of {{totalProducts}}</span>
                   </div>
                 </b-col>
                 <b-col md="6">
@@ -118,16 +130,16 @@
             </div>
             <div class="all-prod">
               <b-row>
-                <b-col md="3">
+                <b-col v-for="product in products" :key="product.id" md="3">
                   <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
+                    <nuxt-link :to="'/product/'+product.slug"><img :src="product.home_image" alt=""></nuxt-link>
                   </div>
                   <div class="p-details">
                   <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
+                    <h6>{{product.name}}</h6>
                   </div>
                   
-                  <div class="star-rate">
+                  <!-- <div class="star-rate">
                   <ul>
                     <li><font-awesome-icon icon="fa-solid fa-star" /></li>
                     <li><font-awesome-icon icon="fa-solid fa-star" /></li>
@@ -136,395 +148,21 @@
                     <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
                   </ul>
                   <span>26</span>
-                  </div>
+                  </div> -->
                   <div class="price">
-                    $400
+                    ${{product.actual_price}}
                   </div>
 
                   <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
-                  </div>
-                  </div>
-                </b-col>
-                <b-col md="3">
-                  <div class="img-holder">
-                    <nuxt-link to="productdetail"><img src="~/assets/images/card-img1.png" alt=""></nuxt-link>
-                  </div>
-                  <div class="p-details">
-                  <div class="pro-name">
-                    <h6>390-0463-02 | Sun Oracle 600GB 15000RPM SAS 6Gb/S 3.5-Inch Hard Drive</h6>
-                  </div>
-                  
-                  <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div>
-                  <div class="price">
-                    $400
-                  </div>
-
-                  <div class="p-ob">
-                    <b-button class="yellow-btn">Buy Now</b-button>
-                    <b-button class="blue-btn">Add to cart</b-button>
+                    <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
+                    <b-button @click="addToCart(product, false)" type="button" class="blue-btn">Add to cart</b-button>
                   </div>
                   </div>
                 </b-col>
               </b-row>
+              <div class="overflow-auto">
+                <b-pagination-nav v-model="page" :link-gen="linkGen" :number-of-pages="totalPages" use-router></b-pagination-nav>
+              </div>
             </div>
             
           </b-col>
@@ -539,10 +177,24 @@
 <script>
 export default {
   async asyncData({ params, $axios }) {
-    
+    let lastSlug = '';
+    if(params.pathMatch.indexOf('/')>=0){
+      lastSlug = params.pathMatch.split('/')[0]
+    }else{
+      lastSlug=params.pathMatch
+    }
+    return {lastSlug}
   },
   data() {
     return {
+      page: 1,
+      totalPages: 1,
+      totalProducts: 0,
+      products: [],
+      parents: [],
+      items: [],
+      brands: [],
+      category: {},
       selected: null,
       options: [
           { value: null, text: 'Please select an option' },
@@ -551,17 +203,60 @@ export default {
           { value: { C: '3PO' }, text: 'This is an option with object value' },
           { value: 'd', text: 'This one is disabled', disabled: true }
         ],
-      items: [
-        {
-          text: "Home",
-          href: "/",
-        },
-        {
-          text: "Products",
-          active: true,
-        },
-      ],
     };
   },
+  methods:{
+    addToCart(product, redirect=true){
+      var stock_available_bool = false
+      if(product.in_stock==1){
+        stock_available_bool=true
+        if(product.manage_stock==1){
+          stock_available_bool=false
+          if(product.stock_qty>0){
+            stock_available_bool=true
+          }
+        }
+      }
+      if(stock_available_bool===true){
+        this.$store.commit('cart/add', {item: product,quantity: 1, redirect: redirect})
+      }
+    },
+    linkGen(pageNum) {
+      return pageNum === 1 ? '?' : `?page=${pageNum}`
+    },
+    async getProducts(){
+      await this.$axios.post('products-viaslug?page='+this.page,{
+        slug: this.lastSlug
+      }).then(e=>{
+        this.products = e.data.products.data
+        this.totalProducts = e.data.products.total
+        this.totalPages = e.data.products.last_page
+        this.parents = e.data.parents
+        this.brands = e.data.brands
+        this.category = e.data.category
+      })
+      this.items = []
+      this.items = [{
+        text: "Home",
+        to: "/",
+      }]
+      for(let i = 0; i < this.parents.length; i++){
+        // console.log(parents[i].slug)
+        this.items.push({
+          text: this.parents[i].name,
+          to: '/'+this.parents[i].slug,
+          active: (this.parents[i].slug==this.lastSlug?true:false)
+        })
+      }
+    }
+  },
+  mounted(){
+    this.getProducts()
+  },
+  watch:{
+    page(){
+      this.getProducts()
+    }
+  }
 };
 </script>

@@ -268,7 +268,7 @@
                       security standards.
                     </li>
                   </ul>
-                  <b-button v-if="!formloading" :disabled="formloading" type="button" @click="saveOrder" class="blue-btn">Place Order</b-button>
+                  <b-button v-show="items.length>0" v-if="!formloading" :disabled="formloading" type="button" @click="saveOrder" class="blue-btn">Place Order</b-button>
                   <b-spinner v-else type="grow" label="Loading..."></b-spinner>
                 </div>
               </div>
@@ -282,48 +282,24 @@
                 <div class="cart-info">
                   <div class="cart-items">
                     <b-col md="12 items-count">
-                      <p>2 items in cart</p>
+                      <p>{{items.length}} items in cart</p>
                     </b-col>
-                    <b-row>
+                    <b-row v-for="(cartItem, cartItemKey) in items" :key="cartItemKey">
                       <b-col md="4">
                         <div class="img-holder">
                           <img
-                            src="~/assets/images/card-img1.png"
-                            alt="nextHDD-logo"
+                            :src="cartItem.product.home_image"
                           />
                         </div>
                       </b-col>
                       <b-col md="8">
                         <div class="pro-info">
                           <div class="cp-name">
-                            390-0488-02 | Sun 600GB 10000RPM SAS Gbps 2.5 64MB
-                            Cache Hard Drive
+                            {{cartItem.product.part_number}}
                           </div>
-                          <div class="cp-price">$377.57</div>
+                          <div class="cp-price">${{cartItem.product.actual_price*cartItem.quantity}}</div>
                           <div class="cp-quantity">
-                            <span>Qty: 01</span>
-                          </div>
-                        </div>
-                      </b-col>
-                    </b-row>
-                    <b-row>
-                      <b-col md="4">
-                        <div class="img-holder">
-                          <img
-                            src="~/assets/images/card-img1.png"
-                            alt="nextHDD-logo"
-                          />
-                        </div>
-                      </b-col>
-                      <b-col md="8">
-                        <div class="pro-info">
-                          <div class="cp-name">
-                            390-0488-02 | Sun 600GB 10000RPM SAS Gbps 2.5 64MB
-                            Cache Hard Drive
-                          </div>
-                          <div class="cp-price">$377.57</div>
-                          <div class="cp-quantity">
-                            <span>Qty: 01</span>
+                            <span>Qty: {{cartItem.quantity}}</span>
                           </div>
                         </div>
                       </b-col>
@@ -331,14 +307,15 @@
                   </div>
                   <div class="f-total">
                     <ul class="order-top">
-                      <li><span>Cart Subtotal </span><span>$280.74 </span></li>
+                      <li><span>Cart Subtotal </span><span>${{subtotal}} </span></li>
+                      <li><span>Discount</span><span>${{discount_amount}} </span></li>
                       <li><span>Shipping</span><span>$0.00 </span></li>
                       <li>
                         <span>Free Ground Shipping - Free </span><span></span>
                       </li>
                     </ul>
                     <ul class="total-order">
-                      <li><span>Order Total	</span><span>$280.74</span></li>
+                      <li><span>Order Total	</span><span>${{total}}</span></li>
                     </ul>
                   </div>
                   <Coupon />
@@ -406,11 +383,11 @@ export default {
       formloading: state=>state.checkout.formloading,
       items: state=>state.cart.items,
       total: state=>state.cart.total,
+      subtotal: state=>state.cart.subtotal,
+      discount_amount: state=>state.cart.discount_amount,
+      discount_applied: state=>state.cart.couponApplied,
       // same_as_billing_comp: 'checkout/same_as_billing',
     }),
-    // items(){
-    //   return this.$store.state.cart.items;
-    // }
   },
   methods: {
     ...mapMutations({

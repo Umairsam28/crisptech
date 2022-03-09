@@ -60,26 +60,27 @@
                 <h6>Summary</h6>
                 <div class="mix-total">
                   <ul>
-                    <li><span>Subtotal</span><span>$510.86</span></li>
+                    <li><span>Subtotal</span><span>${{cartSubTotal}}</span></li>
+                    <li><span>Discount</span><span>${{cartDiscountAmount}}</span></li>
                     <li><span>Tax</span><span>$0.00</span></li>
                   </ul>
                 </div>
                 <div class="sum-total">
                   <ul>
                     <li>Order Total</li>
-                    <li>$510.86</li>
+                    <li>${{cartTotal}}</li>
                   </ul>
                 </div>
                 <div class="sum-btns">
                   <nuxt-link to="/checkout" class="blue-btn btn-style"
                     >Proceed to Checkout</nuxt-link
                   >
-                  <nuxt-link to="/checkout" class="yellow-btn btn-style"
+                  <!-- <nuxt-link to="/checkout" class="yellow-btn btn-style"
                     >Pay Now</nuxt-link
                   >
                   <nuxt-link to="/"
                     >Check Out with Multiple Addresses</nuxt-link
-                  >
+                  > -->
                 </div>
               </div>
             </b-col>
@@ -100,10 +101,6 @@ export default {
     };
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
     removeItem(index){
       this.$store.commit('cart/remove',{
         index: index,
@@ -116,6 +113,15 @@ export default {
     },
     cartItems(){
       return this.$store.state.cart.items
+    },
+    cartSubTotal(){
+      return this.$store.state.cart.subtotal
+    },
+    cartDiscountAmount(){
+      return this.$store.state.cart.discount_amount
+    },
+    cartCouponApplied(){
+      return this.$store.state.cart.couponApplied
     }
   }
 };

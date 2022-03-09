@@ -21,4 +21,15 @@ class HomeController extends Controller
         $most_selling_products->load('product');
         return response()->json(['banners'=>$banners,'categories'=>$categories,'featured_products'=>$featured_products,'most_selling_products'=>$most_selling_products]);
     }
+    public function menu(){
+        $mainMenuCategories = Category::without(['image','parent','children'])
+        ->select('name','slug','id')->where('show_in_main_menu',1)->get();
+        $SideMenuCategories = Category::without(['image','parent'])
+        ->select('name','slug','id')->where('show_in_home_sidemenu',1)
+        ->where('parent_id',0)->get();
+        return response()->json([
+            'mainmenu'=>$mainMenuCategories,
+            'sidemenu'=>$SideMenuCategories,
+        ]);
+    }
 }

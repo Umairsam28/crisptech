@@ -223,5 +223,23 @@ export default [
         ],
         beforeEnter: admin,
     },
+    {
+        path: '/orders/',
+        name: 'auth.orders',
+        component: ()=> import('@/views/Order/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/Order/List.vue'),
+                name: 'auth.orders.listing'
+            },
+            {
+                path: 'view/:id',
+                component: ()=> import('@/views/Order/View.vue'),
+                name: 'auth.orders.view'
+            }
+        ],
+        beforeEnter: admin,
+    },
     
 ];

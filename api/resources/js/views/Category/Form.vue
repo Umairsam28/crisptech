@@ -53,10 +53,22 @@ lazy-validation
     <label>Description</label>
     <ckeditor :editor="editor" v-model="form.description" :config="editorConfig"></ckeditor>
 </v-col>
-<v-col cols="12" sm="12" class="pb-0">
+<v-col cols="4" sm="4" class="pb-0">
   <v-checkbox
     v-model="form.is_featured"
     label="Is Featured?"
+  ></v-checkbox>
+</v-col>
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.show_in_main_menu"
+    label="Show In Main Menu?"
+  ></v-checkbox>
+</v-col>
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.show_in_home_sidemenu"
+    label="Show In Side Menu?"
   ></v-checkbox>
 </v-col>
 <v-col cols="12" cm="12" class="pb-0">
@@ -110,7 +122,7 @@ lazy-validation
   dense
   :items="categories"
   :active="default_category"
-  open-all
+  :open="default_category"
 ></v-treeview>
 </v-col>
  <v-col
@@ -166,6 +178,8 @@ export default {
             description: (res.description?res.description:''),
             short_description: (res.short_description?res.short_description:''),
             is_featured: (res.is_featured==1?true:false),
+            show_in_main_menu: (res.show_in_main_menu==1?true:false),
+            show_in_home_sidemenu: (res.show_in_home_sidemenu==1?true:false),
             image_url: res.image_url,
             id: res.id,
         }
@@ -200,6 +214,8 @@ export default {
           description:[],
           short_description:[],
           is_featured: [],
+          show_in_main_menu: [],
+          show_in_home_sidemenu: [],
           image: [],
       }
     },
@@ -214,6 +230,8 @@ export default {
         formdata.append("description", this.form.description);
         formdata.append("short_description", this.form.short_description);
         formdata.append("is_featured", (this.form.is_featured==true?1:0));
+        formdata.append("show_in_main_menu", (this.form.show_in_main_menu==true?1:0));
+        formdata.append("show_in_home_sidemenu", (this.form.show_in_home_sidemenu==true?1:0));
         if(this.form.image){
             formdata.append("image", this.form.image);
         }
@@ -242,6 +260,12 @@ export default {
             if(res.data.is_featured){
                 this.errors.is_featured = res.data.is_featured
             }
+            if(res.data.show_in_main_menu){
+                this.errors.show_in_main_menu = res.data.show_in_main_menu
+            }
+            if(res.data.show_in_home_sidemenu){
+                this.errors.show_in_home_sidemenu = res.data.show_in_home_sidemenu
+            }
             if(res.data.image){
                 this.errors.image = res.data.image
             }      
@@ -265,7 +289,7 @@ export default {
         
       },
       categories: [],
-      default_category: [0],
+      default_category: [],
       initialslug: (this.$route.params.id?this.$route.params.id:''),
       form:{
           id: (this.$route.params.id?this.$route.params.id:0),
@@ -276,6 +300,8 @@ export default {
           short_description: '',
           image: undefined,
           is_featured: false,
+          show_in_main_menu: false,
+          show_in_home_sidemenu: false,
       },
       errors: {
           name:[],
@@ -284,6 +310,8 @@ export default {
           description:[],
           short_description:[],
           is_featured: [],
+          show_in_main_menu: [],
+          show_in_home_sidemenu: [],
           image: [],
       },
       bread: [

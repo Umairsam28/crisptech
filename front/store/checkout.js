@@ -9,6 +9,9 @@ export const state = () => ({
         shipping_city: [],
         shipping_zip: [],
         shipping_phone: [],
+        shipping_company: [],
+        shipping_country: [],
+        shipping_state: [],
     },
     form: {
         shipping_email: '',
@@ -20,6 +23,9 @@ export const state = () => ({
         shipping_city: '',
         shipping_zip: '',
         shipping_phone: '',
+        shipping_company: '',
+        shipping_country: '',
+        shipping_state: '',
     },
     formloading: false
 })

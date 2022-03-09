@@ -2512,6 +2512,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "sidebar",
   components: {},
@@ -3178,6 +3208,26 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ "resources_js_views_ProductQuote_View_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/ProductQuote/View.vue */ "./resources/js/views/ProductQuote/View.vue"));
     },
     name: 'auth.product_quotes.view'
+  }],
+  beforeEnter: _middleware_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '/orders/',
+  name: 'auth.orders',
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_views_Order_Main_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Order/Main.vue */ "./resources/js/views/Order/Main.vue"));
+  },
+  children: [{
+    path: '',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Order_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Order/List.vue */ "./resources/js/views/Order/List.vue"));
+    },
+    name: 'auth.orders.listing'
+  }, {
+    path: 'view/:id',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_Order_View_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Order/View.vue */ "./resources/js/views/Order/View.vue"));
+    },
+    name: 'auth.orders.view'
   }],
   beforeEnter: _middleware_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
 }]);
@@ -23555,6 +23605,93 @@ var render = function () {
                                     ],
                                     1
                                   ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item",
+                                    {
+                                      staticClass: "pa-0",
+                                      attrs: {
+                                        link: "",
+                                        to: {
+                                          name:
+                                            _vm.permissions.indexOf(159) >= 0
+                                              ? "auth.orders.listing"
+                                              : "auth.dashboard",
+                                        },
+                                      },
+                                    },
+                                    [
+                                      _c("v-menu", {
+                                        staticStyle: { "max-width": "600px" },
+                                        attrs: {
+                                          "open-on-hover": "",
+                                          "offset-x": "",
+                                          "close-on-content-click": false,
+                                        },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "activator",
+                                              fn: function (ref) {
+                                                var on = ref.on
+                                                var attrs = ref.attrs
+                                                return [
+                                                  _c(
+                                                    "v-list-item-icon",
+                                                    _vm._g(
+                                                      _vm._b(
+                                                        {
+                                                          staticClass:
+                                                            "d-block",
+                                                          staticStyle: {
+                                                            width: "100%",
+                                                            "text-align":
+                                                              "center",
+                                                          },
+                                                          attrs: {
+                                                            color: "primary",
+                                                            dark: "",
+                                                          },
+                                                        },
+                                                        "v-list-item-icon",
+                                                        attrs,
+                                                        false
+                                                      ),
+                                                      on
+                                                    ),
+                                                    [
+                                                      _c("v-icon", {
+                                                        domProps: {
+                                                          textContent:
+                                                            _vm._s("mdi-dolly"),
+                                                        },
+                                                      }),
+                                                    ],
+                                                    1
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "v-list-item-content",
+                                                    [
+                                                      _c("v-list-item-title", [
+                                                        _vm._v(
+                                                          "Orders Listing"
+                                                        ),
+                                                      ]),
+                                                    ],
+                                                    1
+                                                  ),
+                                                ]
+                                              },
+                                            },
+                                          ],
+                                          null,
+                                          true
+                                        ),
+                                      }),
+                                    ],
+                                    1
+                                  ),
                                 ],
                                 1
                               ),
@@ -23568,7 +23705,7 @@ var render = function () {
               ],
               null,
               false,
-              2662447254
+              165795620
             ),
           }),
         ],
@@ -85775,7 +85912,7 @@ var index = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\Yaseen\\\\Desktop\\\\projects\\\\freshify"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\Yaseen\\\\Desktop\\\\projects\\\\freshify","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\pc\\\\Desktop\\\\projects\\\\crisptechllc\\\\api"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\Users\\\\pc\\\\Desktop\\\\projects\\\\crisptechllc\\\\api","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
@@ -85886,7 +86023,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\Yaseen\\\
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_UploadProductsCSV_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_Banner_Main_vue":1,"resources_js_views_Banner_List_vue":1,"resources_js_views_Banner_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_UploadProductsCSV_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_Banner_Main_vue":1,"resources_js_views_Banner_List_vue":1,"resources_js_views_Banner_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1,"resources_js_views_Order_Main_vue":1,"resources_js_views_Order_List_vue":1,"resources_js_views_Order_View_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -27,13 +27,17 @@ class OrderController extends Controller
         'shipping_phone',
         );
         $order = Order::create($arr);
+        $total = 0;
         foreach($request->items as $key=>$value){
             $order->products()->create([
                 'product_id'=>$value['product']['id'],
                 'quantity'=>$value['quantity'],
                 'rowtotal'=>($value['product']['price']*$value['quantity'])
             ]);
+            $total+=($value['product']['price']*$value['quantity']);
         }
+        $order->total = $total;
+        $order->save();
         return response()->json(['data'=>$order]);
     }
 }

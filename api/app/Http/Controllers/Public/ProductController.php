@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductQuoteRequest;
-use App\Models\{Product, Category, ProductQuote};
+use App\Models\{Product, Category, ProductQuote, Brand};
 class ProductController extends Controller
 {
     public function categories(){
@@ -22,22 +22,23 @@ class ProductController extends Controller
     }
     public static function childs($category, $arr = []){
         $arr[] = $category->id;
-        foreach($category->child as $child){
+        foreach($category->children as $child){
             $arr = self::childs($child, $arr);
         }
         return $arr;
     }
     public function getViaSlug(Request $request){
-        $arr =  explode('/',$request->slug);
-        $lastSlug = $arr[(count($arr)-1)];
+        $category = Category::where('slug',$request->slug)->first();
         $products = Product::orderBy('id','desc');
-        if($lastSlug!='all'){
-            $category = Category::where('slug',$lastSlug)->first();
-            $ids = $this->childs($category);
-            $products = $products->whereIn('category_id',$ids);
-        }
-        $products=$products->get();
-        return response()->json(['products'=>$products]);
+        $ids = $this->childs($category);
+        $products = $products->whereIn('category_id',$ids);
+        $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
+        ->select('brand_id')->distinct()->get()->pluck('brand_id'))
+        ->withCount('products')->get();
+        $products=$products->paginate(16);
+        $parents = ($this->getParents($category));
+        $parents = array_reverse($parents);
+        return response()->json(['products'=>$products,'parents'=>$parents,'brands'=>$brands,'category'=>$category]);
     }
     public function index(){
         $products = Product::orderBy('id','desc');

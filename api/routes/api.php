@@ -3,10 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
+use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
 use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
 use App\Http\Controllers\Public\HomeController;
@@ -23,24 +24,26 @@ use App\Http\Controllers\Public\HomeController;
 |
 */
 
-Route::get('/front/home', [HomeController::class,'index'])->name('home.api.create');
+Route::get('/front/home', [HomeController::class,'index']);
+Route::get('/front/menu', [HomeController::class,'menu']);
 
-Route::post('/front/inquiry', [InquiryFrontController::class,'index'])->name('inquiry.api.create');
+Route::post('/front/inquiry', [InquiryFrontController::class,'index']);
 
-Route::post('/front/cart', [CartFrontController::class,'index'])->name('cart.api.create');
-Route::get('/front/cart/{cart}', [CartFrontController::class,'get'])->name('cart.api.get');
-Route::post('/front/cart/{cart}', [CartFrontController::class,'item'])->name('cart.api.item');
+Route::post('/front/cart', [CartFrontController::class,'index']);
+Route::get('/front/cart/{cart}', [CartFrontController::class,'get']);
+Route::post('/front/cart/{cart}', [CartFrontController::class,'item']);
 
-Route::get('/front/products', [ProductFrontController::class,'index'])->name('products.api');
-Route::post('/front/products-viaslug', [ProductFrontController::class,'getViaSlug'])->name('products.getViaSlug.api');
-Route::get('/front/category/{category}', [ProductFrontController::class,'category'])->name('category.api');
-Route::get('/front/categories', [ProductFrontController::class,'categories'])->name('categories.api');
+Route::get('/front/products', [ProductFrontController::class,'index']);
+Route::post('/front/products-viaslug', [ProductFrontController::class,'getViaSlug']);
+Route::get('/front/category/{category}', [ProductFrontController::class,'category']);
+Route::get('/front/categories', [ProductFrontController::class,'categories']);
 
-Route::get('/front/products/{slug}', [ProductFrontController::class,'get'])->name('product.api');
-Route::post('/front/products/quote', [ProductFrontController::class,'quote'])->name('product.quote.api');
+Route::get('/front/products/{slug}', [ProductFrontController::class,'get']);
+Route::post('/front/products/quote', [ProductFrontController::class,'quote']);
 
-Route::post('/front/orders', [OrderFrontController::class,'store'])->name('orders.api.store');
-Route::get('/front/orders/{order}', [OrderFrontController::class,'index'])->name('orders.api.get');
+Route::post('/front/coupon', [CouponFrontController::class,'view']);
+Route::post('/front/orders', [OrderFrontController::class,'store']);
+Route::get('/front/orders/{order}', [OrderFrontController::class,'index']);
 
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
@@ -69,6 +72,9 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('brands', BrandController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
+    Route::apiResource('orders', OrderController::class)->only([
+        'index','show'
+    ]);
 
     //additional
     Route::post('/a/products/uploadcsv', [ProductController::class,'uploadcsv']);

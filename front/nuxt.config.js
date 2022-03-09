@@ -1,9 +1,10 @@
 module.exports = {
     components: true,
     trailingSlash: true,
+    target: 'static',
     modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
     axios: {
-      baseURL: 'http://localhost:8000/api/front/'
+      baseURL: 'https://crisptechllc.rubarants.com/api/front/'
     },
     env: {
         // BASE_URL: process.env.BASE_URL || 'http://localhost:3000'

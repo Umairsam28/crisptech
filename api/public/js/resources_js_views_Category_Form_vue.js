@@ -188,6 +188,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -239,6 +251,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 description: res.description ? res.description : '',
                 short_description: res.short_description ? res.short_description : '',
                 is_featured: res.is_featured == 1 ? true : false,
+                show_in_main_menu: res.show_in_main_menu == 1 ? true : false,
+                show_in_home_sidemenu: res.show_in_home_sidemenu == 1 ? true : false,
                 image_url: res.image_url,
                 id: res.id
               };
@@ -296,6 +310,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         description: [],
         short_description: [],
         is_featured: [],
+        show_in_main_menu: [],
+        show_in_home_sidemenu: [],
         image: []
       };
     },
@@ -309,7 +325,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 22;
+                  _context2.next = 24;
                   break;
                 }
 
@@ -321,6 +337,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formdata.append("description", this.form.description);
                 formdata.append("short_description", this.form.short_description);
                 formdata.append("is_featured", this.form.is_featured == true ? 1 : 0);
+                formdata.append("show_in_main_menu", this.form.show_in_main_menu == true ? 1 : 0);
+                formdata.append("show_in_home_sidemenu", this.form.show_in_home_sidemenu == true ? 1 : 0);
 
                 if (this.form.image) {
                   formdata.append("image", this.form.image);
@@ -329,26 +347,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 18;
+                  _context2.next = 20;
                   break;
                 }
 
-                _context2.next = 15;
+                _context2.next = 17;
                 return _services_auth_category__WEBPACK_IMPORTED_MODULE_1__["default"].update(formdata, this.initialslug);
 
-              case 15:
+              case 17:
                 res = _context2.sent;
-                _context2.next = 21;
+                _context2.next = 23;
                 break;
 
-              case 18:
-                _context2.next = 20;
+              case 20:
+                _context2.next = 22;
                 return _services_auth_category__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 20:
+              case 22:
                 res = _context2.sent;
 
-              case 21:
+              case 23:
                 if (!res.status) {
                   if (res.data.name) {
                     this.errors.name = res.data.name;
@@ -374,6 +392,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     this.errors.is_featured = res.data.is_featured;
                   }
 
+                  if (res.data.show_in_main_menu) {
+                    this.errors.show_in_main_menu = res.data.show_in_main_menu;
+                  }
+
+                  if (res.data.show_in_home_sidemenu) {
+                    this.errors.show_in_home_sidemenu = res.data.show_in_home_sidemenu;
+                  }
+
                   if (res.data.image) {
                     this.errors.image = res.data.image;
                   } //errors here
@@ -385,7 +411,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-              case 22:
+              case 24:
               case "end":
                 return _context2.stop();
             }
@@ -410,7 +436,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editor: (_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_2___default()),
       editorConfig: {},
       categories: [],
-      default_category: [0],
+      default_category: [],
       initialslug: this.$route.params.id ? this.$route.params.id : '',
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
@@ -420,7 +446,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         description: '',
         short_description: '',
         image: undefined,
-        is_featured: false
+        is_featured: false,
+        show_in_main_menu: false,
+        show_in_home_sidemenu: false
       },
       errors: {
         name: [],
@@ -429,6 +457,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         description: [],
         short_description: [],
         is_featured: [],
+        show_in_main_menu: [],
+        show_in_home_sidemenu: [],
         image: []
       },
       bread: [{
@@ -840,10 +870,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
                         [
                           _c("v-checkbox", {
                             attrs: { label: "Is Featured?" },
@@ -853,6 +880,42 @@ var render = function () {
                                 _vm.$set(_vm.form, "is_featured", $$v)
                               },
                               expression: "form.is_featured",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Show In Main Menu?" },
+                            model: {
+                              value: _vm.form.show_in_main_menu,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "show_in_main_menu", $$v)
+                              },
+                              expression: "form.show_in_main_menu",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Show In Side Menu?" },
+                            model: {
+                              value: _vm.form.show_in_home_sidemenu,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "show_in_home_sidemenu", $$v)
+                              },
+                              expression: "form.show_in_home_sidemenu",
                             },
                           }),
                         ],
@@ -940,7 +1003,7 @@ var render = function () {
                               dense: "",
                               items: _vm.categories,
                               active: _vm.default_category,
-                              "open-all": "",
+                              open: _vm.default_category,
                             },
                             on: {
                               "update:active": _vm.getCurrentSelectionParent,

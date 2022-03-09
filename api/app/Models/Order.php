@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    protected $appends = ['created_date_formatted','created_date_formatted_us'];
     protected $fillable = [
         'shipping_email',
         'shipping_notes',
@@ -27,5 +28,11 @@ class Order extends Model
     ];
     public function products(){
         return $this->hasMany(OrderProduct::class);
+    }
+    public function getCreatedDateFormattedAttribute(){
+        return $this->created_at->diffForHumans();
+    }
+    public function getCreatedDateFormattedUsAttribute(){
+        return date('Y-m-d h:i:s a', strtotime($this->created_at));
     }
 }
