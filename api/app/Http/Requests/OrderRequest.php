@@ -24,21 +24,18 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'billing_first_name'=>'required|max:100',
-            'billing_last_name'=>'required|max:100',
-            'billing_address'=>'required|max:255',
-            'billing_address_2'=>'required|max:255',
-            'billing_city'=>'required|max:100',
-            'billing_zip'=>'required|max:20',
-            'billing_phone'=>'required|max:100',
-            'billing_email'=>'required|max:255',
-            'shipping_first_name'=>'required_if:same_as_billing,false|max:100',
-            'shipping_last_name'=>'required_if:same_as_billing,false|max:100',
-            'shipping_address'=>'required_if:same_as_billing,false|max:255',
-            'shipping_address_2'=>'required_if:same_as_billing,false|max:255',
-            'shipping_city'=>'required_if:same_as_billing,false|max:100',
-            'shipping_zip'=>'required_if:same_as_billing,false|max:20',
-            'shipping_phone'=>'required_if:same_as_billing,false|max:100',
+            'shipping_email'=>'required|max:255',
+            'shipping_notes'=>'max:555',
+            'shipping_first_name'=>'required|max:100',
+            'shipping_last_name'=>'required|max:100',
+            'shipping_address'=>'required|max:255',
+            // 'shipping_address_2'=>'required|max:255',
+            'shipping_city'=>'required|max:100',
+            'shipping_state'=>'required|max:100',
+            'shipping_country'=>'required|max:255',
+            'shipping_company'=>'required|max:255',
+            'shipping_zip'=>'required|max:20',
+            'shipping_phone'=>'required|max:100',
         ];
     }
 }

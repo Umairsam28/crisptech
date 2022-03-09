@@ -41,7 +41,7 @@ class GenerateApiCrud extends Command
     {
         $table = Str::studly(Str::singular($this->argument('table')));
         // echo $table;
-        $bar = $this->output->createProgressBar(4);
+        $bar = $this->output->createProgressBar(5);
         $bar->start();
         $bar->advance();
         Artisan::call('make:model',[

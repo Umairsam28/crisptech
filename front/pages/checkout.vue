@@ -30,16 +30,16 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_email"
+                      :value="shipping_email_comp"
                       type="email"
                       placeholder="Enter email"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_email_err.length>0">{{ shipping_email_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
-
                   <hr />
-
                   <b-form-group
                     id="input-group-1"
                     label="First Name:"
@@ -47,12 +47,14 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_first_name"
+                      :value="shipping_first_name_comp"
                       type="text"
                       placeholder="First Name"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_first_name_err.length>0">{{ shipping_first_name_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -62,12 +64,14 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_last_name"
+                      :value="shipping_last_name_comp"
                       type="text"
                       placeholder="Last Name"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_last_name_err.length>0">{{ shipping_last_name_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -77,12 +81,14 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_company"
+                      :value="shipping_company_comp"
                       type="text"
                       placeholder="Company"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_company_err.length>0">{{ shipping_company_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -92,12 +98,14 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_address"
+                      :value="shipping_address_comp"
                       type="text"
                       placeholder="Address"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_address_err.length>0">{{ shipping_address_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -107,36 +115,38 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_city"
+                      :value="shipping_city_comp"
                       type="text"
                       placeholder="City"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_city_err.length>0">{{ shipping_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
                     id="input-group-1"
                     label="Country:"
                     label-for="input-1"
-                    description="You can create an account after checkout."
                   >
                     <b-form-select
-                      v-model="selected"
+                      @input="shipping_country"
                       :options="options"
                     ></b-form-select>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_country_err.length>0">{{ shipping_country_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
                     id="input-group-1"
                     label="State/Province:"
                     label-for="input-1"
-                    description="You can create an account after checkout."
                   >
                     <b-form-select
-                      v-model="selected"
+                      @input="shipping_state"
                       :options="options2"
                     ></b-form-select>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_state_err.length>0">{{ shipping_state_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -146,11 +156,13 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_zip"
+                      :value="shipping_zip_comp"
                       type="text"
                       required
                     >
                     </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_zip_err.length>0">{{ shipping_zip_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -160,25 +172,13 @@
                   >
                     <b-form-input
                       id="input-1"
-                      v-model="form.text"
+                      @input="shipping_phone"
+                      :value="shipping_phone_comp"
                       type="text"
                       required
                     >
                     </b-form-input>
-                  </b-form-group>
-
-                  <b-form-group
-                    id="input-group-1"
-                    label="GST:"
-                    label-for="input-1"
-                  >
-                    <b-form-input
-                      id="input-1"
-                      v-model="form.text"
-                      type="text"
-                      required
-                    >
-                    </b-form-input>
+                    <b-form-invalid-feedback v-if="shipping_phone_err.length>0" :force-show="true" id="input-1-live-feedback">{{ shipping_phone_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
                 </b-form>
               </div>
@@ -195,8 +195,6 @@
                       <tr>
                         <td>
                           <b-form-radio
-                            v-model="selected"
-                            :aria-describedby="ariaDescribedby"
                             name="some-radios"
                             value="A"
                           ></b-form-radio>
@@ -207,8 +205,6 @@
                       <tr>
                         <td>
                           <b-form-radio
-                            v-model="selected"
-                            :aria-describedby="ariaDescribedby"
                             name="some-radios"
                             value="B"
                           ></b-form-radio>
@@ -241,7 +237,6 @@
                       <font-awesome-icon icon="fa-solid fa-credit-card" />
                       <b-form-input
                         id="input-1"
-                        v-model="form.text"
                         type="email"
                         placeholder="Enter email"
                         required
@@ -252,7 +247,6 @@
                       <font-awesome-icon icon="fa-solid fa-calendar-days" />
                       <b-form-input
                         id="input-1"
-                        v-model="form.text"
                         type="email"
                         placeholder="Enter email"
                         required
@@ -260,7 +254,6 @@
                       </b-form-input>
                       <b-form-input
                         id="input-1"
-                        v-model="form.text"
                         type="email"
                         placeholder="Enter email"
                         required
@@ -275,7 +268,8 @@
                       security standards.
                     </li>
                   </ul>
-                  <b-button class="blue-btn">Place Order</b-button>
+                  <b-button v-if="!formloading" :disabled="formloading" type="button" @click="saveOrder" class="blue-btn">Place Order</b-button>
+                  <b-spinner v-else type="grow" label="Loading..."></b-spinner>
                 </div>
               </div>
             </b-col>
@@ -347,28 +341,7 @@
                       <li><span>Order Total	</span><span>$280.74</span></li>
                     </ul>
                   </div>
-                  <div class="coupon">
-                  <div>
-                    <b-button v-b-toggle.my-collapse class="blue-btn">Apply Discount Code <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button>
-                  </div>
-
-                  <b-collapse id="my-collapse">
-                    <b-card>
-                        <b-form>
-                          <b-form-input
-                              id="input-1"
-                              v-model="form.coupon"
-                              type="text"
-                              placeholder="Enter Discount Code"
-                              
-                            ></b-form-input>
-                            <b-button type="submit" class="blue-btn">Apply Discount</b-button>
-                        </b-form>
-                    </b-card>
-                  </b-collapse>
-
-                  
-                </div>
+                  <Coupon />
                 </div>
               </div>
             </b-col>
@@ -381,6 +354,7 @@
 </template>
 
 <script>
+import { mapMutations, mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -401,11 +375,64 @@ export default {
       ],
     };
   },
-  methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
+  computed:{
+    ...mapState({
+      shipping_email_comp: state=>state.checkout.form.shipping_email,
+      shipping_notes_comp: state=>state.checkout.form.shipping_notes,
+      shipping_first_name_comp: state=>state.checkout.form.shipping_first_name,
+      shipping_last_name_comp: state=>state.checkout.form.shipping_last_name,
+      shipping_address_comp: state=>state.checkout.form.shipping_address,
+      shipping_address_2_comp: state=>state.checkout.form.shipping_address_2,
+      shipping_city_comp: state=>state.checkout.form.shipping_city,
+      shipping_zip_comp: state=>state.checkout.form.shipping_zip,
+      shipping_phone_comp: state=>state.checkout.form.shipping_phone,
+      shipping_company_comp: state=>state.checkout.form.shipping_company,
+      shipping_city_comp: state=>state.checkout.form.shipping_city,
+      shipping_country_comp: state=>state.checkout.form.shipping_country,
+      shipping_state_comp: state=>state.checkout.form.shipping_state,
+
+      //binding errors 
+      shipping_email_err: state=>state.checkout.errors.shipping_email,
+      shipping_notes_err: state=>state.checkout.errors.shipping_notes,
+      shipping_first_name_err: state=>state.checkout.errors.shipping_first_name,
+      shipping_last_name_err: state=>state.checkout.errors.shipping_last_name,
+      shipping_address_err: state=>state.checkout.errors.shipping_address,
+      shipping_city_err: state=>state.checkout.errors.shipping_city,
+      shipping_zip_err: state=>state.checkout.errors.shipping_zip,
+      shipping_phone_err: state=>state.checkout.errors.shipping_phone,
+      shipping_company_err: state=>state.checkout.errors.shipping_company,
+      shipping_country_err: state=>state.checkout.errors.shipping_country,
+      shipping_state_err: state=>state.checkout.errors.shipping_state,
+      formloading: state=>state.checkout.formloading,
+      items: state=>state.cart.items,
+      total: state=>state.cart.total,
+      // same_as_billing_comp: 'checkout/same_as_billing',
+    }),
+    // items(){
+    //   return this.$store.state.cart.items;
+    // }
   },
+  methods: {
+    ...mapMutations({
+      shipping_email: 'checkout/set_shipping_email',
+      shipping_notes: 'checkout/set_shipping_notes',
+      shipping_first_name: 'checkout/set_shipping_first_name',
+      shipping_last_name: 'checkout/set_shipping_last_name',
+      shipping_address: 'checkout/set_shipping_address',
+      shipping_address_2: 'checkout/set_shipping_address_2',
+      shipping_city: 'checkout/set_shipping_city',
+      shipping_zip: 'checkout/set_shipping_zip',
+      shipping_phone: 'checkout/set_shipping_phone',
+      shipping_company: 'checkout/set_shipping_company',
+      shipping_city: 'checkout/set_shipping_city',
+      shipping_country: 'checkout/set_shipping_country',
+      shipping_state: 'checkout/set_shipping_state',
+    }),
+    saveOrder(){
+      this.$store.dispatch('checkout/save',{
+        items: this.items
+      })
+    },
+  }
 };
 </script>

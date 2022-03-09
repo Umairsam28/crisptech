@@ -49,28 +49,7 @@
                   </table>
                   <b-button class="blue-btn">Update Shoppuing Cart</b-button>
                 </div>
-                <div class="coupon">
-                  <div>
-                    <b-button v-b-toggle.my-collapse class="blue-btn">Apply Discount Code <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button>
-                  </div>
-
-                  <b-collapse id="my-collapse">
-                    <b-card>
-                        <b-form>
-                          <b-form-input
-                              id="input-1"
-                              v-model="form.coupon"
-                              type="text"
-                              placeholder="Enter Discount Code"
-                              
-                            ></b-form-input>
-                            <b-button type="submit" class="blue-btn">Apply Discount</b-button>
-                        </b-form>
-                    </b-card>
-                  </b-collapse>
-
-                  
-                </div>
+                <Coupon />
               </div>
             </b-col>
             <!-- END CART AREA -->
