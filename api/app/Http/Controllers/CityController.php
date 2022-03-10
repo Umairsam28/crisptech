@@ -26,7 +26,7 @@ class CityController extends Controller
     {
         Gate::authorize('viewAny',City::class);
         $query = $this->listRep->listFilteredQuery(['cities.name', 'states.name'])
-        ->leftJoin('states','states.id','=','states.state_id')
+        ->leftJoin('states','states.id','=','cities.state_id')
         ->select('cities.*','states.name as state_name');
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
