@@ -241,5 +241,73 @@ export default [
         ],
         beforeEnter: admin,
     },
-    
+    {
+        path: '/countries/',
+        name: 'auth.countries',
+        component: ()=> import('@/views/Country/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/Country/List.vue'),
+                name: 'auth.countries.listing'
+            },
+            {
+                path: 'add',
+                component: ()=> import('@/views/Country/Form.vue'),
+                name: 'auth.countries.add'
+            },
+            {
+                path: 'edit/:id',
+                component: ()=> import('@/views/Country/Form.vue'),
+                name: 'auth.countries.edit'
+            }
+        ],
+        beforeEnter: admin,
+    },
+    {
+        path: '/states/',
+        name: 'auth.states',
+        component: ()=> import('@/views/State/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/State/List.vue'),
+                name: 'auth.states.listing'
+            },
+            {
+                path: 'add',
+                component: ()=> import('@/views/State/Form.vue'),
+                name: 'auth.states.add'
+            },
+            {
+                path: 'edit/:id',
+                component: ()=> import('@/views/State/Form.vue'),
+                name: 'auth.states.edit'
+            }
+        ],
+        beforeEnter: admin,
+    },
+    {
+        path: '/cities/',
+        name: 'auth.cities',
+        component: ()=> import('@/views/City/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/City/List.vue'),
+                name: 'auth.cities.listing'
+            },
+            {
+                path: 'add',
+                component: ()=> import('@/views/City/Form.vue'),
+                name: 'auth.cities.add'
+            },
+            {
+                path: 'edit/:id',
+                component: ()=> import('@/views/City/Form.vue'),
+                name: 'auth.cities.edit'
+            }
+        ],
+        beforeEnter: admin,
+    },    
 ];

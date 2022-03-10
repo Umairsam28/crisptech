@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController, StateController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
@@ -71,6 +71,8 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('inquiries', InquiryController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('brands', BrandController::class);
+    Route::apiResource('countries', CountryController::class);
+    Route::apiResource('states', StateController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
     Route::apiResource('orders', OrderController::class)->only([
         'index','show'

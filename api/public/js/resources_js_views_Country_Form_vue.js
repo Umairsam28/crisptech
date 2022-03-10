@@ -1,10 +1,10 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_Banner_Form_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_Country_Form_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -97,23 +97,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('banners');
+var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('countries');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "auth.banners.add",
+  name: "auth.countries.add",
   mounted: function mounted() {
     var _this = this;
 
@@ -134,16 +121,16 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
             case 3:
               res = _context.sent;
               _this.form = {
-                redirect_to: res.redirect_to,
-                page: res.page,
-                id: _this.$route.params.id,
-                image_url: res.image_url
+                name: res.name,
+                iso_code: res.iso_code,
+                is_allowed_for_checkout: res.is_allowed_for_checkout == 1 ? true : false,
+                id: _this.$route.params.id
               };
 
               _this.bread.push({
                 text: "Edit",
                 to: {
-                  name: "auth.banners.edit",
+                  name: "auth.countries.edit",
                   params: {
                     id: _this.$route.params.id
                   }
@@ -159,7 +146,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
               _this.bread.push({
                 text: "Add",
                 to: {
-                  name: "auth.banners.add"
+                  name: "auth.countries.add"
                 },
                 disabled: false,
                 exact: true
@@ -176,9 +163,9 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   methods: {
     resetError: function resetError() {
       this.errors = {
-        redirect_to: [],
-        page: [],
-        image: []
+        name: [],
+        iso_code: [],
+        is_allowed_for_checkout: []
       };
     },
     addpermission: function () {
@@ -197,13 +184,9 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
                 this.btnloading = true;
                 formdata = new FormData();
-                formdata.append("redirect_to", this.form.redirect_to);
-                formdata.append("page", this.form.page);
-
-                if (this.form.image) {
-                  formdata.append("image", this.form.image);
-                }
-
+                formdata.append("name", this.form.name);
+                formdata.append("iso_code", this.form.iso_code);
+                formdata.append("is_allowed_for_checkout", this.form.is_allowed_for_checkout == true ? 1 : 0);
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
@@ -228,22 +211,22 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
               case 17:
                 if (!res.status) {
-                  if (res.data.redirect_to) {
-                    this.errors.redirect_to = res.data.redirect_to;
+                  if (res.data.name) {
+                    this.errors.name = res.data.name;
                   }
 
-                  if (res.data.page) {
-                    this.errors.page = res.data.page;
+                  if (res.data.iso_code) {
+                    this.errors.iso_code = res.data.iso_code;
                   }
 
-                  if (res.data.image) {
-                    this.errors.image = res.data.image;
+                  if (res.data.is_allowed_for_checkout) {
+                    this.errors.is_allowed_for_checkout = res.data.is_allowed_for_checkout;
                   } //errors here
 
                 } else {
                   //suuccess here
                   this.$router.push({
-                    name: "auth.banners.listing"
+                    name: "auth.countries.listing"
                   });
                 }
 
@@ -272,14 +255,14 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
       MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
-        redirect_to: '',
-        page: '',
-        image: undefined
+        name: '',
+        iso_code: '',
+        is_allowed_for_checkout: false
       },
       errors: {
-        redirect_to: [],
-        page: [],
-        image: []
+        name: [],
+        iso_code: [],
+        is_allowed_for_checkout: []
       },
       bread: [{
         text: "Dashboard",
@@ -289,9 +272,9 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
         disabled: false,
         exact: true
       }, {
-        text: "Banner",
+        text: "Country",
         to: {
-          name: "auth.banners.listing"
+          name: "auth.countries.listing"
         },
         disabled: false,
         exact: true
@@ -456,18 +439,18 @@ var defaultservice = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue":
-/*!********************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue ***!
-  \********************************************/
+/***/ "./resources/js/views/Country/Form.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/views/Country/Form.vue ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=4274c218& */ "./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&");
-/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=e540ec48& */ "./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48&");
+/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/Country/Form.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -478,8 +461,8 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -489,46 +472,46 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Banner/Form.vue"
+component.options.__file = "resources/js/views/Country/Form.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
+/***/ "./resources/js/views/Country/Form.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/views/Country/Form.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218& ***!
-  \***************************************************************************/
+/***/ "./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48& ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=4274c218& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_e540ec48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=e540ec48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Country/Form.vue?vue&type=template&id=e540ec48& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -586,25 +569,20 @@ var render = function () {
                     [
                       _c(
                         "v-col",
-                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
+                        { staticClass: "pb-0", attrs: { cols: "8", sm: "8" } },
                         [
                           _c("v-text-field", {
                             attrs: {
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.redirect_to,
-                              hint:
-                                _vm.MIX_FRONT_WEBSITE_URL +
-                                "/" +
-                                _vm.form.redirect_to,
-                              label: "Redirect To",
-                              "persistent-hint": "",
+                              "error-messages": _vm.errors.name,
+                              label: "Name",
                             },
                             model: {
-                              value: _vm.form.redirect_to,
+                              value: _vm.form.name,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "redirect_to", $$v)
+                                _vm.$set(_vm.form, "name", $$v)
                               },
-                              expression: "form.redirect_to",
+                              expression: "form.name",
                             },
                           }),
                         ],
@@ -613,21 +591,20 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
                         [
-                          _c("v-select", {
+                          _c("v-text-field", {
                             attrs: {
-                              items: ["Home"],
-                              label: "Page",
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.page,
+                              "error-messages": _vm.errors.iso_code,
+                              label: "ISO Code (3)",
                             },
                             model: {
-                              value: _vm.form.page,
+                              value: _vm.form.iso_code,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "page", $$v)
+                                _vm.$set(_vm.form, "iso_code", $$v)
                               },
-                              expression: "form.page",
+                              expression: "form.iso_code",
                             },
                           }),
                         ],
@@ -638,47 +615,26 @@ var render = function () {
                         "v-col",
                         {
                           staticClass: "pb-0",
-                          attrs: { cols: "12", cm: "12" },
+                          attrs: { cols: "12", sm: "12" },
                         },
                         [
-                          _c("v-file-input", {
-                            attrs: {
-                              accept: "image/*",
-                              "error-messages": _vm.errors.image,
-                              label: "Image",
-                            },
+                          _c("v-checkbox", {
+                            attrs: { label: "Is Allowed for Checkout?" },
                             model: {
-                              value: _vm.form.image,
+                              value: _vm.form.is_allowed_for_checkout,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "image", $$v)
+                                _vm.$set(
+                                  _vm.form,
+                                  "is_allowed_for_checkout",
+                                  $$v
+                                )
                               },
-                              expression: "form.image",
+                              expression: "form.is_allowed_for_checkout",
                             },
                           }),
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _vm.form.id > 0 && _vm.form.image_url
-                        ? _c(
-                            "v-col",
-                            {
-                              staticClass: "pb-0",
-                              attrs: { cols: "12", cm: "12" },
-                            },
-                            [
-                              _c("v-img", {
-                                attrs: {
-                                  "lazy-src": _vm.form.image_url,
-                                  "max-height": "150",
-                                  "max-width": "250",
-                                  src: _vm.form.image_url,
-                                },
-                              }),
-                            ],
-                            1
-                          )
-                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "v-col",

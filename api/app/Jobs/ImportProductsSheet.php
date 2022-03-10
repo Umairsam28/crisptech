@@ -49,17 +49,17 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
                 $count++;
                 $row = fgetcsv($handle);
                 if($count>1){
-                    list($part,$condition,$currency,$saleprice,$manufacturer,$category_id,$name,$url,$image_url,$weight,$availability,$remaining_stock,$model,$compatibility,$specification,$crawl_site) = $row;
+                    list($part,$condition,$currency,$saleprice,$manufacturer_id,$category_id,$name,$url,$image_url,$weight,$availability,$remaining_stock,$model,$compatibility,$specification,$crawl_site) = $row;
                     if($part){
-                        $brand = Brand::firstOrCreate([
-                            'name' => $manufacturer
-                        ]);
+                        // $brand = Brand::firstOrCreate([
+                        //     'name' => $manufacturer
+                        // ]);
                         $saleprice = str_replace('$','',$saleprice);
                         $in_stock = Str::contains(strtolower($availability), 'instock');
                         $product = Product::firstOrCreate(
                             ['part_number'=>$part],
                             [
-                                'part_number'=>$part,'name'=>$name,'brand_id'=>$brand->id,
+                                'part_number'=>$part,'name'=>$name,'brand_id'=>$manufacturer_id,
                                 'category_id'=>$category_id,'condition'=>$condition,'price'=>$saleprice,
                                 'crawl_url'=>$url,'description'=>$specification,
                                 'in_stock'=>$in_stock,'stock_qty'=>intval($remaining_stock),'manage_stock'=>(intval($remaining_stock)>0?1:0),

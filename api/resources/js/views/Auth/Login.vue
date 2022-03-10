@@ -105,6 +105,12 @@ export default {
             this.$store.commit('setAuthToken',logindetail.data);
             var user = await loginservice.me()
             this.$store.commit('setloggedInUser',user);
+            if(user.permissions.length>0){
+              let permissions = user.permissions.map((e)=>{
+                return e.permission_id
+              })
+              this.$store.commit('setPermissions',permissions);
+            }
             this.$router.push({name: 'auth.dashboard'})
             // $route.push('auth.dashboard')
           } else {

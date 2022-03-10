@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Policies\{BannerPolicy, BrandPolicy, CategoryPolicy, UserPolicy, PermissionPolicy, RolePolicy, CouponPolicy, OrderPolicy, ProductPolicy, ProductQuotePolicy};
-use App\Models\{Banner, Brand, Category, User, Permission, Role, Product, Coupon, ProductQuote};
+use App\Policies\{BannerPolicy, BrandPolicy, CategoryPolicy, CityPolicy, CountryPolicy, UserPolicy, PermissionPolicy, RolePolicy, CouponPolicy, OrderPolicy, ProductPolicy, ProductQuotePolicy, StatePolicy};
+use App\Models\{Banner, Brand, Category, City, Country, User, Permission, Role, Product, Coupon, ProductQuote, State};
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -26,7 +26,10 @@ class AuthServiceProvider extends ServiceProvider
         Brand::class => BrandPolicy::class,
         ProductQuote::class=>ProductQuotePolicy::class,
         Banner::class=>BannerPolicy::class,
-        Order::class=>OrderPolicy::class
+        Order::class=>OrderPolicy::class,
+        Country::class=>CountryPolicy::class,
+        State::class=>StatePolicy::class,
+        City::class=>CityPolicy::class,
     ];
 
     /**

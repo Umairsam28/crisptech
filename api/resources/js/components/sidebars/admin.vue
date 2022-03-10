@@ -60,8 +60,8 @@
       v-model="drawer"
       permanent
       absolute
-      mini-variant
       class=""
+      mini-variant
       v-if="!showsidebar"
       dark
       :color="!hover?'primary':undefined"
@@ -81,7 +81,7 @@
         </v-btn>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list dense>
+      <v-list dense nav>
         <v-list-item
           class="pa-0"
           link
@@ -357,6 +357,108 @@
         <v-list-item
           class="pa-0"
           link
+          :to="{ name: (permissions.indexOf(163)>=0?'auth.countries.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-flag'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Countries</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list v-if="permissions.indexOf(165)>=0">
+              <v-list-item exact link :to="{ name: 'auth.countries.add' }">
+                <v-list-item-title>Add Country</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
+          :to="{ name: (permissions.indexOf(168)>=0?'auth.states.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-abacus'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>States</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list v-if="permissions.indexOf(170)>=0">
+              <v-list-item exact link :to="{ name: 'auth.states.add' }">
+                <v-list-item-title>Add State</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
+          :to="{ name: (permissions.indexOf(173)>=0?'auth.cities.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-access-point'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>City</v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list v-if="permissions.indexOf(175)>=0">
+              <v-list-item exact link :to="{ name: 'auth.cities.add' }">
+                <v-list-item-title>Add City</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
           :to="{ name: (permissions.indexOf(143)>=0?'auth.product_quotes.listing':'auth.dashboard') }"
         >
           <v-menu
@@ -383,7 +485,6 @@
             </template>
           </v-menu>
         </v-list-item>
-
         <v-list-item
           class="pa-0"
           link
@@ -413,7 +514,6 @@
             </template>
           </v-menu>
         </v-list-item>
-
         <v-list-item
           class="pa-0"
           link
@@ -443,7 +543,6 @@
             </template>
           </v-menu>
         </v-list-item>
-        
       </v-list>
     </v-navigation-drawer>
     </v-hover>
@@ -498,6 +597,22 @@ export default {
         to: 'auth.productscsv',
         permission_id: 158,
       },
+      {
+        name: 'Country',
+        to: 'auth.countries.add',
+        permission_id: 165,
+      },
+      {
+        name: 'State',
+        to: 'auth.states.add',
+        permission_id: 170,
+      },
+      {
+        name: 'City',
+        to: 'auth.cities.add',
+        permission_id: 175,
+      },
+      
     ]
   }),
   methods: {

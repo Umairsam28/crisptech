@@ -200,6 +200,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -317,15 +328,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     addpermission: function () {
       var _addpermission = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var formdata, res;
+        var stay,
+            formdata,
+            res,
+            _args2 = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                stay = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : false;
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 24;
+                  _context2.next = 25;
                   break;
                 }
 
@@ -347,26 +362,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 20;
+                  _context2.next = 21;
                   break;
                 }
 
-                _context2.next = 17;
+                _context2.next = 18;
                 return _services_auth_category__WEBPACK_IMPORTED_MODULE_1__["default"].update(formdata, this.initialslug);
 
-              case 17:
+              case 18:
                 res = _context2.sent;
-                _context2.next = 23;
+                _context2.next = 24;
                 break;
 
-              case 20:
-                _context2.next = 22;
+              case 21:
+                _context2.next = 23;
                 return _services_auth_category__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 22:
+              case 23:
                 res = _context2.sent;
 
-              case 23:
+              case 24:
                 if (!res.status) {
                   if (res.data.name) {
                     this.errors.name = res.data.name;
@@ -406,12 +421,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 } else {
                   //suuccess here
-                  this.$router.push({
-                    name: "auth.categories.listing"
-                  });
+                  if (stay === false) {
+                    this.$router.push({
+                      name: "auth.categories.listing"
+                    });
+                  } else {
+                    this.$store.commit("setNotification", "Category Saved, You can now add more");
+                    this.form = {
+                      id: 0,
+                      name: '',
+                      slug: '',
+                      parent_id: 0,
+                      description: '',
+                      short_description: '',
+                      image: undefined,
+                      is_featured: false,
+                      show_in_main_menu: false,
+                      show_in_home_sidemenu: false
+                    };
+                  }
                 }
 
-              case 24:
+              case 25:
               case "end":
                 return _context2.stop();
             }
@@ -1031,10 +1062,36 @@ var render = function () {
                                 loading: _vm.btnloading,
                                 disabled: _vm.btnloading,
                               },
-                              on: { click: _vm.addpermission },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.addpermission(false)
+                                },
+                              },
                             },
                             [_vm._v(_vm._s(_vm.form.id > 0 ? "Update" : "Add"))]
                           ),
+                          _vm._v(" "),
+                          _vm.form.id == 0
+                            ? _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "secondary",
+                                    elevation: "1",
+                                    large: "",
+                                    raised: "",
+                                    loading: _vm.btnloading,
+                                    disabled: _vm.btnloading,
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.addpermission(true)
+                                    },
+                                  },
+                                },
+                                [_vm._v("Create and Stay")]
+                              )
+                            : _vm._e(),
                         ],
                         1
                       ),

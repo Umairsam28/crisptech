@@ -135,10 +135,21 @@ lazy-validation
     elevation="1"
     large
     raised
-    @click="addpermission"
+    @click="addpermission(false)"
     :loading="btnloading"
     :disabled="btnloading"
   >{{form.id>0?'Update':'Add'}}</v-btn>
+
+<v-btn
+  color="secondary"
+  elevation="1"
+  large
+  raised
+  @click="addpermission(true)"
+  :loading="btnloading"
+  :disabled="btnloading"
+  v-if="form.id==0"
+>Create and Stay</v-btn>
 </v-col>
 
 </v-row>
@@ -219,7 +230,7 @@ export default {
           image: [],
       }
     },
-    addpermission: async function () {
+    addpermission: async function (stay=false) {
         this.resetError()
       if (this.$refs.form.validate()) {
         this.btnloading = true;
@@ -272,7 +283,23 @@ export default {
             //errors here
         }else{
             //suuccess here
-            this.$router.push({ name: "auth.categories.listing" });
+            if(stay===false){
+              this.$router.push({ name: "auth.categories.listing" });
+            }else{
+              this.$store.commit("setNotification", "Category Saved, You can now add more");
+              this.form={
+                  id: 0,
+                  name: '',
+                  slug: '',
+                  parent_id: 0,
+                  description: '',
+                  short_description: '',
+                  image: undefined,
+                  is_featured: false,
+                  show_in_main_menu: false,
+                  show_in_home_sidemenu: false,
+              }
+            }
         }
       }
     },

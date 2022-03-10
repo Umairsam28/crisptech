@@ -1,10 +1,10 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_Banner_Form_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_views_State_Form_vue"],{
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -110,10 +110,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
-var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('banners');
+var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('states');
+var countriesservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('countries');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "auth.banners.add",
+  name: "auth.states.add",
   mounted: function mounted() {
     var _this = this;
 
@@ -123,27 +132,31 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              countriesservice.get('').then(function (e) {
+                _this.countries = e;
+              });
+
               if (!_this.$route.params.id) {
-                _context.next = 8;
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 3;
+              _context.next = 4;
               return service.get(_this.form.id);
 
-            case 3:
+            case 4:
               res = _context.sent;
               _this.form = {
-                redirect_to: res.redirect_to,
-                page: res.page,
-                id: _this.$route.params.id,
-                image_url: res.image_url
+                name: res.name,
+                country_id: res.country_id,
+                tax_percent: res.tax_percent,
+                id: _this.$route.params.id
               };
 
               _this.bread.push({
                 text: "Edit",
                 to: {
-                  name: "auth.banners.edit",
+                  name: "auth.states.edit",
                   params: {
                     id: _this.$route.params.id
                   }
@@ -152,20 +165,20 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
                 exact: true
               });
 
-              _context.next = 9;
+              _context.next = 10;
               break;
 
-            case 8:
+            case 9:
               _this.bread.push({
                 text: "Add",
                 to: {
-                  name: "auth.banners.add"
+                  name: "auth.states.add"
                 },
                 disabled: false,
                 exact: true
               });
 
-            case 9:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -176,78 +189,88 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   methods: {
     resetError: function resetError() {
       this.errors = {
-        redirect_to: [],
-        page: [],
-        image: []
+        name: [],
+        country_id: [],
+        tax_percent: []
       };
     },
     addpermission: function () {
       var _addpermission = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var formdata, res;
+        var stay,
+            formdata,
+            res,
+            _args2 = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                stay = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : false;
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 18;
+                  _context2.next = 19;
                   break;
                 }
 
                 this.btnloading = true;
                 formdata = new FormData();
-                formdata.append("redirect_to", this.form.redirect_to);
-                formdata.append("page", this.form.page);
-
-                if (this.form.image) {
-                  formdata.append("image", this.form.image);
-                }
-
+                formdata.append("name", this.form.name);
+                formdata.append("country_id", this.form.country_id);
+                formdata.append("tax_percent", this.form.tax_percent);
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 14;
+                  _context2.next = 15;
                   break;
                 }
 
-                _context2.next = 11;
+                _context2.next = 12;
                 return service.update(formdata, this.form.id);
 
-              case 11:
+              case 12:
                 res = _context2.sent;
-                _context2.next = 17;
+                _context2.next = 18;
                 break;
 
-              case 14:
-                _context2.next = 16;
+              case 15:
+                _context2.next = 17;
                 return service.create(formdata);
 
-              case 16:
+              case 17:
                 res = _context2.sent;
 
-              case 17:
+              case 18:
                 if (!res.status) {
-                  if (res.data.redirect_to) {
-                    this.errors.redirect_to = res.data.redirect_to;
+                  if (res.data.name) {
+                    this.errors.name = res.data.name;
                   }
 
-                  if (res.data.page) {
-                    this.errors.page = res.data.page;
+                  if (res.data.country_id) {
+                    this.errors.country_id = res.data.country_id;
                   }
 
-                  if (res.data.image) {
-                    this.errors.image = res.data.image;
+                  if (res.data.tax_percent) {
+                    this.errors.tax_percent = res.data.tax_percent;
                   } //errors here
 
                 } else {
                   //suuccess here
-                  this.$router.push({
-                    name: "auth.banners.listing"
-                  });
+                  if (stay == false) {
+                    this.$router.push({
+                      name: "auth.states.listing"
+                    });
+                  } else {
+                    this.$store.commit("setNotification", "State Saved, You can now add more");
+                    this.form = {
+                      country_id: 0,
+                      name: '',
+                      tax_percent: 0,
+                      id: 0
+                    };
+                  }
                 }
 
-              case 18:
+              case 19:
               case "end":
                 return _context2.stop();
             }
@@ -269,17 +292,17 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
-        redirect_to: '',
-        page: '',
-        image: undefined
+        name: '',
+        country_id: 0,
+        tax_percent: false
       },
+      countries: [],
       errors: {
-        redirect_to: [],
-        page: [],
-        image: []
+        name: [],
+        country_id: [],
+        tax_percent: []
       },
       bread: [{
         text: "Dashboard",
@@ -289,9 +312,9 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
         disabled: false,
         exact: true
       }, {
-        text: "Banner",
+        text: "State",
         to: {
-          name: "auth.banners.listing"
+          name: "auth.states.listing"
         },
         disabled: false,
         exact: true
@@ -456,18 +479,18 @@ var defaultservice = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue":
-/*!********************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue ***!
-  \********************************************/
+/***/ "./resources/js/views/State/Form.vue":
+/*!*******************************************!*\
+  !*** ./resources/js/views/State/Form.vue ***!
+  \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=4274c218& */ "./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&");
-/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=template&id=68c945fe& */ "./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe&");
+/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./resources/js/views/State/Form.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -478,8 +501,8 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -489,46 +512,46 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/Banner/Form.vue"
+component.options.__file = "resources/js/views/State/Form.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
+/***/ "./resources/js/views/State/Form.vue?vue&type=script&lang=js&":
+/*!********************************************************************!*\
+  !*** ./resources/js/views/State/Form.vue?vue&type=script&lang=js& ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218& ***!
-  \***************************************************************************/
+/***/ "./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe& ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_4274c218___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=4274c218& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_template_id_68c945fe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Form.vue?vue&type=template&id=68c945fe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe&");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Banner/Form.vue?vue&type=template&id=4274c218& ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/State/Form.vue?vue&type=template&id=68c945fe& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -591,20 +614,15 @@ var render = function () {
                           _c("v-text-field", {
                             attrs: {
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.redirect_to,
-                              hint:
-                                _vm.MIX_FRONT_WEBSITE_URL +
-                                "/" +
-                                _vm.form.redirect_to,
-                              label: "Redirect To",
-                              "persistent-hint": "",
+                              "error-messages": _vm.errors.name,
+                              label: "Name",
                             },
                             model: {
-                              value: _vm.form.redirect_to,
+                              value: _vm.form.name,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "redirect_to", $$v)
+                                _vm.$set(_vm.form, "name", $$v)
                               },
-                              expression: "form.redirect_to",
+                              expression: "form.name",
                             },
                           }),
                         ],
@@ -615,19 +633,21 @@ var render = function () {
                         "v-col",
                         { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
-                          _c("v-select", {
+                          _c("v-text-field", {
                             attrs: {
-                              items: ["Home"],
-                              label: "Page",
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.page,
+                              "error-messages": _vm.errors.tax_percent,
+                              label: "Tax %",
+                              type: "number",
+                              min: "0",
+                              max: "100",
                             },
                             model: {
-                              value: _vm.form.page,
+                              value: _vm.form.tax_percent,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "page", $$v)
+                                _vm.$set(_vm.form, "tax_percent", _vm._n($$v))
                               },
-                              expression: "form.page",
+                              expression: "form.tax_percent",
                             },
                           }),
                         ],
@@ -638,47 +658,29 @@ var render = function () {
                         "v-col",
                         {
                           staticClass: "pb-0",
-                          attrs: { cols: "12", cm: "12" },
+                          attrs: { cols: "12", sm: "12" },
                         },
                         [
-                          _c("v-file-input", {
+                          _c("v-select", {
                             attrs: {
-                              accept: "image/*",
-                              "error-messages": _vm.errors.image,
-                              label: "Image",
+                              items: _vm.countries,
+                              "item-text": "name",
+                              "item-value": "id",
+                              label: "Country*",
+                              required: "",
+                              "error-messages": _vm.errors.country_id,
                             },
                             model: {
-                              value: _vm.form.image,
+                              value: _vm.form.country_id,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "image", $$v)
+                                _vm.$set(_vm.form, "country_id", $$v)
                               },
-                              expression: "form.image",
+                              expression: "form.country_id",
                             },
                           }),
                         ],
                         1
                       ),
-                      _vm._v(" "),
-                      _vm.form.id > 0 && _vm.form.image_url
-                        ? _c(
-                            "v-col",
-                            {
-                              staticClass: "pb-0",
-                              attrs: { cols: "12", cm: "12" },
-                            },
-                            [
-                              _c("v-img", {
-                                attrs: {
-                                  "lazy-src": _vm.form.image_url,
-                                  "max-height": "150",
-                                  "max-width": "250",
-                                  src: _vm.form.image_url,
-                                },
-                              }),
-                            ],
-                            1
-                          )
-                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "v-col",
@@ -698,10 +700,36 @@ var render = function () {
                                 loading: _vm.btnloading,
                                 disabled: _vm.btnloading,
                               },
-                              on: { click: _vm.addpermission },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.addpermission(false)
+                                },
+                              },
                             },
                             [_vm._v(_vm._s(_vm.form.id > 0 ? "Update" : "Add"))]
                           ),
+                          _vm._v(" "),
+                          _vm.form.id == 0
+                            ? _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    color: "secondary",
+                                    elevation: "1",
+                                    large: "",
+                                    raised: "",
+                                    loading: _vm.btnloading,
+                                    disabled: _vm.btnloading,
+                                  },
+                                  on: {
+                                    click: function ($event) {
+                                      return _vm.addpermission(true)
+                                    },
+                                  },
+                                },
+                                [_vm._v("Add and Stay")]
+                              )
+                            : _vm._e(),
                         ],
                         1
                       ),

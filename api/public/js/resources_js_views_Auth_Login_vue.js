@@ -114,13 +114,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     dologin: function () {
       var _dologin = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var logindetail, user;
+        var logindetail, user, permissions;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!this.$refs.form.validate()) {
-                  _context.next = 19;
+                  _context.next = 20;
                   break;
                 }
 
@@ -133,12 +133,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!logindetail.data) {
-                  _context.next = 19;
+                  _context.next = 20;
                   break;
                 }
 
                 if (!logindetail.status) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
@@ -150,18 +150,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 12:
                 user = _context.sent;
                 this.$store.commit('setloggedInUser', user);
+
+                if (user.permissions.length > 0) {
+                  permissions = user.permissions.map(function (e) {
+                    return e.permission_id;
+                  });
+                  this.$store.commit('setPermissions', permissions);
+                }
+
                 this.$router.push({
                   name: 'auth.dashboard'
                 }); // $route.push('auth.dashboard')
 
-                _context.next = 19;
+                _context.next = 20;
                 break;
 
-              case 17:
+              case 18:
                 this.erorrs.email = logindetail.data;
                 this.snackbar = true;
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
