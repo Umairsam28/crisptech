@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserExemptionRequest extends FormRequest
+class UpdateUserExemptionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,11 @@ class UserExemptionRequest extends FormRequest
      */
     public function rules(Request $request)
     {
+        $id = $request->route('exemption')->id;
         return [
-            'state_id'=> ['required',Rule::unique('user_exemptions')->where(function($query) use ($request){
+            'state_id'=>['required',Rule::unique('user_exemptions')->where(function($query) use ($request){
                 return $query->where('user_id', $request->user_id)->where('state_id', $request->state_id);
-            })],
+            })->ignore($id, 'id')],
             'file'=>'required',
         ];
     }

@@ -18,7 +18,7 @@ class UserExemptionPolicy
      */
     public function viewAny(User $user)
     {
-        return optional($user->permissions()->where('permission_id',179)->first())->id>0;
+        return optional($user->permissions()->where('permission_id',178)->first())->id>0;
     }
 
     /**
@@ -30,7 +30,7 @@ class UserExemptionPolicy
      */
     public function view(User $user, UserExemption $userExemption)
     {
-        return optional($user->permissions()->where('permission_id',180)->first())->id>0;
+        return optional($user->permissions()->where('permission_id',179)->first())->id>0;
     }
 
     /**
@@ -41,7 +41,7 @@ class UserExemptionPolicy
      */
     public function create(User $user)
     {
-        return optional($user->permissions()->where('permission_id',181)->first())->id>0;
+        return optional($user->permissions()->where('permission_id',180)->first())->id>0;
     }
 
     /**
@@ -53,7 +53,7 @@ class UserExemptionPolicy
      */
     public function update(User $user, UserExemption $userExemption)
     {
-        return optional($user->permissions()->where('permission_id',182)->first())->id>0;
+        return optional($user->permissions()->where('permission_id',181)->first())->id>0;
     }
 
     /**
@@ -65,7 +65,7 @@ class UserExemptionPolicy
      */
     public function delete(User $user, UserExemption $userExemption)
     {
-        return optional($user->permissions()->where('permission_id',183)->first())->id>0;
+        return optional($user->permissions()->where('permission_id',182)->first())->id>0;
     }
 
     /**

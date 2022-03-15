@@ -15,8 +15,7 @@ class UserExemption extends Model
         return $this->morphOne(File::class,'fileable');
     }
 
-    public function user()
-    {
+    public function user(){
         return $this->hasMany(User::class, 'user_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserExemptionRequest;
 use App\Http\Resources\UserExemptionResource;
+use App\Http\Requests\UpdateUserExemptionRequest;
 use App\Models\UserExemption;
 use App\Models\User;
 use App\Repositories\ListRepository;
@@ -31,7 +32,7 @@ class UserExemptionController extends Controller
         $query = $this->listRep->listFilteredQuery(['user_id','state_id'])
         ->leftJoin('users','users.id','=','user_exemptions.user_id')
         ->leftJoin('states','states.id','=','user_exemptions.state_id')
-        ->select('state_id','states.name as state_name', 'user_id','users.name as user_name');
+        ->select('user_exemptions.id','users.name as user_name','states.name as state_name','user_id');
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
         }else{
@@ -50,8 +51,8 @@ class UserExemptionController extends Controller
     public function store(UserExemptionRequest $request, User $user)
     {
         Gate::authorize('create',UserExemption::class);
-        $user_exemption = UserExemption::create($request->only('user_id','state_id'));
-        return new UserExemptionResource($user_exemption);
+        $exemption = $user->exemption()->create($request->only('user_id','state_id'));
+        return new UserExemptionResource($exemption);
 
     }
 
@@ -61,10 +62,10 @@ class UserExemptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user,UserExemption $user_exemption)
+    public function show(User $user, UserExemption $exemption)
     {
-        Gate::authorize('view',$user_exemption);
-        return new UserExemptionResource($user_exemption);
+        Gate::authorize('view',$exemption);
+        return new UserExemptionResource($exemption);
     }
 
     /**
@@ -74,11 +75,11 @@ class UserExemptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserExemptionRequest $request,User $user ,UserExemption $user_exemption)
+    public function update(UpdateUserExemptionRequest $request,User $user,UserExemption $exemption)
     {
-        Gate::authorize('update',$user_exemption);
-        $user_exemption->update($request->only('user_id','state_id'));
-        return new UserExemptionResource($user_exemption);
+        Gate::authorize('update',$exemption);
+        $exemption->update($request->only('user_id','state_id'));
+        return new UserExemptionResource($exemption);
     }
 
     /**
@@ -87,10 +88,10 @@ class UserExemptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user,UserExemption $user_exemption)
+    public function destroy(User $user,UserExemption $exemption)
     {
-        Gate::authorize('delete',$user_exemption);
-        $user_exemption->delete();
+        Gate::authorize('delete',$exemption);
+        $exemption->delete();
         return response()->json(null, 204);
     }
 }

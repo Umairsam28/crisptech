@@ -3,13 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, UserExemptionController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController, StateController};
+use App\Http\Controllers\{BannerController, UserExemptionController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, ProductQuoteController, OrderController, StateController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
-use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
+// use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
 use App\Http\Controllers\Public\HomeController;
 
 
@@ -28,7 +28,7 @@ use App\Http\Controllers\Public\HomeController;
 Route::get('/front/home', [HomeController::class,'index']);
 Route::get('/front/menu', [HomeController::class,'menu']);
 
-Route::post('/front/inquiry', [InquiryFrontController::class,'index']);
+// Route::post('/front/inquiry', [InquiryFrontController::class,'index']);
 
 Route::post('/front/cart', [CartFrontController::class,'index']);
 Route::get('/front/cart/{cart}', [CartFrontController::class,'get']);
@@ -69,8 +69,8 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('user.exemptions', UserExemptionController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('coupons', CouponController::class);
-    Route::apiResource('faqs', FaqController::class);
-    Route::apiResource('inquiries', InquiryController::class);
+    // Route::apiResource('faqs', FaqController::class);
+    // Route::apiResource('inquiries', InquiryController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('brands', BrandController::class);
     Route::apiResource('countries', CountryController::class);
