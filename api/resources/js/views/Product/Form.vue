@@ -28,6 +28,8 @@ lazy-validation
     :rules="[rules.required]"
     :error-messages="errors.sku"
     label="SKU"
+    :hint="(form.id==0?('CRIS-'+form.sku):'')"
+    persistent-hint
   ></v-text-field>
 </v-col>
 
@@ -49,12 +51,13 @@ lazy-validation
   sm="6"
   class="pb-0"
 >
-  <v-text-field
+  <v-select
     v-model="form.condition"
     :rules="[rules.required]"
     :error-messages="errors.condition"
+    :items="['New','Refurbished']"
     label="Condition"
-  ></v-text-field>
+  ></v-select>
 </v-col>
 <v-col
   cols="12"
@@ -83,45 +86,34 @@ lazy-validation
 </v-col>
 
 <v-col
-  cols="5"
-  sm="5"
+  cols="6"
+  sm="6"
   class="pb-0"
 >
   <v-text-field
-    v-model="form.price"
+    v-model.number="form.price"
     :rules="[rules.required]"
     :error-messages="errors.price"
     label="Price"
     type="number"
     min="0"
+    step="any"
   ></v-text-field>
 </v-col>
 
 <v-col
-  cols="5"
-  sm="5"
+  cols="6"
+  sm="6"
   class="pb-0"
 >
   <v-text-field
-    v-model="form.discount"
-    :error-messages="errors.discount"
-    label="Discount %"
+    v-model.number="form.sale_price"
+    :error-messages="errors.sale_price"
+    label="Sale Price"
     type="number"
     min="0"
-    max="100"
+    step="any"
   ></v-text-field>
-</v-col>
-
-<v-col
-  cols="2"
-  sm="2"
-  class="pb-0"
->
-<v-text-field
-  :value="'$'+discountedPrice"
-  label="Final Price"
-  disabled
-></v-text-field>
 </v-col>
 
 
@@ -167,12 +159,25 @@ lazy-validation
     :src="form.image_url"
   ></v-img>
 </v-col>
-<v-col cols="12" sm="12" class="pb-0">
+<v-col cols="4" sm="4" class="pb-0">
   <v-checkbox
     v-model="form.is_featured"
     label="Is Featured?"
   ></v-checkbox>
 </v-col>
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.is_active"
+    label="Is Active?"
+  ></v-checkbox>
+</v-col>
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.google_feed"
+    label="Send in Google Feed?"
+  ></v-checkbox>
+</v-col>
+
 <v-col
   cols="12"
   sm="12"
@@ -237,6 +242,22 @@ lazy-validation
     min="0"
   ></v-text-field>
 </v-col>
+
+<v-col
+  cols="3"
+  sm="3"
+  class="pb-0"
+>
+  <v-text-field
+    v-model.number="form.weight"
+    :error-messages="errors.weight"
+    label="Weight"
+    type="number"
+    min="1"
+    step="any"
+  ></v-text-field>
+</v-col>
+
 <v-col
   cols="12"
   sm="12"
@@ -349,7 +370,7 @@ export default {
             name: res.name,
             slug: res.slug,
             price: res.price,
-            discount: res.discount,
+            sale_price: res.sale_price,
             description: (res.description?res.description:''),
             short_description: (res.short_description?res.short_description:''),
             image_url: res.image_url,
@@ -357,9 +378,12 @@ export default {
             brand_id: res.brand_id,
             crawl_site: res.crawl_site,
             stock_qty: res.stock_qty,
+            weight: res.weight,
             in_stock: (res.in_stock==1?true:false),
             manage_stock: (res.manage_stock==1?true:false),
             is_featured: (res.is_featured==1?true:false),
+            is_active: (res.is_active==1?true:false),
+            google_feed: (res.google_feed==1?true:false),
             id: this.$route.params.id,
             related_products: related_to_select,
             condition: res.condition,
@@ -399,9 +423,12 @@ export default {
           related_products: [],
           image: [],
           is_featured: [],
+          is_active: [],
+          google_feed: [],
           category_id: [],
           brand_id: [],
           stock_qty: [],
+          weight: [],
           in_stock: [],
           manage_stock: [],
           crawl_site: [],
@@ -420,18 +447,20 @@ export default {
         formdata.append("description", this.form.description);
         formdata.append("short_description", this.form.short_description);
         formdata.append("price", this.form.price);
-        formdata.append("discount", this.form.discount);
+        formdata.append("sale_price", this.form.sale_price);
         formdata.append("category_id", this.form.category_id);
         formdata.append("brand_id", this.form.brand_id);
         formdata.append("condition", this.form.condition);
-        formdata.append("sku", this.form.sku);
         formdata.append("part_number", this.form.part_number);
         formdata.append("is_featured", (this.form.is_featured==true?1:0));
+        formdata.append("is_active", (this.form.is_active==true?1:0));
+        formdata.append("google_feed", (this.form.google_feed==true?1:0));       
         formdata.append("in_stock", (this.form.in_stock==true?1:0));
         formdata.append("manage_stock", (this.form.manage_stock==true?1:0));
         if(this.form.manage_stock==true&&this.form.in_stock==true){
           formdata.append("stock_qty", (this.form.stock_qty));
         }
+        formdata.append("weight", (this.form.weight));
         formdata.append("crawl_site", (this.form.crawl_site));
         if(this.form.related_products.length>0){
           for(let i = 0; i < this.form.related_products.length;i++){
@@ -443,9 +472,11 @@ export default {
         }
         this.btnloading = false;
         if(this.form.id>0){
-            var res = await productservice.update(formdata, this.form.id)
+          formdata.append("sku", (this.form.sku));
+          var res = await productservice.update(formdata, this.form.id)
         }else{
-            var res = await productservice.create(formdata)
+          formdata.append("sku", ('CRIS-'+this.form.sku));
+          var res = await productservice.create(formdata)
         }
         if(!res.status){
             if(res.data.name){
@@ -463,8 +494,8 @@ export default {
             if(res.data.price){
                 this.errors.price = res.data.price
             }
-            if(res.data.discount){
-                this.errors.discount = res.data.discount
+            if(res.data.sale_price){
+                this.errors.sale_price = res.data.sale_price
             }
             if(res.data.image){
                 this.errors.image = res.data.image
@@ -475,6 +506,12 @@ export default {
             if(res.data.is_featured){
                 this.errors.is_featured = res.data.is_featured
             }
+            if(res.data.is_active){
+                this.errors.is_active = res.data.is_active
+            }
+            if(res.data.google_feed){
+                this.errors.google_feed = res.data.google_feed
+            }         
             if(res.data.category_id){
                 this.errors.category_id = res.data.category_id
             }
@@ -483,6 +520,9 @@ export default {
             }
             if(res.data.stock_qty){
                 this.errors.stock_qty = res.data.stock_qty
+            }
+            if(res.data.weight){
+                this.errors.weight = res.data.weight
             }
             if(res.data.in_stock){
                 this.errors.in_stock = res.data.in_stock
@@ -513,15 +553,6 @@ export default {
   computed: {
     user() {
         return this.$store.getters.loggedInUser;
-    },
-    discountedPrice(){
-      let price = parseFloat(this.form.price)
-      let discount = parseFloat(this.form.discount)
-      if(discount>0){
-        return parseFloat(price-((price/100)*discount)).toFixed(2)
-      }else{
-        return parseFloat(price).toFixed(2)
-      }
     }
   },
   watch:{
@@ -547,15 +578,18 @@ export default {
           name: '',
           slug: '',
           price: '0',
-          discount: '0',
+          sale_price: '0',
           description: '',
           short_description: '',
           image: undefined,
           related_products: [],
           is_featured: false,
+          is_active: true,
+          google_feed: true,
           category_id: undefined,
           brand_id: 0,
           stock_qty: 0,
+          weight: 1,
           in_stock: true,
           manage_stock: false,
           crawl_site: 'manual',
@@ -567,15 +601,18 @@ export default {
           name:[],
           slug:[],
           price: [],
-          discount: [],
+          sale_price: [],
           description: [],
           short_description: [],
           image: [],
           related_products: [],
           is_featured: [],
+          is_active: [],
+          google_feed: [],
           category_id: [],
           brand_id: [],
           stock_qty: [],
+          weight: [],
           in_stock: [],
           manage_stock: [],
           crawl_site: [],

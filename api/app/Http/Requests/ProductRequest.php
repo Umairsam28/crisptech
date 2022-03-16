@@ -29,6 +29,7 @@ class ProductRequest extends FormRequest
             'name'=>'required|max:255',
             'slug'=>'required|max:300|unique:App\Models\Product,slug'.($id>0?(','.$id):''),
             'price'=>'required',
+            'sale_price'=>'required',
             'description'=>'required',
             'image'=>'image|dimensions:min_width=455,min_height=436',
             'related_products'=>'sometimes|array',
@@ -41,6 +42,7 @@ class ProductRequest extends FormRequest
             'part_number'=>'required|max:255',//|unique:App\Models\Product,part_number'.($id>0?(','.$id):''),
             'sku'=>'required|max:255|unique:App\Models\Product,sku'.($id>0?(','.$id):''),
             'condition'=>'required|max:100',
+            'weight'=>'required|min:1',
         ];
     }
 }

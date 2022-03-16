@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    protected $appends = ['image_url','actual_price','discount_amount','home_image','detail_image'];
+    protected $appends = ['image_url','home_image','detail_image', 'actual_price', 'discount_amount'];
     protected $with = ['image'];
     protected $fillable = [
         'name','slug','price','description','short_description',
-        'is_featured','category_id','discount','brand_id',
+        'is_featured','category_id','sale_price','brand_id',
         'crawl_url','crawl_site','in_sstock','manage_stock','stock_qty',
-        'part_number','condition','sku'
+        'part_number','condition','sku',
+        'is_active','weight','google_feed'
     ];
     public function related(){
         return $this->hasMany(RelatedProduct::class);
@@ -36,19 +37,10 @@ class Product extends Model
         }
     }
     public function getActualPriceAttribute(){
-        $price = $this->price;
-        if($this->discount>0){
-            $price = ($price-(($price/100)*$this->discount));
-        }
-        return $price;
+        return $this->sale_price;
     }
     public function getDiscountAmountAttribute(){
-        $discount = 0;
-        $price = $this->price;
-        if($this->discount>0){
-            $discount = (($price/100)*$this->discount);
-        }
-        return $discount;
+        return ($this->price-$this->sale_price);
     }
     public function getHomeImageAttribute(){
         if($this->image){

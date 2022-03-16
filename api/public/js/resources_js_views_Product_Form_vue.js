@@ -374,6 +374,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -423,7 +444,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 name: res.name,
                 slug: res.slug,
                 price: res.price,
-                discount: res.discount,
+                sale_price: res.sale_price,
                 description: res.description ? res.description : '',
                 short_description: res.short_description ? res.short_description : '',
                 image_url: res.image_url,
@@ -431,9 +452,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 brand_id: res.brand_id,
                 crawl_site: res.crawl_site,
                 stock_qty: res.stock_qty,
+                weight: res.weight,
                 in_stock: res.in_stock == 1 ? true : false,
                 manage_stock: res.manage_stock == 1 ? true : false,
                 is_featured: res.is_featured == 1 ? true : false,
+                is_active: res.is_active == 1 ? true : false,
+                google_feed: res.google_feed == 1 ? true : false,
                 id: _this.$route.params.id,
                 related_products: related_to_select,
                 condition: res.condition,
@@ -496,9 +520,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         related_products: [],
         image: [],
         is_featured: [],
+        is_active: [],
+        google_feed: [],
         category_id: [],
         brand_id: [],
         stock_qty: [],
+        weight: [],
         in_stock: [],
         manage_stock: [],
         crawl_site: [],
@@ -517,7 +544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 33;
+                  _context2.next = 37;
                   break;
                 }
 
@@ -528,13 +555,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formdata.append("description", this.form.description);
                 formdata.append("short_description", this.form.short_description);
                 formdata.append("price", this.form.price);
-                formdata.append("discount", this.form.discount);
+                formdata.append("sale_price", this.form.sale_price);
                 formdata.append("category_id", this.form.category_id);
                 formdata.append("brand_id", this.form.brand_id);
                 formdata.append("condition", this.form.condition);
-                formdata.append("sku", this.form.sku);
                 formdata.append("part_number", this.form.part_number);
                 formdata.append("is_featured", this.form.is_featured == true ? 1 : 0);
+                formdata.append("is_active", this.form.is_active == true ? 1 : 0);
+                formdata.append("google_feed", this.form.google_feed == true ? 1 : 0);
                 formdata.append("in_stock", this.form.in_stock == true ? 1 : 0);
                 formdata.append("manage_stock", this.form.manage_stock == true ? 1 : 0);
 
@@ -542,6 +570,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   formdata.append("stock_qty", this.form.stock_qty);
                 }
 
+                formdata.append("weight", this.form.weight);
                 formdata.append("crawl_site", this.form.crawl_site);
 
                 if (this.form.related_products.length > 0) {
@@ -557,26 +586,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 29;
+                  _context2.next = 32;
                   break;
                 }
 
-                _context2.next = 26;
+                formdata.append("sku", this.form.sku);
+                _context2.next = 29;
                 return _services_auth_product__WEBPACK_IMPORTED_MODULE_1__["default"].update(formdata, this.form.id);
 
-              case 26:
+              case 29:
                 res = _context2.sent;
-                _context2.next = 32;
+                _context2.next = 36;
                 break;
 
-              case 29:
-                _context2.next = 31;
+              case 32:
+                formdata.append("sku", 'CRIS-' + this.form.sku);
+                _context2.next = 35;
                 return _services_auth_product__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 31:
+              case 35:
                 res = _context2.sent;
 
-              case 32:
+              case 36:
                 if (!res.status) {
                   if (res.data.name) {
                     this.errors.name = res.data.name;
@@ -598,8 +629,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     this.errors.price = res.data.price;
                   }
 
-                  if (res.data.discount) {
-                    this.errors.discount = res.data.discount;
+                  if (res.data.sale_price) {
+                    this.errors.sale_price = res.data.sale_price;
                   }
 
                   if (res.data.image) {
@@ -614,6 +645,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     this.errors.is_featured = res.data.is_featured;
                   }
 
+                  if (res.data.is_active) {
+                    this.errors.is_active = res.data.is_active;
+                  }
+
+                  if (res.data.google_feed) {
+                    this.errors.google_feed = res.data.google_feed;
+                  }
+
                   if (res.data.category_id) {
                     this.errors.category_id = res.data.category_id;
                   }
@@ -624,6 +663,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   if (res.data.stock_qty) {
                     this.errors.stock_qty = res.data.stock_qty;
+                  }
+
+                  if (res.data.weight) {
+                    this.errors.weight = res.data.weight;
                   }
 
                   if (res.data.in_stock) {
@@ -657,7 +700,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-              case 33:
+              case 37:
               case "end":
                 return _context2.stop();
             }
@@ -675,16 +718,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     user: function user() {
       return this.$store.getters.loggedInUser;
-    },
-    discountedPrice: function discountedPrice() {
-      var price = parseFloat(this.form.price);
-      var discount = parseFloat(this.form.discount);
-
-      if (discount > 0) {
-        return parseFloat(price - price / 100 * discount).toFixed(2);
-      } else {
-        return parseFloat(price).toFixed(2);
-      }
     }
   },
   watch: {
@@ -708,15 +741,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: '',
         slug: '',
         price: '0',
-        discount: '0',
+        sale_price: '0',
         description: '',
         short_description: '',
         image: undefined,
         related_products: [],
         is_featured: false,
+        is_active: true,
+        google_feed: true,
         category_id: undefined,
         brand_id: 0,
         stock_qty: 0,
+        weight: 1,
         in_stock: true,
         manage_stock: false,
         crawl_site: 'manual',
@@ -728,15 +764,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: [],
         slug: [],
         price: [],
-        discount: [],
+        sale_price: [],
         description: [],
         short_description: [],
         image: [],
         related_products: [],
         is_featured: [],
+        is_active: [],
+        google_feed: [],
         category_id: [],
         brand_id: [],
         stock_qty: [],
+        weight: [],
         in_stock: [],
         manage_stock: [],
         crawl_site: [],
@@ -1348,6 +1387,9 @@ var render = function () {
                               rules: [_vm.rules.required],
                               "error-messages": _vm.errors.sku,
                               label: "SKU",
+                              hint:
+                                _vm.form.id == 0 ? "CRIS-" + _vm.form.sku : "",
+                              "persistent-hint": "",
                             },
                             model: {
                               value: _vm.form.sku,
@@ -1387,10 +1429,11 @@ var render = function () {
                         "v-col",
                         { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
-                          _c("v-text-field", {
+                          _c("v-select", {
                             attrs: {
                               rules: [_vm.rules.required],
                               "error-messages": _vm.errors.condition,
+                              items: ["New", "Refurbished"],
                               label: "Condition",
                             },
                             model: {
@@ -1457,7 +1500,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        { staticClass: "pb-0", attrs: { cols: "5", sm: "5" } },
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
                           _c("v-text-field", {
                             attrs: {
@@ -1466,11 +1509,12 @@ var render = function () {
                               label: "Price",
                               type: "number",
                               min: "0",
+                              step: "any",
                             },
                             model: {
                               value: _vm.form.price,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "price", $$v)
+                                _vm.$set(_vm.form, "price", _vm._n($$v))
                               },
                               expression: "form.price",
                             },
@@ -1481,37 +1525,22 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        { staticClass: "pb-0", attrs: { cols: "5", sm: "5" } },
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
                           _c("v-text-field", {
                             attrs: {
-                              "error-messages": _vm.errors.discount,
-                              label: "Discount %",
+                              "error-messages": _vm.errors.sale_price,
+                              label: "Sale Price",
                               type: "number",
                               min: "0",
-                              max: "100",
+                              step: "any",
                             },
                             model: {
-                              value: _vm.form.discount,
+                              value: _vm.form.sale_price,
                               callback: function ($$v) {
-                                _vm.$set(_vm.form, "discount", $$v)
+                                _vm.$set(_vm.form, "sale_price", _vm._n($$v))
                               },
-                              expression: "form.discount",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { staticClass: "pb-0", attrs: { cols: "2", sm: "2" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              value: "$" + _vm.discountedPrice,
-                              label: "Final Price",
-                              disabled: "",
+                              expression: "form.sale_price",
                             },
                           }),
                         ],
@@ -1639,10 +1668,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
                         [
                           _c("v-checkbox", {
                             attrs: { label: "Is Featured?" },
@@ -1652,6 +1678,42 @@ var render = function () {
                                 _vm.$set(_vm.form, "is_featured", $$v)
                               },
                               expression: "form.is_featured",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Is Active?" },
+                            model: {
+                              value: _vm.form.is_active,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "is_active", $$v)
+                              },
+                              expression: "form.is_active",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Send in Google Feed?" },
+                            model: {
+                              value: _vm.form.google_feed,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "google_feed", $$v)
+                              },
+                              expression: "form.google_feed",
                             },
                           }),
                         ],
@@ -1776,6 +1838,30 @@ var render = function () {
                             1
                           )
                         : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "3", sm: "3" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              "error-messages": _vm.errors.weight,
+                              label: "Weight",
+                              type: "number",
+                              min: "1",
+                              step: "any",
+                            },
+                            model: {
+                              value: _vm.form.weight,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "weight", _vm._n($$v))
+                              },
+                              expression: "form.weight",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "v-col",

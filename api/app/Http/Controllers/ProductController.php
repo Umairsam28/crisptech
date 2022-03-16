@@ -38,6 +38,7 @@ class ProductController extends Controller
                 ->orWhere('products.name', 'like', '%'.$q.'%')
                 ->orWhere('products.slug', 'like', '%'.$q.'%')
                 ->orWhere('products.price', 'like', '%'.$q.'%')
+                ->orWhere('products.sale_price', 'like', '%'.$q.'%')
                 ->orWhere('products.crawl_site', 'like', '%'.$q.'%')
                 ->orWhere('products.part_number', 'like', '%'.$q.'%')
                 ->orWhere('products.sku', 'like', '%'.$q.'%')
@@ -62,7 +63,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         Gate::authorize('create',Product::class);
-        $product = Product::create($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'discount','brand_id','crawl_site','in_stock','manage_stock','stock_qty','part_number','sku','condition'));
+        $product = Product::create($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price','brand_id','crawl_site','in_stock','manage_stock','stock_qty','part_number','sku','condition','is_active','weight','google_feed'));
         if(isset($request->related)&&count($request->related)>0){
             $related = array_map(function($rel_id){
                 return ['reference_product'=>$rel_id];
@@ -102,7 +103,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         Gate::authorize('update',$product);
-        $product->update($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured','discount','brand_id','crawl_site','in_stock','manage_stock','stock_qty','part_number','sku','condition'));
+        $product->update($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured','sale_price','brand_id','crawl_site','in_stock','manage_stock','stock_qty','part_number','sku','condition','is_active','weight','google_feed'));
         $product->related()->delete();
         if(isset($request->related_products)&&count($request->related_products)>0){
             $related = array_map(function($rel_id){
