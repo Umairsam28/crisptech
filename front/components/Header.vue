@@ -90,7 +90,7 @@
                               v-for="childOne in sidemenuname.children"
                               md="4"
                               :key="childOne.id"
-                              ><h3>{{ childOne.name }}</h3>
+                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.name }}</nuxt-link></h3>
                               <ul>
                                 <li
                                   v-for="childTwo in childOne.children"

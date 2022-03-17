@@ -4,7 +4,7 @@ module.exports = {
     target: 'static',
     modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
     axios: {
-      baseURL: 'https://crisptechllc.rubarants.com/api/front/'
+      baseURL: 'http://localhost:8000/api/front/',//'https://crisptechllc.rubarants.com/api/front/'
     },
     env: {
         // BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
