@@ -3199,6 +3199,24 @@ __webpack_require__.r(__webpack_exports__);
       return __webpack_require__.e(/*! import() */ "resources_js_views_User_Edit_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/User/Edit.vue */ "./resources/js/views/User/Edit.vue"));
     },
     name: 'auth.users.edit'
+  }, {
+    path: 'exemption/:uid',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_User_Exemption_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/User/Exemption/List.vue */ "./resources/js/views/User/Exemption/List.vue"));
+    },
+    name: 'auth.users.exemption.listing'
+  }, {
+    path: 'exemption/:uid/add',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_User_Exemption_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/User/Exemption/Form.vue */ "./resources/js/views/User/Exemption/Form.vue"));
+    },
+    name: 'auth.users.exemption.add'
+  }, {
+    path: 'exemption/:uid/edit/:id',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_views_User_Exemption_Form_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/views/User/Exemption/Form.vue */ "./resources/js/views/User/Exemption/Form.vue"));
+    },
+    name: 'auth.users.exemption.edit'
   }],
   beforeEnter: _middleware_admin__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
@@ -86591,7 +86609,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\Users\\\\Yaseen\\\
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_UploadProductsCSV_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_Banner_Main_vue":1,"resources_js_views_Banner_List_vue":1,"resources_js_views_Banner_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1,"resources_js_views_Order_Main_vue":1,"resources_js_views_Order_List_vue":1,"resources_js_views_Order_View_vue":1,"resources_js_views_Order_Form_vue":1,"resources_js_views_Country_Main_vue":1,"resources_js_views_Country_List_vue":1,"resources_js_views_Country_Form_vue":1,"resources_js_views_State_Main_vue":1,"resources_js_views_State_List_vue":1,"resources_js_views_State_Form_vue":1,"resources_js_views_City_Main_vue":1,"resources_js_views_City_List_vue":1,"resources_js_views_City_Form_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_views_Auth_Login_vue":1,"resources_js_views_Panel_vue":1,"resources_js_views_Notifications_vue":1,"resources_js_views_UploadProductsCSV_vue":1,"resources_js_views_Profile_vue":1,"resources_js_views_Role_Main_vue":1,"resources_js_views_Role_List_vue":1,"resources_js_views_Role_Form_vue":1,"resources_js_views_Permission_Main_vue":1,"resources_js_views_Permission_List_vue":1,"resources_js_views_Permission_Form_vue":1,"resources_js_views_Product_Main_vue":1,"resources_js_views_Product_List_vue":1,"resources_js_views_Product_Form_vue":1,"resources_js_views_User_Main_vue":1,"resources_js_views_User_List_vue":1,"resources_js_views_User_Add_vue":1,"resources_js_views_User_Edit_vue":1,"resources_js_views_User_Exemption_List_vue":1,"resources_js_views_User_Exemption_Form_vue":1,"resources_js_views_Coupon_Main_vue":1,"resources_js_views_Coupon_List_vue":1,"resources_js_views_Coupon_Form_vue":1,"resources_js_views_Category_Main_vue":1,"resources_js_views_Category_List_vue":1,"resources_js_views_Category_Form_vue":1,"resources_js_views_Brand_Main_vue":1,"resources_js_views_Brand_List_vue":1,"resources_js_views_Brand_Form_vue":1,"resources_js_views_Banner_Main_vue":1,"resources_js_views_Banner_List_vue":1,"resources_js_views_Banner_Form_vue":1,"resources_js_views_ProductQuote_Main_vue":1,"resources_js_views_ProductQuote_List_vue":1,"resources_js_views_ProductQuote_View_vue":1,"resources_js_views_Order_Main_vue":1,"resources_js_views_Order_List_vue":1,"resources_js_views_Order_View_vue":1,"resources_js_views_Order_Form_vue":1,"resources_js_views_Country_Main_vue":1,"resources_js_views_Country_List_vue":1,"resources_js_views_Country_Form_vue":1,"resources_js_views_State_Main_vue":1,"resources_js_views_State_List_vue":1,"resources_js_views_State_Form_vue":1,"resources_js_views_City_Main_vue":1,"resources_js_views_City_List_vue":1,"resources_js_views_City_Form_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

@@ -6,6 +6,12 @@
           <v-icon>mdi-forward</v-icon>
         </template>
       </v-breadcrumbs>
+      <v-btn
+      small
+      fab
+      color="primary"
+      :to="{ name: 'auth.users.exemption.add', params: { uid: this.user_id } }"
+    ><v-icon>mdi-plus</v-icon></v-btn>
     </v-row>
     <v-data-table
       :headers="headers"
@@ -28,21 +34,12 @@
           fab
           x-small
           dark
-          :to="{ name: 'auth.users.edit', params: { id: item.id } }"
+          :to="{ name: 'auth.banners.edit', params: { id: item.id } }"
         >
           <v-icon>mdi-pencil-plus</v-icon>
         </v-btn>
         <v-btn color="error" fab x-small dark @click="deleteuser(item.id)">
           <v-icon>mdi-delete-outline</v-icon>
-        </v-btn>
-        <v-btn
-          color="warning"
-          fab
-          x-small
-          dark
-          :to="{ name: 'auth.users.exemption.listing', params: { uid: item.id } }"
-        >
-          <v-icon>mdi-file-certificate-outline</v-icon>
         </v-btn>
       </template>
     </v-data-table>
@@ -50,12 +47,14 @@
 </template>
 <script>
 import Swal from "sweetalert2";
-import userservice from "@services/auth/user";
+import defaultservice from "@services/auth/default";
+const service = new defaultservice('user-exemptions')
 export default {
-  name: "auth.users.listing",
+  name: "auth.users.exemption.listing",
   data() {
     return {
       search: "",
+      user_id: this.$route.params.uid,
       bread: [
         {
           text: "Dashboard",
@@ -67,6 +66,12 @@ export default {
           text: "User",
           to: { name: "auth.users.listing" },
           disabled: false,
+          exact: true,
+        },
+        {
+          text: "User Exemption",
+          to: { name: "auth.users.exemption.listing", params:{uid: this.user_id} },
+          disabled: true,
           exact: true,
         },
       ],
@@ -82,18 +87,11 @@ export default {
           value: "id",
         },
         {
-          text: "Name",
+          text: "State",
           align: "start",
           sortable: true,
-          value: "name",
-        },
-        {
-          text: "Email",
-          align: "start",
-          sortable: true,
-          value: "email",
-        },
-        { text: "Role", value: "role_name" },
+          value: "state_name",
+        },     
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -113,6 +111,7 @@ export default {
     },
   },
   mounted() {
+      this.user_id = this.$route.params.uid
     this.getDataFromApi();
   },
   methods: {
@@ -131,7 +130,7 @@ export default {
         }
       });
       if (isConfirmed) {
-        await userservice.delete({
+        await service.delete({
           id: id,
         });
         Swal.fire("Deleted!", "Your record has been deleted.", "success");
@@ -165,7 +164,7 @@ export default {
       if (this.search != "") {
         query += "&search=" + this.search;
       }
-      return userservice.getlist(query);
+      return service.getlist(query);
     },
   },
   watch: {

@@ -109,7 +109,22 @@ export default [
                 path: 'edit/:id',
                 component: ()=> import('@/views/User/Edit.vue'),
                 name: 'auth.users.edit'
-            }
+            },
+            {
+                path: 'exemption/:uid',
+                component: ()=> import('@/views/User/Exemption/List.vue'),
+                name: 'auth.users.exemption.listing'
+            },
+            {
+                path: 'exemption/:uid/add',
+                component: ()=> import('@/views/User/Exemption/Form.vue'),
+                name: 'auth.users.exemption.add'
+            },
+            {
+                path: 'exemption/:uid/edit/:id',
+                component: ()=> import('@/views/User/Exemption/Form.vue'),
+                name: 'auth.users.exemption.edit'
+            },
         ],
         beforeEnter: admin,
     },

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController, StateController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController, StateController, UserExemptionController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
@@ -65,6 +65,7 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('banners', BannerController::class);
     Route::apiResource('permissions', PermissionController::class);
     Route::apiResource('user', UserController::class);
+    Route::apiResource('user-exemptions', UserExemptionController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('coupons', CouponController::class);
     Route::apiResource('faqs', FaqController::class);
