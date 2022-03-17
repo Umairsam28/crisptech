@@ -17,9 +17,9 @@ class ProductExportXLXS implements FromQuery, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            '#',
+            'Product ID',
             'SKU',
-            'Part#',
+            'Part Number',
             'Condition',
             'Currency',
             'Price',
