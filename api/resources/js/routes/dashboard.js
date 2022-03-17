@@ -237,6 +237,16 @@ export default [
                 path: 'view/:id',
                 component: ()=> import('@/views/Order/View.vue'),
                 name: 'auth.orders.view'
+            },
+            {
+                path: 'add',
+                component: ()=> import('@/views/Order/Form.vue'),
+                name: 'auth.orders.add'
+            },
+            {
+                path: 'edit/:id',
+                component: ()=> import('@/views/Order/Form.vue'),
+                name: 'auth.orders.edit'
             }
         ],
         beforeEnter: admin,

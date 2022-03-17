@@ -28,6 +28,9 @@ class CityController extends Controller
         $query = $this->listRep->listFilteredQuery(['cities.name', 'states.name'])
         ->leftJoin('states','states.id','=','cities.state_id')
         ->select('cities.*','states.name as state_name');
+        if(isset($_GET['state_id'])){
+            $query = $query->where('state_id',intval($_GET['state_id']));
+        }
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
         }else{

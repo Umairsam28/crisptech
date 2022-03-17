@@ -6,8 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\UserBrief;
-class BriefSubmit extends Notification
+
+class ExportProduct extends Notification
 {
     use Queueable;
 
@@ -16,12 +16,10 @@ class BriefSubmit extends Notification
      *
      * @return void
      */
-    public $user_brief;
-    public $message;
-    public function __construct(UserBrief $user_brief, $message='')
+    public $file = '';
+    public function __construct($file)
     {
-        $this->user_brief = $user_brief;
-        $this->message = $message;
+        $this->file = $file;
     }
 
     /**
@@ -58,12 +56,8 @@ class BriefSubmit extends Notification
     public function toArray($notifiable)
     {
         return [
-            'id'=>$this->user_brief->id,
-            'user_id'=>$this->user_brief->user_id,
-            'lead_id'=>$this->user_brief->user->lead->id,
-            'brand_id'=>$this->user_brief->brand->id,
-            'brand_code'=>$this->user_brief->brand->brand_code,
-            'message'=>$this->message
+            'file'=>$this->file['file'],
+            'message'=>'Product Report: '.date('Y-m-d h:i a'),
         ];
     }
 }

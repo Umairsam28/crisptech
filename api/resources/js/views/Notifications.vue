@@ -21,7 +21,7 @@
         :key="notification.id"
       >
         <v-col cols="12">
-          Products Import Finished 
+          {{notification.data.message}}
           <v-btn
             color="info"
             dark

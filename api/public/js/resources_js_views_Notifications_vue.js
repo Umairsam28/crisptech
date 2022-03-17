@@ -279,7 +279,11 @@ var render = function () {
                 "v-col",
                 { attrs: { cols: "12" } },
                 [
-                  _vm._v("\n        Products Import Finished \n        "),
+                  _vm._v(
+                    "\n        " +
+                      _vm._s(notification.data.message) +
+                      "\n        "
+                  ),
                   _c(
                     "v-btn",
                     {

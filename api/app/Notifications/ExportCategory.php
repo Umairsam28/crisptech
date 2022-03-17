@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\TaskComment as taskCommentModel;
 
-class taskComment extends Notification
+class ExportCategory extends Notification
 {
     use Queueable;
 
@@ -17,10 +16,10 @@ class taskComment extends Notification
      *
      * @return void
      */
-    public $comment;
-    public function __construct(taskCommentModel $comment)
+    public $file = '';
+    public function __construct($file)
     {
-        $this->comment = $comment;
+        $this->file = $file;
     }
 
     /**
@@ -43,8 +42,9 @@ class taskComment extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('New comment on Task #'.$this->comment->task_id);
-                    //->line('Thank you for using our application!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,9 +56,8 @@ class taskComment extends Notification
     public function toArray($notifiable)
     {
         return [
-            'task_id'=>$this->comment->task_id,
-            'line'=>$this->comment->user->name.' Commented On #'.$this->comment->task_id,
-            'project_id'=>$this->comment->task->project->project_id,
+            'file'=>$this->file['file'],
+            'message'=>'Category Report: '.date('Y-m-d h:i a'),
         ];
     }
 }

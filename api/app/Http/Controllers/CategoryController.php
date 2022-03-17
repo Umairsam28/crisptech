@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Models\{Category, User};
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\ListRepository;
 use App\Repositories\FileRepository;
+use Illuminate\Http\Request;
 use DB;
+use App\Jobs\ExportCategory as ExportCategoryJob;
 class CategoryController extends Controller
 {
     /**
@@ -107,5 +109,8 @@ class CategoryController extends Controller
         Gate::authorize('delete',$category);
         $category->delete();
         return response()->json(null, 204);
+    }
+    public function export(Request $request){
+        ExportCategoryJob::dispatch(User::find($request->user()->id))->onQueue('high');
     }
 }

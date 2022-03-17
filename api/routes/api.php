@@ -75,12 +75,15 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('states', StateController::class);
     Route::apiResource('cities', CityController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
-    Route::apiResource('orders', OrderController::class)->only([
-        'index','show'
-    ]);
+    Route::apiResource('orders', OrderController::class);
 
     //additional
     Route::post('/a/products/uploadcsv', [ProductController::class,'uploadcsv']);
+
+    //export
+    Route::get('/export-brands', [BrandController::class,'export']);
+    Route::get('/export-categories', [CategoryController::class,'export']);
+    Route::get('/export-products', [ProductController::class,'export']);
 });
 Route::middleware('auth:api')->get('/me', function (Request $request) {
     $notificationsCount = $request->user()->unreadNotifications()->count();
@@ -93,3 +96,7 @@ Route::middleware('auth:api')->get('/notifications', function (Request $request)
     $request->user()->notifications()->paginate(50)->markAsRead();
     return $notifications;
 });
+
+
+//importing 
+Route::post('/import-brands', [BrandController::class,'import']);

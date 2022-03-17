@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandResource;
-use App\Models\Brand;
+use App\Models\{Brand, User};
 use Illuminate\Support\Facades\Gate;
 use App\Repositories\ListRepository;
 use App\Repositories\FileRepository;
 use DB;
+use Illuminate\Http\Request;
+use App\Imports\BrandsImport;
+use App\Jobs\ExportBrands as ExportBrandsJob;
+use Excel;
 class BrandController extends Controller
 {
     /**
@@ -93,5 +97,13 @@ class BrandController extends Controller
         Gate::authorize('delete',$brand);
         $brand->delete();
         return response()->json(null, 204);
+    }
+
+    public function import(Request $request){
+        $path = $request->file->store('brands_import');
+        Excel::queueImport(new BrandsImport, storage_path(('app/public/'.$path)));
+    }
+    public function export(Request $request){
+        ExportBrandsJob::dispatch(User::find($request->user()->id))->onQueue('high');
     }
 }

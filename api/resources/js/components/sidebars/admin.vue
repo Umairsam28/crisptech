@@ -612,7 +612,11 @@ export default {
         to: 'auth.cities.add',
         permission_id: 175,
       },
-      
+      {
+        name: 'Order',
+        to: 'auth.orders.add',
+        permission_id: 178,
+      },      
     ]
   }),
   methods: {

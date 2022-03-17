@@ -24,6 +24,10 @@ class OrderPolicy
     {
         return optional($user->permissions()->where('permission_id',160)->first())->id>0;
     }
+    public function create(User $user)
+    {
+        return optional($user->permissions()->where('permission_id',178)->first())->id>0;
+    }
     public function statusHandle(User $user, Order $order)
     {
         return optional($user->permissions()->where('permission_id',161)->first())->id>0;

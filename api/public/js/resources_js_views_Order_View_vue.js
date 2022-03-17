@@ -229,6 +229,142 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
@@ -638,7 +774,7 @@ var render = function () {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "6" } },
+                { attrs: { cols: "4" } },
                 [
                   _c(
                     "v-list-item",
@@ -767,8 +903,19 @@ var render = function () {
               _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "6" } },
+                { attrs: { cols: "4" } },
                 [
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "pink", dark: "" } },
+                    [
+                      _c("v-toolbar-title", [_vm._v("Shipping Detail")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c(
                     "v-list",
                     { attrs: { "two-line": "" } },
@@ -918,6 +1065,170 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "4" } },
+                [
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "red", dark: "" } },
+                    [
+                      _c("v-toolbar-title", [_vm._v("Billing Detail")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    { attrs: { "two-line": "" } },
+                    [
+                      _c(
+                        "v-list-item",
+                        [
+                          _c(
+                            "v-list-item-icon",
+                            [
+                              _c("v-icon", { attrs: { color: "primary" } }, [
+                                _vm._v(" mdi-account "),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c("v-list-item-title", [
+                                _vm._v(
+                                  _vm._s(_vm.invoice.billing_first_name) +
+                                    "\n                " +
+                                    _vm._s(_vm.invoice.billing_last_name)
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-list-item-subtitle", [_vm._v("Full Name")]),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-divider", { attrs: { inset: "" } }),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item",
+                        [
+                          _c(
+                            "v-list-item-icon",
+                            [
+                              _c("v-icon", { attrs: { color: "primary" } }, [
+                                _vm._v(" mdi-phone "),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c("v-list-item-title", [
+                                _vm._v(_vm._s(_vm.invoice.billing_phone)),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-list-item-subtitle", [
+                                _vm._v("Mobile/Lan line"),
+                              ]),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-divider", { attrs: { inset: "" } }),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item",
+                        [
+                          _c(
+                            "v-list-item-icon",
+                            [
+                              _c("v-icon", { attrs: { color: "primary" } }, [
+                                _vm._v(" mdi-email "),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c("v-list-item-title", [
+                                _vm._v(_vm._s(_vm.invoice.billing_email)),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-list-item-subtitle", [
+                                _vm._v("Order Email"),
+                              ]),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-divider", { attrs: { inset: "" } }),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item",
+                        [
+                          _c(
+                            "v-list-item-icon",
+                            [
+                              _c("v-icon", { attrs: { color: "primary" } }, [
+                                _vm._v(" mdi-map-marker "),
+                              ]),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c("v-list-item-title", [
+                                _vm._v(_vm._s(_vm.invoice.billing_address)),
+                              ]),
+                              _vm._v(" "),
+                              _c("v-list-item-subtitle", [
+                                _vm._v(
+                                  _vm._s(_vm.invoice.billing_city) +
+                                    ", " +
+                                    _vm._s(_vm.invoice.billing_state) +
+                                    "\n                " +
+                                    _vm._s(_vm.invoice.billing_zip)
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.invoice.billing_country)
+                                ),
+                              ]),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c("v-col", { attrs: { cols: "12" } }, [_c("v-divider")], 1),
               _vm._v(" "),
               _c(
@@ -1008,6 +1319,96 @@ var render = function () {
                   }),
                 ],
                 2
+              ),
+              _vm._v(" "),
+              _c("v-col", { attrs: { cols: "12" } }, [_c("v-divider")], 1),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                {
+                  staticClass: "pb-0",
+                  attrs: { cols: "4", sm: "4", offset: "8" },
+                },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-toolbar",
+                        { attrs: { flat: "", color: "blue-grey", dark: "" } },
+                        [_c("v-toolbar-title", [_vm._v("Total")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              filled: "",
+                              label: "Sub Total",
+                              readonly: "",
+                              value:
+                                _vm.invoice.total +
+                                _vm.invoice.discount_amount +
+                                _vm.invoice.tax_amount,
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              filled: "",
+                              label: "Discount",
+                              type: "number",
+                              step: "any",
+                              readonly: "",
+                            },
+                            model: {
+                              value: _vm.invoice.discount_amount,
+                              callback: function ($$v) {
+                                _vm.$set(
+                                  _vm.invoice,
+                                  "discount_amount",
+                                  _vm._n($$v)
+                                )
+                              },
+                              expression: "invoice.discount_amount",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              filled: "",
+                              label: "Tax",
+                              type: "number",
+                              step: "any",
+                              readonly: "",
+                            },
+                            model: {
+                              value: _vm.invoice.tax_amount,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.invoice, "tax_amount", _vm._n($$v))
+                              },
+                              expression: "invoice.tax_amount",
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: {
+                              filled: "",
+                              label: "Total",
+                              readonly: "",
+                              value: _vm.invoice.total,
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                ],
+                1
               ),
             ],
             1

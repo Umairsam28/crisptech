@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Payment;
 
-class PaymentPaidByCustomer extends Notification
+class ExportBrands extends Notification
 {
     use Queueable;
 
@@ -17,10 +16,10 @@ class PaymentPaidByCustomer extends Notification
      *
      * @return void
      */
-    public $payment;
-    public function __construct(Payment $payment)
+    public $file = '';
+    public function __construct($file)
     {
-        $this->payment = $payment;
+        $this->file = $file;
     }
 
     /**
@@ -57,9 +56,8 @@ class PaymentPaidByCustomer extends Notification
     public function toArray($notifiable)
     {
         return [
-            'payment_id'=>$this->payment->id,
-            'lead_id'=>$this->payment->lead_id,
-            'status'=>$this->payment->payment_status_text
+            'file'=>$this->file['file'],
+            'message'=>'Brand Report: '.date('Y-m-d h:i a'),
         ];
     }
 }

@@ -39,7 +39,6 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
     {
         $filename = public_path('storage/'.$this->file->url);
         if (!file_exists($filename) || !is_readable($filename)){
-            echo 'here';
             return false;
         }
         if (($handle = fopen($filename, 'r')) !== false)

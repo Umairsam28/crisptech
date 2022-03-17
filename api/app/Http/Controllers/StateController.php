@@ -28,6 +28,9 @@ class StateController extends Controller
         $query = $this->listRep->listFilteredQuery(['states.name','country_id','tax_percent','countries.name','countries.iso_code'])
         ->leftJoin('countries','countries.id','=','states.country_id')
         ->select('states.*','countries.name as country_name');
+        if(isset($_GET['country_id'])){
+            $query = $query->where('country_id',intval($_GET['country_id']));
+        }
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
         }else{
