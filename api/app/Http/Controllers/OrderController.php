@@ -66,11 +66,18 @@ class OrderController extends Controller
             $order->products()->create([
                 'product_id'=>$product->id,
                 'quantity'=>$value['quantity'],
-                'rowtotal'=>($product->price*$value['quantity'])
+                'rowtotal'=>($product->actual_price*$value['quantity'])
             ]);
-            $total+=($product->price*$value['quantity']);
+            $total+=($product->actual_price*$value['quantity']);
         }
-        $order->total = $total;
+        $order->subtotal = $total;
+        $total_before_discount = ($total);
+        $total_with_discount = ($total_before_discount-$request->discount_amount);
+        $tax_amount = (($total_with_discount/100)*$request->tax_percent);
+        $order->discount_amount = $request->discount_amount;
+        $order->tax_percent = $request->tax_percent;
+        $order->tax_amount = $tax_amount;
+        $order->total = ($total_with_discount+$tax_amount);
         $order->save();
         return new OrderResource($order);
     }

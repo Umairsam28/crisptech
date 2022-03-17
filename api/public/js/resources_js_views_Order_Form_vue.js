@@ -2291,9 +2291,7 @@ var render = function () {
                                       filled: "",
                                       label: "Total",
                                       readonly: "",
-                                      value:
-                                        _vm.tax_amount +
-                                        _vm.order_total_after_tax,
+                                      value: _vm.order_total_after_tax,
                                     },
                                   }),
                                 ],

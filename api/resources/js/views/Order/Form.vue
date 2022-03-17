@@ -395,7 +395,7 @@ lazy-validation
         filled
         label="Total"
         readonly
-        :value="tax_amount+order_total_after_tax"
+        :value="order_total_after_tax"
       ></v-text-field>
     </v-card-text>
   </v-card>

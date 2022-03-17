@@ -114,9 +114,9 @@
                   invoice.shipping_address
                 }}</v-list-item-title>
                 <v-list-item-subtitle
-                  >{{ invoice.shipping_city }}, {{ invoice.shipping_state }}
+                  >{{ invoice.scity.name }}, {{ invoice.sstate.name }}
                   {{ invoice.shipping_zip }}<br />
-                  {{ invoice.shipping_country }}</v-list-item-subtitle
+                  {{ invoice.scountry.name }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -193,9 +193,9 @@
                   invoice.billing_address
                 }}</v-list-item-title>
                 <v-list-item-subtitle
-                  >{{ invoice.billing_city }}, {{ invoice.billing_state }}
+                  >{{ invoice.bcity.name }}, {{ invoice.bstate.name }}
                   {{ invoice.billing_zip }}<br />
-                  {{ invoice.billing_country }}</v-list-item-subtitle
+                  {{ invoice.bcountry.name }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -258,7 +258,7 @@
                 filled
                 label="Sub Total"
                 readonly
-                :value="(invoice.total+invoice.discount_amount+invoice.tax_amount)"
+                :value="(invoice.subtotal)"
               ></v-text-field>
               <v-text-field
                 filled

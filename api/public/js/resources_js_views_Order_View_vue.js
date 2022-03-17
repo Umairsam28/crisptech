@@ -1040,16 +1040,16 @@ var render = function () {
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
-                                  _vm._s(_vm.invoice.shipping_city) +
+                                  _vm._s(_vm.invoice.scity.name) +
                                     ", " +
-                                    _vm._s(_vm.invoice.shipping_state) +
+                                    _vm._s(_vm.invoice.sstate.name) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.shipping_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.shipping_country)
+                                    _vm._s(_vm.invoice.scountry.name)
                                 ),
                               ]),
                             ],
@@ -1204,16 +1204,16 @@ var render = function () {
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
-                                  _vm._s(_vm.invoice.billing_city) +
+                                  _vm._s(_vm.invoice.bcity.name) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_state) +
+                                    _vm._s(_vm.invoice.bstate.name) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.billing_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.billing_country)
+                                    _vm._s(_vm.invoice.bcountry.name)
                                 ),
                               ]),
                             ],
@@ -1348,10 +1348,7 @@ var render = function () {
                               filled: "",
                               label: "Sub Total",
                               readonly: "",
-                              value:
-                                _vm.invoice.total +
-                                _vm.invoice.discount_amount +
-                                _vm.invoice.tax_amount,
+                              value: _vm.invoice.subtotal,
                             },
                           }),
                           _vm._v(" "),
