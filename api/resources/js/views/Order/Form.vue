@@ -383,9 +383,19 @@ lazy-validation
       ></v-text-field>
       <v-text-field
         filled
+        label="Tax%"
+        type="number"
+        step="any"
+        readonly
+        persistent-hint
+        :hint="this.tax_amount"
+        v-model.number="tax_percent"
+      ></v-text-field>
+      <v-text-field
+        filled
         label="Total"
         readonly
-        :value="order_total"
+        :value="tax_amount+order_total_after_tax"
       ></v-text-field>
     </v-card-text>
   </v-card>
@@ -421,6 +431,7 @@ const service = new defaultservice('orders')
 const countryservice = new defaultservice('countries')
 const stateservice = new defaultservice('states')
 const citieservice = new defaultservice('cities')
+const exemptionservice = new defaultservice('user-exemptions')
 import productautocomplete from "@/components/orders/productautocomplete.vue";
 export default {
   components:{
@@ -428,6 +439,12 @@ export default {
   },
   name: "auth.orders.add",
   watch:{
+    'form': {
+      handler (){
+        this.checkfortax()
+      },
+      deep: true,
+    },
     'form.shipping_country': function(){
       stateservice.getlist('?country_id='+this.form.shipping_country).then(e=>{
         this.cities = []
@@ -548,6 +565,22 @@ export default {
     }
   },
   methods: {
+    checkfortax(){
+      this.tax_percent = 0
+      if(parseInt(this.form.billing_state)>0){
+        clearInterval(this.taxcalls);
+        this.taxcalls = setInterval(()=>{
+          clearInterval(this.taxcalls);
+          exemptionservice.getlist('?user_email='+this.form.billing_email+'&state_id='+this.form.billing_state).then(e=>{
+            if(e.data.length==0){
+              stateservice.get(this.form.billing_state).then(e=>{
+                this.tax_percent = e.tax_percent
+              })
+            }
+          })
+        },500)
+      }
+    },
     additem(){
       this.items.push({
         item_id: 0,
@@ -611,6 +644,7 @@ export default {
         formdata.append("billing_phone", this.form.billing_phone)
         formdata.append("billing_address", this.form.billing_address)
         formdata.append("discount_amount", this.order_discount)
+        formdata.append("tax_percent", this.tax_percent)        
         for(let i = 0; i < this.items.length; i++){
           formdata.append("items["+i+"][quantity]", this.items[i].qty)
           formdata.append("items["+i+"][id]", this.items[i].item_id)
@@ -708,6 +742,8 @@ export default {
       billing_cities: [],
       same_as_shipping: true,
       order_discount: 0,
+      tax_percent: 0,
+      taxcalls: undefined,
       form:{
           id: (this.$route.params.id?this.$route.params.id:0),
           shipping_email: '',
@@ -793,6 +829,13 @@ export default {
         total = (this.order_subtotal-this.order_discount)
       }
       return total
+    },
+    tax_amount(){
+      let tax_amount = (this.order_total/100)*this.tax_percent
+      return tax_amount;
+    },
+    order_total_after_tax(){
+      return this.order_total+this.tax_amount
     }
   }
 };

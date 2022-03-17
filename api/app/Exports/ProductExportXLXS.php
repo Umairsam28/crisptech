@@ -60,7 +60,7 @@ class ProductExportXLXS implements FromQuery, WithHeadings, WithMapping
             env('MIX_FRONT_WEBSITE_URL').'/product/'.$product->slug,
             $product->image_url,
             $product->weight,
-            ($product->in_stock==0?'Instock':'Outofstock'),
+            ($product->in_stock==1?'Instock':'Outofstock'),
             $product->stock_qty,
             $product->description,
             $product->crawl_site,

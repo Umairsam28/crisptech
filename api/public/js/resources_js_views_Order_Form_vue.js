@@ -552,11 +552,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('orders');
 var countryservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('countries');
 var stateservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('states');
 var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('cities');
+var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('user-exemptions');
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   components: {
@@ -564,6 +575,12 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
   },
   name: "auth.orders.add",
   watch: {
+    'form': {
+      handler: function handler() {
+        this.checkfortax();
+      },
+      deep: true
+    },
     'form.shipping_country': function formShipping_country() {
       var _this = this;
 
@@ -730,6 +747,25 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
     }))();
   },
   methods: {
+    checkfortax: function checkfortax() {
+      var _this6 = this;
+
+      this.tax_percent = 0;
+
+      if (parseInt(this.form.billing_state) > 0) {
+        clearInterval(this.taxcalls);
+        this.taxcalls = setInterval(function () {
+          clearInterval(_this6.taxcalls);
+          exemptionservice.getlist('?user_email=' + _this6.form.billing_email + '&state_id=' + _this6.form.billing_state).then(function (e) {
+            if (e.data.length == 0) {
+              stateservice.get(_this6.form.billing_state).then(function (e) {
+                _this6.tax_percent = e.tax_percent;
+              });
+            }
+          });
+        }, 500);
+      }
+    },
     additem: function additem() {
       this.items.push({
         item_id: 0,
@@ -776,7 +812,7 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 38;
+                  _context2.next = 39;
                   break;
                 }
 
@@ -804,6 +840,7 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
                 formdata.append("billing_phone", this.form.billing_phone);
                 formdata.append("billing_address", this.form.billing_address);
                 formdata.append("discount_amount", this.order_discount);
+                formdata.append("tax_percent", this.tax_percent);
 
                 for (i = 0; i < this.items.length; i++) {
                   formdata.append("items[" + i + "][quantity]", this.items[i].qty);
@@ -813,26 +850,26 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 34;
+                  _context2.next = 35;
                   break;
                 }
 
-                _context2.next = 31;
+                _context2.next = 32;
                 return service.update(formdata, this.form.id);
 
-              case 31:
+              case 32:
                 res = _context2.sent;
-                _context2.next = 37;
+                _context2.next = 38;
                 break;
 
-              case 34:
-                _context2.next = 36;
+              case 35:
+                _context2.next = 37;
                 return service.create(formdata);
 
-              case 36:
+              case 37:
                 res = _context2.sent;
 
-              case 37:
+              case 38:
                 if (!res.status) {
                   if (res.data.shipping_email) {
                     this.errors.shipping_email = res.data.shipping_email;
@@ -925,7 +962,7 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
                   });
                 }
 
-              case 38:
+              case 39:
               case "end":
                 return _context2.stop();
             }
@@ -955,6 +992,8 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
       billing_cities: [],
       same_as_shipping: true,
       order_discount: 0,
+      tax_percent: 0,
+      taxcalls: undefined,
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
         shipping_email: '',
@@ -1047,6 +1086,13 @@ var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
     }
 
     return total;
+  },
+  tax_amount: function tax_amount() {
+    var tax_amount = this.order_total / 100 * this.tax_percent;
+    return tax_amount;
+  },
+  order_total_after_tax: function order_total_after_tax() {
+    return this.order_total + this.tax_amount;
   }
 }));
 
@@ -2224,9 +2270,30 @@ var render = function () {
                                   _c("v-text-field", {
                                     attrs: {
                                       filled: "",
+                                      label: "Tax%",
+                                      type: "number",
+                                      step: "any",
+                                      readonly: "",
+                                      "persistent-hint": "",
+                                      hint: this.tax_amount,
+                                    },
+                                    model: {
+                                      value: _vm.tax_percent,
+                                      callback: function ($$v) {
+                                        _vm.tax_percent = _vm._n($$v)
+                                      },
+                                      expression: "tax_percent",
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      filled: "",
                                       label: "Total",
                                       readonly: "",
-                                      value: _vm.order_total,
+                                      value:
+                                        _vm.tax_amount +
+                                        _vm.order_total_after_tax,
                                     },
                                   }),
                                 ],

@@ -36,6 +36,12 @@ class UserExemptionController extends Controller
         if(isset($_GET['user_id'])){
             $query=$query->where('user_id',$_GET['user_id']);
         }
+        if(isset($_GET['user_email'])){
+            $query=$query->where('users.email',$_GET['user_email']);
+        }
+        if(isset($_GET['state_id'])){
+            $query=$query->where('state_id',$_GET['state_id']);
+        }
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
         }else{
