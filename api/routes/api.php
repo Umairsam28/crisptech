@@ -10,7 +10,7 @@ use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
 use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
-use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 
 
 /*
@@ -23,6 +23,10 @@ use App\Http\Controllers\Public\HomeController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/front/countries', [CountryCityStateController::class,'countries']);
+Route::get('/front/states/{country}', [CountryCityStateController::class,'states']);
+Route::get('/front/cities/{state}', [CountryCityStateController::class,'cities']);
 
 Route::get('/front/home', [HomeController::class,'index']);
 Route::get('/front/menu', [HomeController::class,'menu']);

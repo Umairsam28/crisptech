@@ -110,29 +110,14 @@
 
                   <b-form-group
                     id="input-group-1"
-                    label="City:"
-                    label-for="input-1"
-                  >
-                    <b-form-input
-                      id="input-1"
-                      @input="shipping_city"
-                      :value="shipping_city_comp"
-                      type="text"
-                      placeholder="City"
-                      required
-                    >
-                    </b-form-input>
-                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_city_err.length>0">{{ shipping_city_err[0] }}</b-form-invalid-feedback>
-                  </b-form-group>
-
-                  <b-form-group
-                    id="input-group-1"
                     label="Country:"
                     label-for="input-1"
                   >
                     <b-form-select
                       @input="shipping_country"
-                      :options="options"
+                      :options="shipping_countries"
+                      value-field="id"
+                      text-field="name"
                     ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_country_err.length>0">{{ shipping_country_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
@@ -147,6 +132,23 @@
                       :options="options2"
                     ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_state_err.length>0">{{ shipping_state_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="City:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="shipping_city"
+                      :value="shipping_city_comp"
+                      type="text"
+                      placeholder="City"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_city_err.length>0">{{ shipping_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
@@ -180,6 +182,183 @@
                     </b-form-input>
                     <b-form-invalid-feedback v-if="shipping_phone_err.length>0" :force-show="true" id="input-1-live-feedback">{{ shipping_phone_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label-for="input-sameasshipping"
+                  >
+                    <b-form-checkbox
+                    id="input-sameasshipping"
+                    v-model="same_as_shipping"
+                  >Same as Shipping
+                    
+                  </b-form-checkbox>
+                  </b-form-group>
+                </b-form>
+              </div>
+
+              <div v-if="!same_as_shipping" class="block-box">
+                <h5>Billing Address</h5>
+                <b-form>
+                  <b-form-group
+                    id="input-group-1"
+                    label="Email address:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_email"
+                      :value="billing_email_comp"
+                      type="email"
+                      placeholder="Enter email"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_email_err.length>0">{{ billing_email_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+                  <b-form-group
+                    id="input-group-1"
+                    label="First Name:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_first_name"
+                      :value="billing_first_name_comp"
+                      type="text"
+                      placeholder="First Name"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_first_name_err.length>0">{{ billing_first_name_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="Last Name:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_last_name"
+                      :value="billing_last_name_comp"
+                      type="text"
+                      placeholder="Last Name"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_last_name_err.length>0">{{ billing_last_name_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="Company"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_company"
+                      :value="billing_company_comp"
+                      type="text"
+                      placeholder="Company"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_company_err.length>0">{{ billing_company_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="Street Address:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_address"
+                      :value="billing_address_comp"
+                      type="text"
+                      placeholder="Address"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_address_err.length>0">{{ billing_address_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="Country:"
+                    label-for="input-1"
+                  >
+                    <b-form-select
+                      @input="billing_country"
+                      :options="billing_countries"
+                      value-field="id"
+                      text-field="name"
+                    ></b-form-select>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_country_err.length>0">{{ billing_country_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="State/Province:"
+                    label-for="input-1"
+                  >
+                    <b-form-select
+                      @input="billing_state"
+                      :options="options2"
+                    ></b-form-select>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_state_err.length>0">{{ billing_state_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="City:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_city"
+                      :value="billing_city_comp"
+                      type="text"
+                      placeholder="City"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_city_err.length>0">{{ billing_city_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="ZIP:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_zipcode"
+                      :value="billing_zipcode_comp"
+                      type="text"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_zipcode_err.length>0">{{ billing_zipcode_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
+
+                  <b-form-group
+                    id="input-group-1"
+                    label="Phone:"
+                    label-for="input-1"
+                  >
+                    <b-form-input
+                      id="input-1"
+                      @input="billing_phone"
+                      :value="billing_phone_comp"
+                      type="text"
+                      required
+                    >
+                    </b-form-input>
+                    <b-form-invalid-feedback v-if="billing_phone_err.length>0" :force-show="true" id="input-1-live-feedback">{{ billing_phone_err[0] }}</b-form-invalid-feedback>
+                  </b-form-group>
                 </b-form>
               </div>
             </b-col>
@@ -187,7 +366,7 @@
 
             <!-- COL 2 -->
             <b-col md="4">
-              <div class="block-box">
+              <!-- <div class="block-box">
                 <h5>Shipping Method</h5>
                 <div class="table-responsive">
                   <table>
@@ -215,7 +394,7 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> -->
 
               <div class="block-box">
                 <h5>Payment Method</h5>
@@ -333,11 +512,21 @@
 <script>
 import { mapMutations, mapState, mapActions } from 'vuex'
 export default {
+  mounted(){
+    this.$axios.get('countries').then(e=>{
+      this.shipping_countries = e.data.countries
+      this.billing_countries = e.data.countries
+    })
+  },
   data() {
     return {
-      form: {},
-      show: true,
-
+      same_as_shipping: true,
+      shipping_countries: [],
+      shipping_states: [],
+      shipping_cities: [],
+      billing_countries: [],
+      billing_states: [],
+      billing_cities: [],
       options: [
         { value: null, text: "Please select an option" },
         { value: "a", text: "Albania	" },
@@ -352,6 +541,90 @@ export default {
       ],
     };
   },
+  watch:{
+    same_as_shipping(){
+      if(this.same_as_shipping===true){
+        this.billing_email(this.shipping_email_comp)
+        this.billing_first_name(this.shipping_first_name_comp)
+        this.billing_last_name(this.shipping_last_name_comp)
+        this.billing_address(this.shipping_address_comp)
+        this.billing_city(this.shipping_city_comp)
+        this.billing_zipcode(this.shipping_zip_comp)
+        this.billing_phone(this.shipping_phone_comp)
+        this.billing_company(this.shipping_company_comp)
+        this.billing_city(this.shipping_city_comp)
+        this.billing_country(this.shipping_country_comp)
+        this.billing_state(this.shipping_state_comp)
+      }else{
+        this.billing_email('')
+        this.billing_first_name('')
+        this.billing_last_name('')
+        this.billing_address('')
+        this.billing_city('')
+        this.billing_zipcode('')
+        this.billing_phone('')
+        this.billing_company('')
+        this.billing_city('')
+        this.billing_country('')
+        this.billing_state('')
+      }
+    },
+    shipping_email_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_email(this.shipping_email_comp)
+      }
+    },
+    shipping_first_name_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_first_name(this.shipping_first_name_comp)
+      }
+    },
+    shipping_last_name_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_last_name(this.shipping_last_name_comp)
+      }
+    },
+    shipping_address_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_address(this.shipping_address_comp)
+      }
+    },
+    shipping_city_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_city(this.shipping_city_comp)
+      }
+    },
+    shipping_zip_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_zipcode(this.shipping_zip_comp)
+      }
+    },
+    shipping_phone_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_phone(this.shipping_phone_comp)
+      }
+    },
+    shipping_company_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_company(this.shipping_company_comp)
+      }
+    },
+    shipping_city_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_city(this.shipping_city_comp)
+      }
+    },
+    shipping_country_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_country(this.shipping_country_comp)
+      }
+    },
+    shipping_state_comp(){
+      if(this.same_as_shipping===true){
+        this.billing_state(this.shipping_state_comp)
+      }
+    },
+  },
   computed:{
     ...mapState({
       shipping_email_comp: state=>state.checkout.form.shipping_email,
@@ -359,7 +632,6 @@ export default {
       shipping_first_name_comp: state=>state.checkout.form.shipping_first_name,
       shipping_last_name_comp: state=>state.checkout.form.shipping_last_name,
       shipping_address_comp: state=>state.checkout.form.shipping_address,
-      shipping_address_2_comp: state=>state.checkout.form.shipping_address_2,
       shipping_city_comp: state=>state.checkout.form.shipping_city,
       shipping_zip_comp: state=>state.checkout.form.shipping_zip,
       shipping_phone_comp: state=>state.checkout.form.shipping_phone,
@@ -367,6 +639,18 @@ export default {
       shipping_city_comp: state=>state.checkout.form.shipping_city,
       shipping_country_comp: state=>state.checkout.form.shipping_country,
       shipping_state_comp: state=>state.checkout.form.shipping_state,
+
+      billing_email_comp: state=>state.checkout.form.billing_email,
+      billing_first_name_comp: state=>state.checkout.form.billing_first_name,
+      billing_last_name_comp: state=>state.checkout.form.billing_last_name,
+      billing_address_comp: state=>state.checkout.form.billing_address,
+      billing_city_comp: state=>state.checkout.form.billing_city,
+      billing_zipcode_comp: state=>state.checkout.form.billing_zipcode,
+      billing_phone_comp: state=>state.checkout.form.billing_phone,
+      billing_company_comp: state=>state.checkout.form.billing_company,
+      billing_city_comp: state=>state.checkout.form.billing_city,
+      billing_country_comp: state=>state.checkout.form.billing_country,
+      billing_state_comp: state=>state.checkout.form.billing_state,
 
       //binding errors 
       shipping_email_err: state=>state.checkout.errors.shipping_email,
@@ -380,6 +664,18 @@ export default {
       shipping_company_err: state=>state.checkout.errors.shipping_company,
       shipping_country_err: state=>state.checkout.errors.shipping_country,
       shipping_state_err: state=>state.checkout.errors.shipping_state,
+
+      billing_email_err: state=>state.checkout.errors.billing_email,
+      billing_first_name_err: state=>state.checkout.errors.billing_first_name,
+      billing_last_name_err: state=>state.checkout.errors.billing_last_name,
+      billing_address_err: state=>state.checkout.errors.billing_address,
+      billing_city_err: state=>state.checkout.errors.billing_city,
+      billing_zipcode_err: state=>state.checkout.errors.billing_zipcode,
+      billing_phone_err: state=>state.checkout.errors.billing_phone,
+      billing_company_err: state=>state.checkout.errors.billing_company,
+      billing_country_err: state=>state.checkout.errors.billing_country,
+      billing_state_err: state=>state.checkout.errors.billing_state,
+
       formloading: state=>state.checkout.formloading,
       items: state=>state.cart.items,
       total: state=>state.cart.total,
@@ -396,7 +692,6 @@ export default {
       shipping_first_name: 'checkout/set_shipping_first_name',
       shipping_last_name: 'checkout/set_shipping_last_name',
       shipping_address: 'checkout/set_shipping_address',
-      shipping_address_2: 'checkout/set_shipping_address_2',
       shipping_city: 'checkout/set_shipping_city',
       shipping_zip: 'checkout/set_shipping_zip',
       shipping_phone: 'checkout/set_shipping_phone',
@@ -404,6 +699,18 @@ export default {
       shipping_city: 'checkout/set_shipping_city',
       shipping_country: 'checkout/set_shipping_country',
       shipping_state: 'checkout/set_shipping_state',
+
+      billing_email: 'checkout/set_billing_email',
+      billing_first_name: 'checkout/set_billing_first_name',
+      billing_last_name: 'checkout/set_billing_last_name',
+      billing_address: 'checkout/set_billing_address',
+      billing_city: 'checkout/set_billing_city',
+      billing_zipcode: 'checkout/set_billing_zipcode',
+      billing_phone: 'checkout/set_billing_phone',
+      billing_company: 'checkout/set_billing_company',
+      billing_city: 'checkout/set_billing_city',
+      billing_country: 'checkout/set_billing_country',
+      billing_state: 'checkout/set_billing_state',
     }),
     saveOrder(){
       this.$store.dispatch('checkout/save',{

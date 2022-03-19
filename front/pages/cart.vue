@@ -62,7 +62,7 @@
                   <ul>
                     <li><span>Subtotal</span><span>${{cartSubTotal}}</span></li>
                     <li><span>Discount</span><span>${{cartDiscountAmount}}</span></li>
-                    <li><span>Tax</span><span>$0.00</span></li>
+                    <!-- <li><span>Tax</span><span>$0.00</span></li> -->
                   </ul>
                 </div>
                 <div class="sum-total">

@@ -5,13 +5,23 @@ export const state = () => ({
         shipping_first_name: [],
         shipping_last_name: [],
         shipping_address: [],
-        shipping_address_2: [],
         shipping_city: [],
         shipping_zip: [],
         shipping_phone: [],
         shipping_company: [],
         shipping_country: [],
         shipping_state: [],
+        billing_email: [],
+        billing_first_name: [],
+        billing_last_name: [],
+        billing_address: [],
+        billing_city: [],
+        billing_zipcode: [],
+        billing_phone: [],
+        billing_company: [],
+        billing_city: [],
+        billing_country: [],
+        billing_state: [],
     },
     form: {
         shipping_email: '',
@@ -19,13 +29,23 @@ export const state = () => ({
         shipping_first_name: '',
         shipping_last_name: '',
         shipping_address: '',
-        shipping_address_2: '',
         shipping_city: '',
         shipping_zip: '',
         shipping_phone: '',
         shipping_company: '',
         shipping_country: '',
         shipping_state: '',
+        billing_email: '',
+        billing_first_name: '',
+        billing_last_name: '',
+        billing_address: '',
+        billing_city: '',
+        billing_zipcode: '',
+        billing_phone: '',
+        billing_company: '',
+        billing_city: '',
+        billing_country: '',
+        billing_state: '',
     },
     formloading: false
 })
@@ -50,9 +70,6 @@ export const mutations = {
         if(res.data.shipping_address){
             state.errors.shipping_address = res.data.shipping_address
         }
-        if(res.data.shipping_address_2){
-            state.errors.shipping_address_2 = res.data.shipping_address_2
-        }
         if(res.data.shipping_city){
             state.errors.shipping_city = res.data.shipping_city
         }
@@ -71,6 +88,39 @@ export const mutations = {
         if(res.data.shipping_company){
             state.errors.shipping_company = res.data.shipping_company
         }
+        if(res.data.billing_email){
+            state.errors.billing_email = res.data.billing_email
+        }
+        if(res.data.billing_first_name){
+            state.errors.billing_first_name = res.data.billing_first_name
+        }
+        if(res.data.billing_last_name){
+            state.errors.billing_last_name = res.data.billing_last_name
+        }
+        if(res.data.billing_address){
+            state.errors.billing_address = res.data.billing_address
+        }
+        if(res.data.billing_city){
+            state.errors.billing_city = res.data.billing_city
+        }
+        if(res.data.billing_zipcode){
+            state.errors.billing_zipcode = res.data.billing_zipcode
+        }
+        if(res.data.billing_phone){
+            state.errors.billing_phone = res.data.billing_phone
+        }
+        if(res.data.billing_company){
+            state.errors.billing_company = res.data.billing_company
+        }
+        if(res.data.billing_city){
+            state.errors.billing_city = res.data.billing_city
+        }
+        if(res.data.billing_country){
+            state.errors.billing_country = res.data.billing_country
+        }
+        if(res.data.billing_state){
+            state.errors.billing_state = res.data.billing_state
+        }
     },
     resetErrors(state){
         state.errors= {
@@ -79,13 +129,24 @@ export const mutations = {
             shipping_first_name: [],
             shipping_last_name: [],
             shipping_address: [],
-            shipping_address_2: [],
             shipping_city: [],
             shipping_zip: [],
             shipping_phone: [],
             shipping_state: [],
             shipping_country: [],
             shipping_company: [],
+
+            billing_email: [],
+            billing_first_name: [],
+            billing_last_name: [],
+            billing_address: [],
+            billing_city: [],
+            billing_zipcode: [],
+            billing_phone: [],
+            billing_company: [],
+            billing_city: [],
+            billing_country: [],
+            billing_state: [],
         }
     },
     resetForm(state){
@@ -95,13 +156,24 @@ export const mutations = {
             shipping_first_name: '',
             shipping_last_name: '',
             shipping_address: '',
-            shipping_address_2: '',
-            shipping_city: '',
+            shipping_city: 0,
             shipping_zip: '',
             shipping_phone: '',
-            shipping_state: '',
-            shipping_country: '',
+            shipping_state: 0,
+            shipping_country: 0,
             shipping_company: '',
+
+            billing_email: '',
+            billing_first_name: '',
+            billing_last_name: '',
+            billing_address: '',
+            billing_city: 0,
+            billing_zipcode: '',
+            billing_phone: '',
+            billing_company: '',
+            billing_city: 0,
+            billing_country: 0,
+            billing_state: '',
         }
     },
     set_shipping_email(state, shipping_email){
@@ -118,9 +190,6 @@ export const mutations = {
     },
     set_shipping_address(state, shipping_address){
         state.form.shipping_address = shipping_address
-    },
-    set_shipping_address_2(state, shipping_address_2){
-        state.form.shipping_address_2 = shipping_address_2
     },
     set_shipping_city(state, shipping_city){
         state.form.shipping_city = shipping_city
@@ -139,6 +208,37 @@ export const mutations = {
     },
     set_shipping_company(state, shipping_company){
         state.form.shipping_company = shipping_company
+    },
+
+    set_billing_email(state, billing_email){
+        state.form.billing_email = billing_email
+    },
+    set_billing_first_name(state, billing_first_name){
+        state.form.billing_first_name = billing_first_name
+    },
+    set_billing_last_name(state, billing_last_name){
+        state.form.billing_last_name = billing_last_name
+    },
+    set_billing_address(state, billing_address){
+        state.form.billing_address = billing_address
+    },
+    set_billing_city(state, billing_city){
+        state.form.billing_city = billing_city
+    },
+    set_billing_zipcode(state, billing_zipcode){
+        state.form.billing_zipcode = billing_zipcode
+    },
+    set_billing_phone(state, billing_phone){
+        state.form.billing_phone = billing_phone
+    },
+    set_billing_state(state, billing_state){
+        state.form.billing_state = billing_state
+    },
+    set_billing_country(state, billing_country){
+        state.form.billing_country = billing_country
+    },
+    set_billing_company(state, billing_company){
+        state.form.billing_company = billing_company
     },
     
 }
