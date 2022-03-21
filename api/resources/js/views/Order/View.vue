@@ -146,9 +146,9 @@
                   invoice.shipping_address
                 }}</v-list-item-title>
                 <v-list-item-subtitle
-                  >{{ invoice.scity.name }}, {{ invoice.sstate.name }}
+                  >{{ invoice.shipping_city }}, {{ invoice.shipping_state }}
                   {{ invoice.shipping_zip }}<br />
-                  {{ invoice.scountry.name }}</v-list-item-subtitle
+                  {{ invoice.shipping_country }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -225,9 +225,9 @@
                   invoice.billing_address
                 }}</v-list-item-title>
                 <v-list-item-subtitle
-                  >{{ invoice.bcity.name }}, {{ invoice.bstate.name }}
+                  >{{ invoice.bcity }}, {{ invoice.bstate }}
                   {{ invoice.billing_zip }}<br />
-                  {{ invoice.bcountry.name }}</v-list-item-subtitle
+                  {{ invoice.bcountry }}</v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -332,6 +332,7 @@ export default {
       this.order_status = e.order_status
       return e;
     });
+    console.log(this.invoice);
   },
   data() {
     return {
@@ -349,7 +350,7 @@ export default {
       alert("her");
     },
     captureOrder(){
-      
+
     }
   },
 };

@@ -27,6 +27,11 @@ class OrderController extends Controller
         Gate::authorize('viewAny',Order::class);
         $query = $this->listRep->listFilteredQuery(['shipping_email', 'shipping_company','shipping_state','shipping_country','shipping_phone','shipping_city','shipping_zip','shipping_address','shipping_first_name','shipping_last_name'])
         ->select('orders.*');
+
+        if(isset($_GET['status'])){
+            $query=$query->where('order_status',$_GET['status']);
+        }
+
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $query=$query->paginate($_GET['perpage']);
         }else{

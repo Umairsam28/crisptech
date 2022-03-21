@@ -7,6 +7,42 @@
         </template>
       </v-breadcrumbs>
     </v-row>
+    <v-row class="justify-end">
+      <v-btn
+        small
+        color="secondary"
+        @click="isHidden ? (isHidden = false) : (isHidden = true)"
+      >
+        <v-icon>mdi-filter</v-icon>Filter
+      </v-btn>
+    </v-row>
+    <v-container v-if="isHidden">
+      <v-card style="padding: 29px 27px">
+        <v-row class="inline d-flex">
+          <v-select
+            :items="statuses"
+            label="Status"
+            item-text="name"
+            v-model="filter.status"
+            item-value="id"
+            dense
+            class="mx-4 pt-5"
+          ></v-select>
+          <v-btn
+            elevation="1"
+            color="primary"
+            class="mt-5"
+            v-on:click="applyFilter()"
+            raised
+            >Apply Filter</v-btn
+          >
+          <v-btn depressed class="mt-5" v-on:click="resetFilter()" raised
+            >Reset</v-btn
+          >
+        </v-row>
+      </v-card>
+    </v-container>
+
     <v-data-table
       :headers="headers"
       :items="items"
@@ -23,16 +59,15 @@
         ></v-text-field>
       </template>
       <template v-slot:item.shipping_first_name="{ item }">
-        {{item.shipping_first_name}} {{item.shipping_last_name}}
+        {{ item.shipping_first_name }} {{ item.shipping_last_name }}
       </template>
-      <template v-slot:item.total="{ item }">
-        $ {{item.total}}
-      </template>
+      <template v-slot:item.total="{ item }"> $ {{ item.total }} </template>
       <template v-slot:item.shipping_address="{ item }">
         <address>
-            {{item.shipping_address}} <br>
-            {{item.shipping_city}}, {{item.shipping_state}} {{item.shipping_zip}}<br>
-            {{item.shipping_country}}
+          {{ item.shipping_address }} <br />
+          {{ item.shipping_city }}, {{ item.shipping_state }}
+          {{ item.shipping_zip }}<br />
+          {{ item.shipping_country }}
         </address>
       </template>
       <template v-slot:item.order_status="{ item }">
@@ -40,7 +75,7 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn
-          v-if="permissions.indexOf(160)>=0"
+          v-if="permissions.indexOf(160) >= 0"
           color="info"
           fab
           x-small
@@ -57,20 +92,24 @@
 import Swal from "sweetalert2";
 import defaultservice from "@services/auth/default";
 import OrderStatus from "@/components/orders/status.vue";
-const service = new defaultservice('orders')
+const service = new defaultservice("orders");
 export default {
   name: "auth.orders.listing",
-  components:{
-    OrderStatus
+  components: {
+    OrderStatus,
   },
-  computed:{
-    permissions(){
-        return this.$store.getters.getPermissions
-    }
+  computed: {
+    permissions() {
+      return this.$store.getters.getPermissions;
+    },
   },
   data() {
     return {
       search: "",
+      isHidden: false,
+      filter: {
+        status: "",
+      },
       bread: [
         {
           text: "Dashboard",
@@ -87,6 +126,13 @@ export default {
       ],
       items: [],
       loading: true,
+      statuses: [
+        { id: 1, name: "Pending" },
+        { id: 2, name: "Processing" },
+        { id: 3, name: "Holded" },
+        { id: 4, name: "Canceled" },
+        { id: 5, name: "Completed/Delivered" },
+      ],
       totalRecords: 0,
       options: {},
       headers: [
@@ -131,7 +177,7 @@ export default {
           align: "start",
           sortable: true,
           value: "order_status",
-        },        
+        },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -181,7 +227,16 @@ export default {
       if (this.search != "") {
         query += "&search=" + this.search;
       }
+      if (this.filter.status != "") {
+        query += "&status=" + this.filter.status;
+      }
       return service.getlist(query);
+    },
+    applyFilter() {
+      this.getDataFromApi();
+    },
+    resetFilter() {
+      (this.isHidden = false), (this.filter.status = ""), this.getDataFromApi();
     },
   },
   watch: {

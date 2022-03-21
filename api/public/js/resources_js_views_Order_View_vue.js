@@ -418,8 +418,9 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
             case 2:
               _this.invoice = _context.sent;
+              console.log(_this.invoice);
 
-            case 3:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -470,7 +471,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -1157,16 +1158,16 @@ var render = function () {
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
-                                  _vm._s(_vm.invoice.scity.name) +
+                                  _vm._s(_vm.invoice.shipping_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.sstate.name) +
+                                    _vm._s(_vm.invoice.shipping_state) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.shipping_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.scountry.name)
+                                    _vm._s(_vm.invoice.shipping_country)
                                 ),
                               ]),
                             ],
@@ -1321,16 +1322,16 @@ var render = function () {
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
-                                  _vm._s(_vm.invoice.bcity.name) +
+                                  _vm._s(_vm.invoice.bcity) +
                                     ", " +
-                                    _vm._s(_vm.invoice.bstate.name) +
+                                    _vm._s(_vm.invoice.bstate) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.billing_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.bcountry.name)
+                                    _vm._s(_vm.invoice.bcountry)
                                 ),
                               ]),
                             ],
