@@ -26,7 +26,9 @@ use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 
 Route::get('/front/countries', [CountryCityStateController::class,'countries']);
 Route::get('/front/states/{country}', [CountryCityStateController::class,'states']);
+Route::get('/front/states-single/{state}', [CountryCityStateController::class,'state']);
 Route::get('/front/cities/{state}', [CountryCityStateController::class,'cities']);
+Route::get('/front/user-exemptions', [CountryCityStateController::class,'exemptions']);
 
 Route::get('/front/home', [HomeController::class,'index']);
 Route::get('/front/menu', [HomeController::class,'menu']);
@@ -81,6 +83,10 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::apiResource('cities', CityController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
     Route::apiResource('orders', OrderController::class);
+
+    Route::get('/order-stripedetails/{order}', [OrderController::class,'stripedetails']);
+    Route::get('/capture-order/{order}', [OrderController::class,'capture']);
+    Route::get('/refund-order/{order}', [OrderController::class,'refund']);
 
     //additional
     Route::post('/a/products/uploadcsv', [ProductController::class,'uploadcsv']);

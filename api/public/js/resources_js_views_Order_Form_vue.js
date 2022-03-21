@@ -127,8 +127,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_auth_default__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/auth/default */ "./resources/js/services/auth/default.js");
 /* harmony import */ var _components_orders_productautocomplete_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/orders/productautocomplete.vue */ "./resources/js/components/orders/productautocomplete.vue");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -569,7 +567,7 @@ var stateservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["defa
 var citieservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('cities');
 var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('user-exemptions');
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     productautocomplete: _components_orders_productautocomplete_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -977,11 +975,6 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
       return addpermission;
     }()
   },
-  computed: {
-    user: function user() {
-      return this.$store.getters.loggedInUser;
-    }
-  },
   data: function data() {
     return {
       countries: [],
@@ -1065,36 +1058,40 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
         }
       }
     };
-  }
-}, "computed", {
-  order_subtotal: function order_subtotal() {
-    var sub_total = 0;
+  },
+  computed: {
+    user: function user() {
+      return this.$store.getters.loggedInUser;
+    },
+    order_subtotal: function order_subtotal() {
+      var sub_total = 0;
 
-    for (var i = 0; i < this.items.length; i++) {
-      if (this.items[i].item_id > 0) {
-        sub_total += this.items[i].item.actual_price * this.items[i].qty;
+      for (var i = 0; i < this.items.length; i++) {
+        if (this.items[i].item_id > 0) {
+          sub_total += this.items[i].item.actual_price * this.items[i].qty;
+        }
       }
+
+      return sub_total;
+    },
+    order_total: function order_total() {
+      var total = 0;
+
+      if (this.items.length > 0) {
+        total = this.order_subtotal - this.order_discount;
+      }
+
+      return total;
+    },
+    tax_amount: function tax_amount() {
+      var tax_amount = this.order_total / 100 * this.tax_percent;
+      return tax_amount;
+    },
+    order_total_after_tax: function order_total_after_tax() {
+      return this.order_total + this.tax_amount;
     }
-
-    return sub_total;
-  },
-  order_total: function order_total() {
-    var total = 0;
-
-    if (this.items.length > 0) {
-      total = this.order_subtotal - this.order_discount;
-    }
-
-    return total;
-  },
-  tax_amount: function tax_amount() {
-    var tax_amount = this.order_total / 100 * this.tax_percent;
-    return tax_amount;
-  },
-  order_total_after_tax: function order_total_after_tax() {
-    return this.order_total + this.tax_amount;
   }
-}));
+});
 
 /***/ }),
 
@@ -1120,7 +1117,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 

@@ -54,19 +54,66 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
                         $price = str_replace('$','',$price);
                         $in_stock = Str::contains(strtolower($availability), 'instock');
                         if($sku){
-                            $product = Product::where('sku',$sku)->update(
-                                [
-                                    'part_number'=>$part,'name'=>$name,'brand_id'=>$manufacturer_id,
-                                    'category_id'=>$category_id,'condition'=>$condition,'sale_price'=>$saleprice,
-                                    'weight'=>$weight,'price'=>$price,
-                                    'crawl_url'=>$url,'description'=>$specification,
-                                    'in_stock'=>$in_stock,'stock_qty'=>intval($remaining_stock),'manage_stock'=>(intval($remaining_stock)>0?1:0),
-                                    'crawl_site'=>$crawl_site,
-                                    'slug'=>Str::slug($part).$count,
-                                    'google_feed'=>$google_feed,
-                                    'is_active'=>$is_active,
-                                ]
-                            );
+                            $updatedArray = [];
+                            if($part){
+                                $updatedArray['part_number'] = $part;
+                            }
+                            if($name){
+                                $updatedArray['name'] = $name;
+                            }
+                            if($manufacturer_id){
+                                $updatedArray['brand_id'] = $manufacturer_id;
+                            }
+                            if($category_id){
+                                $updatedArray['category_id'] = $category_id;
+                            }
+                            if($condition){
+                                $updatedArray['condition'] = $condition;
+                            }
+                            if($saleprice){
+                                $updatedArray['sale_price'] = $saleprice;
+                            }
+                            if($weight){
+                                $updatedArray['weight'] = $weight;
+                            }
+                            if($price){
+                                $updatedArray['price'] = $price;
+                            }
+                            if($url){
+                                $updatedArray['crawl_url'] = $url;
+                            }
+                            if($specification){
+                                $updatedArray['description'] = $specification;
+                            }
+                            if($in_stock){
+                                $updatedArray['in_stock'] = $in_stock;
+                            }
+                            if(intval($remaining_stock)){
+                                $updatedArray['stock_qty'] = intval($remaining_stock);
+                                $updatedArray['manage_stock'] = (intval($remaining_stock)>0?1:0);
+                            }
+                            if($crawl_site){
+                                $updatedArray['crawl_site'] = $crawl_site;
+                            }
+                            if($google_feed){
+                                $updatedArray['google_feed'] = $google_feed;
+                            }
+                            if($is_active){
+                                $updatedArray['is_active'] = $is_active;
+                            }
+                            // $product = Product::where('sku',$sku)->update(
+                            //     [
+                            //         'part_number'=>$part,'name'=>$name,'brand_id'=>$manufacturer_id,
+                            //         'category_id'=>$category_id,'condition'=>$condition,'sale_price'=>$saleprice,
+                            //         'weight'=>$weight,'price'=>$price,
+                            //         'crawl_url'=>$url,'description'=>$specification,
+                            //         'in_stock'=>$in_stock,'stock_qty'=>intval($remaining_stock),'manage_stock'=>(intval($remaining_stock)>0?1:0),
+                            //         'crawl_site'=>$crawl_site,
+                            //         'google_feed'=>$google_feed,
+                            //         'is_active'=>$is_active,
+                            //     ]
+                            // );
+                            $product = Product::where('sku',$sku)->update($updatedArray);
                         }else{
                             $product = Product::create(
                                 [

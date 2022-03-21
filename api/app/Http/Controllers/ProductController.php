@@ -62,7 +62,6 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-
         Gate::authorize('create',Product::class);
         $product = Product::create($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price','brand_id','crawl_site','in_stock','manage_stock','stock_qty','part_number','sku','condition','is_active','weight','google_feed'));
         if(isset($request->related)&&count($request->related)>0){

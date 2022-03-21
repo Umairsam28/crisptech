@@ -365,6 +365,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
@@ -380,6 +412,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
               _context.next = 2;
               return service.get(_this.$route.params.id).then(function (e) {
                 _this.loading = false;
+                _this.order_status = e.order_status;
                 return e;
               });
 
@@ -396,6 +429,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
+      order_status: 1,
       invoice: {},
       loading: true,
       tracking_id: ""
@@ -407,7 +441,8 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   methods: {
     sendTrackingCode: function sendTrackingCode() {
       alert("her");
-    }
+    },
+    captureOrder: function captureOrder() {}
   }
 });
 
@@ -435,7 +470,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -888,6 +923,88 @@ var render = function () {
                                   expression: "tracking_id",
                                 },
                               }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-content",
+                        [
+                          _c("v-list-item-title", { staticClass: "text-h6" }, [
+                            _vm._v(
+                              "\n              Update Order Status\n            "
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn-toggle",
+                            {
+                              attrs: {
+                                tile: "",
+                                color: "deep-purple accent-3",
+                                group: "",
+                              },
+                            },
+                            [
+                              _vm.order_status == 1
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { small: "", value: "2" },
+                                      on: { click: _vm.captureOrder },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                Processing\n              "
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.order_status == 1
+                                ? _c(
+                                    "v-btn",
+                                    { attrs: { small: "", value: "3" } },
+                                    [
+                                      _vm._v(
+                                        "\n                Holded\n              "
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.order_status == 1
+                                ? _c(
+                                    "v-btn",
+                                    { attrs: { small: "", value: "4" } },
+                                    [
+                                      _vm._v(
+                                        "\n                Canceled\n              "
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.order_status == 2
+                                ? _c(
+                                    "v-btn",
+                                    { attrs: { small: "", value: "5" } },
+                                    [
+                                      _vm._v(
+                                        "\n                Completed/Delivered\n              "
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
                             ],
                             1
                           ),

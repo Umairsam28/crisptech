@@ -124,7 +124,7 @@ lazy-validation
 >
   <v-text-field
     v-model="form.short_description"
-    :rules="[rules.required]"
+    
     :error-messages="errors.short_description"
     label="Short Description"
   ></v-text-field>

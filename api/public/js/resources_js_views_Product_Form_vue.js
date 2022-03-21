@@ -1569,7 +1569,6 @@ var render = function () {
                         [
                           _c("v-text-field", {
                             attrs: {
-                              rules: [_vm.rules.required],
                               "error-messages": _vm.errors.short_description,
                               label: "Short Description",
                             },

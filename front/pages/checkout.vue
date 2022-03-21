@@ -129,7 +129,9 @@
                   >
                     <b-form-select
                       @input="shipping_state"
-                      :options="options2"
+                      :options="shipping_states"
+                      value-field="id"
+                      text-field="name"
                     ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_state_err.length>0">{{ shipping_state_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
@@ -139,15 +141,12 @@
                     label="City:"
                     label-for="input-1"
                   >
-                    <b-form-input
-                      id="input-1"
+                    <b-form-select
                       @input="shipping_city"
-                      :value="shipping_city_comp"
-                      type="text"
-                      placeholder="City"
-                      required
-                    >
-                    </b-form-input>
+                      :options="shipping_cities"
+                      value-field="id"
+                      text-field="name"
+                    ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_city_err.length>0">{{ shipping_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
@@ -305,7 +304,9 @@
                   >
                     <b-form-select
                       @input="billing_state"
-                      :options="options2"
+                      :options="billing_states"
+                      value-field="id"
+                      text-field="name"
                     ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_state_err.length>0">{{ billing_state_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
@@ -316,15 +317,12 @@
                     label="City:"
                     label-for="input-1"
                   >
-                    <b-form-input
-                      id="input-1"
+                    <b-form-select
                       @input="billing_city"
-                      :value="billing_city_comp"
-                      type="text"
-                      placeholder="City"
-                      required
-                    >
-                    </b-form-input>
+                      :options="billing_cities"
+                      value-field="id"
+                      text-field="name"
+                    ></b-form-select>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_city_err.length>0">{{ billing_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
@@ -416,28 +414,32 @@
                       <font-awesome-icon icon="fa-solid fa-credit-card" />
                       <b-form-input
                         id="input-1"
-                        type="email"
-                        placeholder="Enter email"
+                        type="text"
+                        placeholder="Card Number"
                         required
+                        v-model="card.number"
                       >
                       </b-form-input>
+                      <b-form-invalid-feedback v-if="card_number_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_number_err[0] }}</b-form-invalid-feedback>
                     </li>
                     <li class="cmonth">
                       <font-awesome-icon icon="fa-solid fa-calendar-days" />
+                      <b-form-select text-field="value" value-field="id" required v-model="card.month" :options="[{'id':1, value: 'January'},{'id':2, value: 'February'},{'id':3, value: 'March'},{'id':4, value: 'April'},{'id':5, value: 'May'},{'id':6, value: 'June'},{'id':7, value: 'July'},{'id':8, value: 'August'},{'id':9, value: 'September'},{'id':10, value: 'Octuber'},{'id':11, value: 'November'},{'id':12, value: 'December'}]"></b-form-select>
+                      <b-form-invalid-feedback v-if="card_month_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_month_err[0] }}</b-form-invalid-feedback>
+                      <b-form-select text-field="value" value-field="id" required v-model="card.year" :options="card_years"></b-form-select>
+                      <b-form-invalid-feedback v-if="card_year_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_year_err[0] }}</b-form-invalid-feedback>
+                    </li>
+                    <li class="cnum">
+                      <font-awesome-icon icon="fa-solid fa-credit-card" />
                       <b-form-input
                         id="input-1"
-                        type="email"
-                        placeholder="Enter email"
+                        type="text"
+                        placeholder="CVV Number"
                         required
+                        v-model="card.cvv"
                       >
                       </b-form-input>
-                      <b-form-input
-                        id="input-1"
-                        type="email"
-                        placeholder="Enter email"
-                        required
-                      >
-                      </b-form-input>
+                      <b-form-invalid-feedback v-if="card_cvv_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_cvv_err[0] }}</b-form-invalid-feedback>
                     </li>
                   </ul>
                   <ul>
@@ -489,12 +491,13 @@
                       <li><span>Cart Subtotal </span><span>${{subtotal}} </span></li>
                       <li><span>Discount</span><span>${{discount_amount}} </span></li>
                       <li><span>Shipping</span><span>$0.00 </span></li>
-                      <li>
+                      <li><span>Tax</span><span>${{tax_amount.toFixed(2)}} </span></li>
+                      <!-- <li>
                         <span>Free Ground Shipping - Free </span><span></span>
-                      </li>
+                      </li> -->
                     </ul>
                     <ul class="total-order">
-                      <li><span>Order Total	</span><span>${{total}}</span></li>
+                      <li><span>Order Total	</span><span>${{final_total}}</span></li>
                     </ul>
                   </div>
                   <Coupon />
@@ -517,6 +520,9 @@ export default {
       this.shipping_countries = e.data.countries
       this.billing_countries = e.data.countries
     })
+    for(let i = 2022; i < 2032;i++){
+      this.card_years.push({id: i, value: i})
+    }
   },
   data() {
     return {
@@ -527,23 +533,22 @@ export default {
       billing_countries: [],
       billing_states: [],
       billing_cities: [],
-      options: [
-        { value: null, text: "Please select an option" },
-        { value: "a", text: "Albania	" },
-        { value: "b", text: "Algeria" },
-        { value: "c", text: "Andorra" },
-      ],
-      options2: [
-        { value: null, text: "Please select an option" },
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Selected Option" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-      ],
+      card:{
+        number: '',
+        month: '',
+        year: '',
+        cvv: '',
+      },
+      card_years: [],
+      taxcalls: undefined,
+      tax_percent: 0,
     };
   },
   watch:{
     same_as_shipping(){
       if(this.same_as_shipping===true){
+        this.billing_states = this.shipping_states
+        this.billing_cities = this.shipping_cities
         this.billing_email(this.shipping_email_comp)
         this.billing_first_name(this.shipping_first_name_comp)
         this.billing_last_name(this.shipping_last_name_comp)
@@ -556,6 +561,8 @@ export default {
         this.billing_country(this.shipping_country_comp)
         this.billing_state(this.shipping_state_comp)
       }else{
+        this.billing_states = []
+        this.billing_cities = []
         this.billing_email('')
         this.billing_first_name('')
         this.billing_last_name('')
@@ -614,15 +621,53 @@ export default {
         this.billing_city(this.shipping_city_comp)
       }
     },
-    shipping_country_comp(){
+    async shipping_country_comp(){
+      if(this.shipping_country_comp){
+        await this.$axios.get('states/'+this.shipping_country_comp).then(e=>{
+          this.shipping_states = e.data.states
+          if(this.same_as_shipping===true){
+            this.billing_states = e.data.states
+          }
+        })
+      }
       if(this.same_as_shipping===true){
         this.billing_country(this.shipping_country_comp)
       }
     },
-    shipping_state_comp(){
+    async shipping_state_comp(){
+      if(this.shipping_state_comp){
+        await this.$axios.get('cities/'+this.shipping_state_comp).then(e=>{
+          this.shipping_cities = e.data.cities
+          if(this.same_as_shipping===true){
+            this.billing_cities = e.data.cities
+          }
+        })
+      }
       if(this.same_as_shipping===true){
         this.billing_state(this.shipping_state_comp)
       }
+    },
+    async billing_country_comp(){
+      if(this.same_as_shipping===false){
+        if(this.billing_country_comp){
+          await this.$axios.get('states/'+this.billing_country_comp).then(e=>{
+            this.billing_states = e.data.states
+          })
+        }
+      }
+    },
+    async billing_state_comp(){
+      this.checkfortax()
+      if(this.same_as_shipping===false){
+        if(this.billing_state_comp){
+          await this.$axios.get('cities/'+this.billing_state_comp).then(e=>{
+            this.billing_cities = e.data.cities
+          })
+        }
+      }
+    },
+    async billing_email_comp(){
+      this.checkfortax()
     },
   },
   computed:{
@@ -676,6 +721,11 @@ export default {
       billing_country_err: state=>state.checkout.errors.billing_country,
       billing_state_err: state=>state.checkout.errors.billing_state,
 
+      card_number_err: state=>state.checkout.errors.card_number,
+      card_month_err: state=>state.checkout.errors.card_month,
+      card_cvv_err: state=>state.checkout.errors.card_cvv,
+      card_year_err: state=>state.checkout.errors.card_year,
+
       formloading: state=>state.checkout.formloading,
       items: state=>state.cart.items,
       total: state=>state.cart.total,
@@ -684,6 +734,14 @@ export default {
       discount_applied: state=>state.cart.couponApplied,
       // same_as_billing_comp: 'checkout/same_as_billing',
     }),
+    tax_amount(){
+      let tax_amount = parseFloat((this.total/100)*this.tax_percent)
+      return tax_amount;
+    },
+    final_total(){
+      let tax_amount = this.tax_amount
+      return parseFloat(parseFloat(this.total)+tax_amount).toFixed(2)
+    }
   },
   methods: {
     ...mapMutations({
@@ -714,8 +772,29 @@ export default {
     }),
     saveOrder(){
       this.$store.dispatch('checkout/save',{
-        items: this.items
+        items: this.items,
+        card: this.card,
+        discount_applied: this.discount_applied,
+        discount_amount: this.discount_amount,
+        tax_amount: this.tax_amount,
+        tax_percent: this.tax_percent,
       })
+    },
+    checkfortax(){
+      this.tax_percent = 0
+      if(parseInt(this.billing_state_comp)>0){
+        clearInterval(this.taxcalls);
+        this.taxcalls = setInterval(()=>{
+          clearInterval(this.taxcalls);
+          this.$axios.get('user-exemptions?user_email='+this.billing_email_comp+'&state_id='+this.billing_state_comp).then(e=>{
+            if(e.data.data.length==0){
+              this.$axios.get('states-single/'+this.billing_state_comp).then(e=>{
+                this.tax_percent = e.data.state.tax_percent
+              })
+            }
+          })
+        },500)
+      }
     },
   }
 };

@@ -42,7 +42,7 @@ class ProductRequest extends FormRequest
             'in_stock'=>[Rule::in([0,1])],
             'manage_stock'=>[Rule::in([0,1])],
             'stock_qty'=>'sometimes|integer|min:1',
-            'part_number'=>['required','max:255',new UniquePartNumWithCondition($request->part_number,$request->condition)],
+            'part_number'=>['required','max:255',new UniquePartNumWithCondition($request->part_number,$request->condition, $id)],
             'sku'=>'required|max:255|unique:App\Models\Product,sku'.($id>0?(','.$id):''),
             'condition'=>'required|max:100',
             'weight'=>'required|min:1',

@@ -22,6 +22,11 @@ export const state = () => ({
         billing_city: [],
         billing_country: [],
         billing_state: [],
+
+        card_number: [],
+        card_month: [],
+        card_cvv: [],
+        card_year: [],
     },
     form: {
         shipping_email: '',
@@ -121,6 +126,19 @@ export const mutations = {
         if(res.data.billing_state){
             state.errors.billing_state = res.data.billing_state
         }
+
+        if(res.data['card.number']){
+            state.errors.card_number = res.data['card.number']
+        }
+        if(res.data['card.month']){
+            state.errors.card_month = res.data['card.month']
+        }
+        if(res.data['card.cvv']){
+            state.errors.card_cvv = res.data['card.cvv']
+        }
+        if(res.data['card.year']){
+            state.errors.card_year = res.data['card.year']
+        }
     },
     resetErrors(state){
         state.errors= {
@@ -147,6 +165,11 @@ export const mutations = {
             billing_city: [],
             billing_country: [],
             billing_state: [],
+
+            card_number: [],
+            card_month: [],
+            card_cvv: [],
+            card_year: [],
         }
     },
     resetForm(state){
@@ -243,11 +266,20 @@ export const mutations = {
     
 }
 export const actions = {
-    async save({ commit, state }, {items}) {
+    async save({ commit, state }, {items, card, discount_amount, discount_applied, tax_amount, tax_percent}) {
         commit('tglloader')//setting loader to true
         commit('resetErrors')
         let formData = state.form
-        formData.items = items
+        formData.items = []
+        formData.card = {}
+        formData.discount_amount = 0
+        formData.tax_amount = tax_amount
+        formData.tax_percent = tax_percent
+        Object.assign(formData.items,items)
+        Object.assign(formData.card,card)
+        if(discount_applied===true){
+            formData.discount_amount = discount_amount
+        }
         let res = await this.$axios.post('orders',formData).then(function(e){
             return {status: 1, data: e.data.data}
         }).catch(function(e){
@@ -256,8 +288,8 @@ export const actions = {
         if(!res.status){
             commit('setErrors',res)
         }else{
-            commit('resetForm')
             this.$router.push('/order/thankyou/'+res.data.id)
+            commit('resetForm')
         }
         commit('tglloader')//setting loader to true
     }

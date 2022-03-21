@@ -727,11 +727,6 @@ export default {
       }
     },
   },
-  computed: {
-    user() {
-        return this.$store.getters.loggedInUser;
-    },
-  },
   data() {
     return {
       countries: [],
@@ -814,6 +809,9 @@ export default {
     };
   },
   computed:{
+    user() {
+        return this.$store.getters.loggedInUser;
+    },
     order_subtotal(){
       let sub_total = 0
       for(let i = 0; i < this.items.length; i++){

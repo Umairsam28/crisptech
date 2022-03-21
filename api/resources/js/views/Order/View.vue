@@ -42,6 +42,38 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-h6">
+                Update Order Status
+              </v-list-item-title>
+              <v-btn-toggle
+                tile
+                color="deep-purple accent-3"
+                group
+              >
+                <!-- <v-btn small value="1">
+                  Pending
+                </v-btn> -->
+
+                <v-btn @click="captureOrder" v-if="order_status==1" small value="2">
+                  Processing
+                </v-btn>
+
+                <v-btn v-if="order_status==1" small value="3">
+                  Holded
+                </v-btn>
+
+                <v-btn v-if="order_status==1" small value="4">
+                  Canceled
+                </v-btn>
+
+                <v-btn v-if="order_status==2" small value="5">
+                  Completed/Delivered
+                </v-btn>
+              </v-btn-toggle>
+            </v-list-item-content>
+          </v-list-item>
         </v-col>
         <v-col cols="4">
           <v-toolbar
@@ -297,11 +329,13 @@ export default {
   async mounted() {
     this.invoice = await service.get(this.$route.params.id).then((e) => {
       this.loading = false;
+      this.order_status = e.order_status
       return e;
     });
   },
   data() {
     return {
+      order_status: 1,
       invoice: {},
       loading: true,
       tracking_id: "",
@@ -314,6 +348,9 @@ export default {
     sendTrackingCode() {
       alert("her");
     },
+    captureOrder(){
+      
+    }
   },
 };
 </script>

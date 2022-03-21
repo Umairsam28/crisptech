@@ -16,10 +16,11 @@ class UniquePartNumWithCondition implements Rule
      *
      * @return void
      */
-    public function __construct($value1,$value2)
+    public function __construct($value1,$value2, $id)
     {
         $this->value1 = $value1;
         $this->value2 = $value2;
+        $this->id = $id;
     }
 
     /**
@@ -35,9 +36,12 @@ class UniquePartNumWithCondition implements Rule
             'part_number'=> $this->value1,
             'condition' => $this->value2
         ];
-        $product = Product::where($where);
-        $product->get();
-        if(!is_null($product)){
+        $query = Product::where($where);
+        if($this->id>0){
+            $query = $query->where('id','<>',$this->id);
+        }
+        $product = $query->count();
+        if($product>0){
         return false;
         }
         return true;
@@ -50,6 +54,6 @@ class UniquePartNumWithCondition implements Rule
      */
     public function message()
     {
-        return 'Part number already exist';
+        return 'Part number already exist with the same condition';
     }
 }

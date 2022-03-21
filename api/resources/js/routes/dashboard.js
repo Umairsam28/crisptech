@@ -260,7 +260,7 @@ export default [
             },
             {
                 path: 'edit/:id',
-                component: ()=> import('@/views/Order/Form.vue'),
+                component: ()=> import('@/views/Order/Edit.vue'),
                 name: 'auth.orders.edit'
             }
         ],
