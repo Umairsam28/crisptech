@@ -6,7 +6,7 @@
 <script>
 export default {
   props: {
-    order_status: {
+    order_status: { 
       type: Number,
       default: 1,
     },

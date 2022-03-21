@@ -159,7 +159,7 @@
                 <b-tab title="More Information">
                   <p><strong>Manufacturer</strong> : {{product.brand.name}}</p>
                 </b-tab>
-                <b-tab title="Reviews"><p>Reviews</p></b-tab>
+                <!-- <b-tab title="Reviews"><p>Reviews</p></b-tab> -->
                 <b-tab title="Warranty">
                   <div class="in-tab">
                     <p>

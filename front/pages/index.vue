@@ -58,7 +58,7 @@
                 </div>
                 <b-row class="other-details">
                   <b-col md="12">
-                    <div class="star-rate">
+                    <!-- <div class="star-rate">
                       <ul>
                         <li><font-awesome-icon icon="fa-solid fa-star" /></li>
                         <li><font-awesome-icon icon="fa-solid fa-star" /></li>
@@ -69,7 +69,7 @@
                         </li>
                       </ul>
                       <span>26</span>
-                    </div>
+                    </div> -->
                     <div class="p-price">
                       <h3>{{featured_product.actual_price}}</h3>
                     </div>
@@ -95,8 +95,8 @@
           <h2 class="sec-heading">Most Selling Products</h2>
           <b-row>
             <!-- PRODUCT -->
-            <b-col v-for="most_selling_product in most_selling_products" md="4" :key="most_selling_product.id">
-              <b-row class="content-holder no-lr">
+            <b-col v-for="most_selling_product in most_selling_products" md="4" :key="most_selling_product.id" v-show="most_selling_product.product">
+              <b-row v-if="most_selling_product.product" class="content-holder no-lr">
                 <b-col md="5" class="img-holder">
                   <nuxt-link :to="'/product/'+most_selling_product.product.slug">
                     <img :src="most_selling_product.product.image_url" alt=""
@@ -104,7 +104,7 @@
                 </b-col>
                 <b-col md="7" class="pro-details">
                   <h5>{{most_selling_product.product.name}}</h5>
-                  <div class="star-rate">
+                  <!-- <div class="star-rate">
                     <ul>
                       <li><font-awesome-icon icon="fa-solid fa-star" /></li>
                       <li><font-awesome-icon icon="fa-solid fa-star" /></li>
@@ -115,7 +115,7 @@
                       </li>
                     </ul>
                     <span>26</span>
-                  </div>
+                  </div> -->
                   <div class="save">
                     <strong>${{most_selling_product.product.actual_price}}</strong>
                     <strike v-if="most_selling_product.product.discount>0">$500</strike>
