@@ -58,7 +58,6 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
                             if(Product::where('sku',$sku)->count()>0){
                                 $updatedArray = [];
                                 if($part){
-                                    echo 'part here';
                                     $updatedArray['part_number'] = $part;
                                 }
                                 if($name){
@@ -120,21 +119,24 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
                             }
                         }else{
                             if($part&&$name&&$manufacturer_id&&$category_id&&$condition&&$saleprice&&$price){
-                                $product = Product::create(
-                                    [
-                                        'part_number'=>$part,'name'=>$name,'brand_id'=>$manufacturer_id,
-                                        'category_id'=>$category_id,'condition'=>$condition,'sale_price'=>$saleprice,
-                                        'weight'=>$weight,'price'=>$price,
-                                        'crawl_url'=>$url,'description'=>$specification,
-                                        'in_stock'=>$in_stock,'stock_qty'=>intval($remaining_stock),'manage_stock'=>(intval($remaining_stock)>0?1:0),
-                                        'crawl_site'=>$crawl_site,
-                                        'slug'=>Str::slug($part).$count,
-                                        'google_feed'=>$google_feed,
-                                        'is_active'=>$is_active,
-                                    ]
-                                );
-                                $product->sku = 'CRIS-'.$product->id;
-                                $product->save();
+                                //checking if part number and condition exists from earliar
+                                if(Product::where('part_number',$part)->where('condition',$condition)->count()==0){
+                                    $product = Product::create(
+                                        [
+                                            'part_number'=>$part,'name'=>$name,'brand_id'=>$manufacturer_id,
+                                            'category_id'=>$category_id,'condition'=>$condition,'sale_price'=>$saleprice,
+                                            'weight'=>$weight,'price'=>$price,
+                                            'crawl_url'=>$url,'description'=>$specification,
+                                            'in_stock'=>$in_stock,'stock_qty'=>intval($remaining_stock),'manage_stock'=>(intval($remaining_stock)>0?1:0),
+                                            'crawl_site'=>$crawl_site,
+                                            'slug'=>Str::slug($part).$count,
+                                            'google_feed'=>$google_feed,
+                                            'is_active'=>$is_active,
+                                        ]
+                                    );
+                                    $product->sku = 'CRIS-'.$product->id;
+                                    $product->save();
+                                }
                             }
                         }
                     }
