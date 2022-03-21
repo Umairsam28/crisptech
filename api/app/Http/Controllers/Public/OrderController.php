@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Order};
+use App\Models\{Order, Country, City, State};
 use App\Http\Requests\OrderRequestFront;
 use Stripe;
 class OrderController extends Controller
@@ -27,6 +27,17 @@ class OrderController extends Controller
                     'exp_year' => $request->card['year'],
                     'cvc' => $request->card['cvv'],
                 ],
+                'billing_details'=>[
+                    'email'=>$request->billing_email,
+                    'name'=>$request->billing_first_name.' '.$request->billing_last_name,
+                    'address'=>[
+                        'country'=>Country::find($request->billing_country)->iso_code,
+                        'city'=>City::find($request->billing_city)->name,
+                        'state'=>State::find($request->billing_state)->name,
+                        'postal_code'=>$request->billing_zipcode,
+                        'line1'=>$request->billing_address,
+                    ]
+                ]
             ]);
             if($method->id){
                 $total = 0;
