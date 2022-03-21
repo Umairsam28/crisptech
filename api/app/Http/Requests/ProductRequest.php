@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniquePartNumWithCondition;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
@@ -22,8 +24,9 @@ class ProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+
         $id = intval(optional($this->route('product'))->id);
         return [
             'name'=>'required|max:255',
@@ -39,10 +42,17 @@ class ProductRequest extends FormRequest
             'in_stock'=>[Rule::in([0,1])],
             'manage_stock'=>[Rule::in([0,1])],
             'stock_qty'=>'sometimes|integer|min:1',
-            'part_number'=>'required|max:255',//|unique:App\Models\Product,part_number'.($id>0?(','.$id):''),
+            'part_number'=>['required','max:255',new UniquePartNumWithCondition($request->part_number,$request->condition)],
             'sku'=>'required|max:255|unique:App\Models\Product,sku'.($id>0?(','.$id):''),
             'condition'=>'required|max:100',
             'weight'=>'required|min:1',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image.dimensions' => 'The Image must be at least 455 x 436 pixels!',
         ];
     }
 }

@@ -395,6 +395,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -413,10 +414,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _services_auth_product__WEBPACK_IMPORTED_MODULE_1__["default"].getlist('').then(function (e) {
                 _this.related_products = e.data;
               });
-              _services_auth_brand__WEBPACK_IMPORTED_MODULE_3__["default"].getlist('').then(function (e) {
+              _services_auth_brand__WEBPACK_IMPORTED_MODULE_3__["default"].getlist('?sortCol=name&sortByDesc=0').then(function (e) {
                 _this.brands = e.data;
               });
-              _services_auth_category__WEBPACK_IMPORTED_MODULE_2__["default"].getlist('').then(function (e) {
+              _services_auth_category__WEBPACK_IMPORTED_MODULE_2__["default"].getlist('?sortCol=name&sortByDesc=0').then(function (e) {
                 var _this$categories;
 
                 (_this$categories = _this.categories).push.apply(_this$categories, _toConsumableArray(e.data.filter(function (e) {
@@ -485,10 +486,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 14:
               _this.form.slug = res.slug;
-              _context.next = 18;
+              _context.next = 20;
               break;
 
             case 17:
+              _context.next = 19;
+              return _services_auth_product__WEBPACK_IMPORTED_MODULE_1__["default"].getlist('?perpage=1').then(function (e) {
+                if (e.data.length > 0) {
+                  _this.form.sku = e.data[0].id + 1;
+                } else {
+                  _this.form.sku = 1;
+                }
+              });
+
+            case 19:
               _this.bread.push({
                 text: "Add",
                 to: {
@@ -498,7 +509,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 exact: true
               });
 
-            case 18:
+            case 20:
             case "end":
               return _context.stop();
           }
@@ -609,6 +620,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 36:
                 if (!res.status) {
+                  console.log(res.data);
+
                   if (res.data.name) {
                     this.errors.name = res.data.name;
                   }
@@ -1930,6 +1943,7 @@ var render = function () {
                               label: "Brand",
                               "item-text": "name",
                               "item-value": "id",
+                              "error-messages": _vm.errors.brand_id,
                             },
                             model: {
                               value: _vm.form.brand_id,

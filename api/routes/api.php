@@ -103,5 +103,5 @@ Route::middleware('auth:api')->get('/notifications', function (Request $request)
 });
 
 
-//importing 
+//importing
 Route::post('/import-brands', [BrandController::class,'import']);

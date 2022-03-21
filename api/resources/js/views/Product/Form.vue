@@ -291,6 +291,7 @@ lazy-validation
     label="Brand"
     item-text="name"
     item-value="id"
+    :error-messages="errors.brand_id"
 ></v-select>
 </v-col>
 
@@ -353,14 +354,14 @@ export default {
     productservice.getlist('').then(e=>{
       this.related_products = e.data;
     })
-    brandservice.getlist('').then(e=>{
+    brandservice.getlist('?sortCol=name&sortByDesc=0').then(e=>{
       this.brands = e.data;
     })
-    categoryservice.getlist('').then(e=>{
+    categoryservice.getlist('?sortCol=name&sortByDesc=0').then(e=>{
       this.categories.push(...e.data.filter(e=>{
         return e.parent_id==0
       }))
-    })   
+    })
     if(this.$route.params.id){
       var res = await productservice.get(this.form.id)
         let related_to_select = res.related.map(e=>{
@@ -401,6 +402,13 @@ export default {
         await this.$nextTick()
         this.form.slug = res.slug
     }else{
+        await productservice.getlist('?perpage=1').then((e) => {
+            if(e.data.length>0){
+                this.form.sku = ((e.data[0].id)+(1));
+            }else{
+                this.form.sku = 1;
+            }
+        });
         this.bread.push({
           text: "Add",
           to: { name: "auth.products.add"},
@@ -454,7 +462,7 @@ export default {
         formdata.append("part_number", this.form.part_number);
         formdata.append("is_featured", (this.form.is_featured==true?1:0));
         formdata.append("is_active", (this.form.is_active==true?1:0));
-        formdata.append("google_feed", (this.form.google_feed==true?1:0));       
+        formdata.append("google_feed", (this.form.google_feed==true?1:0));
         formdata.append("in_stock", (this.form.in_stock==true?1:0));
         formdata.append("manage_stock", (this.form.manage_stock==true?1:0));
         if(this.form.manage_stock==true&&this.form.in_stock==true){
@@ -479,6 +487,7 @@ export default {
           var res = await productservice.create(formdata)
         }
         if(!res.status){
+            console.log(res.data);
             if(res.data.name){
                 this.errors.name = res.data.name
             }
@@ -511,7 +520,7 @@ export default {
             }
             if(res.data.google_feed){
                 this.errors.google_feed = res.data.google_feed
-            }         
+            }
             if(res.data.category_id){
                 this.errors.category_id = res.data.category_id
             }
@@ -570,7 +579,7 @@ export default {
       brands: [],
       editor: ClassicEditor,
       editorConfig: {
-        
+
       },
       default_category: [],
       form:{
