@@ -22,10 +22,18 @@ body{
 }
 /* HEADER */
 header {
-    background-color: #2557AA;
+    background-color: #017CBA;
     color: #fff;
 }
-
+.header-logo img {
+    max-width: 500px;
+    width: 100%;
+}
+.header-logo {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+}
 .top-bar {
     text-align: center;
     padding: 6px 0;
@@ -198,7 +206,7 @@ header {
 }
 
 .sec-heading {
-    background-color: #2557AA;
+    background-color: #017CBA;
     padding: 10px 15px;
     color: #ffd200;
     text-transform: uppercase;
@@ -208,7 +216,7 @@ header {
 }
 
 .content-container {
-    border: 2px solid #2557AA;
+    border: 2px solid #232E38;
     border-radius: 4px;
     text-align: center;
 }
@@ -249,9 +257,9 @@ header {
 }
 
 .progress-bar.progress-bar-striped.progress-bar-animated {
-    background: #2557AA;
+    background: #017CBA;
     font-size: 9px;
-    color: #2557AA;
+    color: #017CBA;
 }
 
 .progress {
@@ -279,7 +287,7 @@ header {
     background-color: #dfdfdf;
 }
 .deal-end span,.save strong {
-    color: #2557AA;
+    color: #017CBA;
 }
 .three-col .content-container > .row {
     background-color: #fff;
@@ -329,7 +337,7 @@ header {
 
 /* FOOTER */
 footer {
-    background-color: #2457aa;
+    background-color: #017CBA;
     color: #fff;
     padding: 40px 0 0;
 }
@@ -394,7 +402,7 @@ footer {
 }
 .footer-bottom {
     padding: 17px 0;
-    border-top: 1px solid #777;
+    border-top: 1px solid #232E38;
     margin: 30px 0 0;
     text-align: center;
 }
@@ -419,7 +427,7 @@ footer {
 
 /* SIDEBAR */
 .side-heading {
-    background-color: #2557AA;
+    background-color: #017CBA;
     margin: 0;
     padding: 8px 10px;
     text-transform: uppercase;
@@ -428,7 +436,7 @@ footer {
 }
 
 .sidebar {
-    border: 1px solid #2557AA;
+    border: 1px solid #232E38;
     padding: 0;
     border-radius: 4px;
 }
@@ -516,23 +524,23 @@ footer {
     border-radius: 4px 4px 0 0;
 }
 .yellow-btn {
-    background: #ffd200;
-    border-color: #ffd200;
+    background: #232E38;
+    border-color: #232E38;
 }
 .yellow-btn:hover {
-    background: #2457aa;
-    border-color: #2457aa;
+    background: #017CBA;
+    border-color: #017CBA;
     color: #fff !important;
 }
 .blue-btn {
-    background: #2457aa;
-    border-color: #2457aa;
+    background: #017CBA;
+    border-color: #017CBA;
     color: #fff;
 }
 .blue-btn:hover {
-    background: #ffd200;
-    border-color: #ffd200;
-    color: #2457aa;
+    background: #232E38;
+    border-color: #232E38;
+    color: #fff;
 }
 
 
@@ -741,7 +749,7 @@ a {
     font-size: 15px;
     font-weight: 600;
     text-transform: capitalize;
-    color: #ffd200 !important;
+    color: #017CBA;
     line-height: 20px;
 }
 .last-bar .col-md-10 {
@@ -766,7 +774,7 @@ a {
 }
 
 .cart-logo span {
-    background-color: #ffd200;
+    background-color: #017CBA;
     color: #000;
     width: 20px;
     position: absolute;
@@ -779,7 +787,7 @@ a {
     right: -7px;
 }
 .cart-info span {
-    color: #ffd200;
+    color: #017CBA;
     font-size: 15px;
     font-weight: 600;
     line-height: 19px;
@@ -793,8 +801,8 @@ a {
 }
 
 .last-bar {
-    border-bottom: 2px solid #ffd200;
-    background-color: #1f4c94;
+    border-bottom: 4px solid #017CBA;
+    background-color: #232E38;
 }
 
 
@@ -849,8 +857,8 @@ a {
     padding: 16px 15px;
     display: block;
     text-align: left;
-    background-color: #2b63bd;
-    border-bottom: 1px solid #2356a7;
+    background-color: #017CBA;
+    border-bottom: 1px solid #232E38;
     font-size: 13px;
 }
 .menu > li:hover > a {
@@ -966,7 +974,7 @@ a {
 }
 
 .menu-btn > button svg:first-child {
-    background-color: #2b63bd;
+    background-color: #017CBA;
     padding: 8px;
     border-radius: 5px;
 }
@@ -1033,7 +1041,7 @@ a {
 
 }
 .last-bar .cart a {
-    color: #2557AA;
+    color: #017CBA;
 }
 .cart .edit-pro {
     padding: 0;
@@ -1078,7 +1086,7 @@ a {
   
   /* Handle */
   .cart-items::-webkit-scrollbar-thumb {
-    background: #2557AA;
+    background: #017CBA;
   }
   
   /* Handle on hover */
@@ -1191,7 +1199,7 @@ table {
 }
 
 .cart-area table th {
-    background-color: #2557AA;
+    background-color: #017CBA;
     color: #ffd200;
     text-transform: uppercase;
     padding: 15px 10px;
@@ -1231,14 +1239,14 @@ input{font-size: 13px;}
     padding: 80px 0;
 }
 .block-box h5 {
-    background-color: #2557AA;
+    background-color: #017CBA;
     color: #ffd200;
     padding: 10px 15px;
     margin: 0 -15px 10px;
 }
 
 .checkout-view .block-box {
-    border: 1px solid #2557AA;
+    border: 1px solid #232E38;
     padding: 0 15px;
     margin-bottom: 30px;
 }

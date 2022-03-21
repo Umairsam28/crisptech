@@ -18,7 +18,7 @@
         <div class="header-left">
           <div class="header-logo">
             <nuxt-link to="/" class="logo">
-              <img src="~/assets/images/next-logo.png" alt="nextHDD-logo" />
+              <img src="~/assets/images/next-logo2.png" alt="nextHDD-logo" />
             </nuxt-link>
           </div>
         </div>
