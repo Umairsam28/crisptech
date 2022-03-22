@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class WishlistRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class WishlistRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +23,21 @@ class WishlistRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
+    {
+
+        return [
+            'user_id' => 'required',
+            'product_id' => Rule::unique('wishlists')->where(function ($query) use ($request){
+                return $query->where('user_id',$request->user_id)->where('product_id', $request->product_id);
+            }),
+        ];
+    }
+
+    public function messages()
     {
         return [
-            //
-        ];
+                'product_id.unique' => 'Product already exist in wishlist',
+      ];
     }
 }

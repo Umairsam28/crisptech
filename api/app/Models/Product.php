@@ -26,6 +26,9 @@ class Product extends Model
     public function brand(){
         return $this->belongsTo(Brand::class);
     }
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class);
+    }
     public function image(){
         return $this->morphOne(File::class,'fileable');
     }

@@ -10,7 +10,7 @@ use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
 use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
-use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
+use App\Http\Controllers\Public\{HomeController, CountryCityStateController, WishlistController};
 
 
 /*
@@ -54,6 +54,8 @@ Route::get('/front/orders/{order}', [OrderFrontController::class,'index']);
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/front/login', [ApiAuthController::class,'login']);
     Route::post('/front/register', [ApiAuthController::class,'register']);
+    Route::apiResource('/front/wishlist', WishlistController::class);
+
 });
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
