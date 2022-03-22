@@ -50,7 +50,7 @@
               Creating an account has many benefits: check out faster, keep more
               than one address, track orders and more.
             </p>
-            <nuxt-link to="/" class="blue-btn">Create an account</nuxt-link>
+            <nuxt-link to="/register" class="blue-btn">Create an account</nuxt-link>
           </b-col>
         </b-row>
         </div>

@@ -51,13 +51,10 @@ Route::post('/front/orders', [OrderFrontController::class,'store']);
 Route::get('/front/orders/{order}', [OrderFrontController::class,'index']);
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
-    Route::post('/front/login', [ApiAuthController::class,'login']);
-    Route::post('/front/register', [ApiAuthController::class,'register']);
-});
-
-Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', [ApiAuthController::class,'login'])->name('login.api');
     Route::post('/register', [ApiAuthController::class,'register'])->name('register.api');
+    Route::post('/front/login', [ApiAuthController::class,'login']);
+    Route::post('/front/register', [ApiAuthController::class,'register']);
 });
 
 Route::group(['middleware' => ['cors', 'json.response','auth:api']], function () {

@@ -15,7 +15,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $with = ['permissions'];
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'name'];
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,8 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'api_token',
@@ -68,5 +69,8 @@ class User extends Authenticatable
     }
     public function schedule(){
         return $this->hasMany(DjSchedule::class);
+    }
+    public function getNameAttribute(){
+        return $this->first_name.' '.$this->last_name;
     }
 }

@@ -40,7 +40,8 @@ class ApiAuthController extends Controller
     public function register(RegisterRequest $request) {
         $user = User::create([
             'email'=>$request->email,
-            'name'=>$request->name,
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
             'password'=>Hash::make($request->password),
             'role_id'=>13,
         ]);
