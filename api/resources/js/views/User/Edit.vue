@@ -195,7 +195,7 @@ export default {
       password: '',
       role_id: '',
       roles: [],
-      image: null,
+      image: undefined,
       image_url: '',
       id: 0,
       errors: {

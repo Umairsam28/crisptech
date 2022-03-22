@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
         return [
             'name'=>'required|max:255',
             'slug'=>'required|max:255|unique:App\Models\Category,slug'.($id>0?(','.$id):''),
-            // 'category_alias'=>'required|max:255|unique:App\Models\Category,category_alias'.($id>0?(','.$id):''),
+            'category_alias'=>'required|max:255',
         ];
     }
 }

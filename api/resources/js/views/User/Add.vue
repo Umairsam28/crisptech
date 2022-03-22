@@ -177,7 +177,7 @@ export default {
       email: "",
       password: "",
       role_id: "",
-      image: {},
+      image: undefined,
       roles: [],
       errors: {
         name: [],

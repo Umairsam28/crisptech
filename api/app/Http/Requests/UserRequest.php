@@ -31,7 +31,7 @@ class UserRequest extends FormRequest
             'email'=>'required|max:255|email|unique:App\Models\User,email'.($id>0?(','.$id):''),
             'role_id'=>'required',
             'password'=>'sometimes|required|max:200',
-            'image'=>($has_file? 'image|dimensions:min_width=500,min_height=500' : ''),
+            'image'=>'sometimes|image|dimensions:min_width=500,min_height=500',
         ];
     }
     public function messages()
