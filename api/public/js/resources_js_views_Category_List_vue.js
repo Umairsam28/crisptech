@@ -102,6 +102,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         sortable: true,
         value: "name"
       }, {
+        text: "Alias",
+        align: "start",
+        sortable: true,
+        value: "category_alias"
+      }, {
         text: "Parent",
         align: "start",
         sortable: true,

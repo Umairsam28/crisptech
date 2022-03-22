@@ -79,6 +79,12 @@ export default {
           value: "name",
         },
         {
+          text: "Alias",
+          align: "start",
+          sortable: true,
+          value: "category_alias",
+        },
+        {
           text: "Parent",
           align: "start",
           sortable: true,

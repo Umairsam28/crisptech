@@ -361,7 +361,7 @@ export default {
     copyToClipboard(id){
       const copyText = document.getElementById(id).textContent
       const textArea = document.createElement('textarea')
-      textArea.textContent = copyText.replace(/ /, '')
+      textArea.textContent = copyText.replace(/  +/g, '')
       document.body.append(textArea)
       textArea.select()
       document.execCommand('copy')

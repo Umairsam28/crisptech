@@ -158,20 +158,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -4291,15 +4277,15 @@ var render = function () {
             proxy: true,
           },
           {
-            key: "item.date",
+            key: "item.billing_first_name",
             fn: function (ref) {
               var item = ref.item
               return [
                 _vm._v(
                   "\n      " +
-                    _vm._s(item.shipping_first_name) +
+                    _vm._s(item.billing_first_name) +
                     " " +
-                    _vm._s(item.shipping_last_name) +
+                    _vm._s(item.billing_last_name) +
                     "\n    "
                 ),
               ]
@@ -4325,30 +4311,6 @@ var render = function () {
             fn: function (ref) {
               var item = ref.item
               return [_vm._v(" $ " + _vm._s(item.total) + " ")]
-            },
-          },
-          {
-            key: "item.shipping_address",
-            fn: function (ref) {
-              var item = ref.item
-              return [
-                _c("address", [
-                  _vm._v("\n        " + _vm._s(item.shipping_address) + " "),
-                  _c("br"),
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(item.shipping_city) +
-                      ", " +
-                      _vm._s(item.shipping_state) +
-                      "\n        " +
-                      _vm._s(item.shipping_zip)
-                  ),
-                  _c("br"),
-                  _vm._v(
-                    "\n        " + _vm._s(item.shipping_country) + "\n      "
-                  ),
-                ]),
-              ]
             },
           },
           {

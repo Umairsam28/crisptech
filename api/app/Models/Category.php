@@ -11,7 +11,7 @@ class Category extends Model
     protected $appends = ['image_url','level_name'];
     protected $with = ['image','children'];
     protected $fillable = [
-        'parent_id','name','slug','short_description','description','is_featured','level',
+        'parent_id','name','slug','category_alias','short_description','description','is_featured','level',
         'show_in_main_menu','show_in_home_sidemenu',
     ];
     public function getRouteKeyName()

@@ -70,7 +70,7 @@ class CouponController extends Controller
     public function update(CouponRequest $request, Coupon $coupon)
     {
         Gate::authorize('update',$coupon);
-        $coupon->update($request->only('code','discount_type','discount','minimum_cart_value','maximum_cart_value'));
+        $coupon->update($request->only('name','code','discount_type','discount','minimum_cart_value','maximum_cart_value'));
         return new CouponResource($coupon);
     }
 
