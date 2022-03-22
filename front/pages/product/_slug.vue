@@ -134,11 +134,11 @@
                   <b-form-textarea
                     id="textarea"
                     placeholder="Enter something..."
-                    v-model="quoteform.description"
+                    v-model="quoteform.message"
                     rows="3"
                     max-rows="6"
                   ></b-form-textarea>
-                  <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback">{{ quoteformerror.description[0] }}</b-form-invalid-feedback>
+                  <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback">{{ quoteformerror.message[0] }}</b-form-invalid-feedback>
                 </b-form-group>
 
                 <b-button v-if="!quoteformloading" :disabled="quoteformloading" type="submit" class="blue-btn">Submit</b-button>
@@ -249,7 +249,7 @@ export default {
         this.quoteformerror = {
           email:[],
           qty: [],
-          description: [],
+          message: [],
         }
     },
     async submitProductQuote(event){
@@ -272,14 +272,14 @@ export default {
           if(res.data.qty){
               this.quoteformerror.qty = res.data.qty
           }
-          if(res.data.description){
-              this.quoteformerror.description = res.data.description
+          if(res.data.message){
+              this.quoteformerror.message = res.data.message
           }
         }else{
           this.quoteform = {
             email: '',
             qty: 1,
-            description: '',
+            message: '',
           }
           swal("Thank you", "Your Inquiry has been submitted", "success");
         }
@@ -321,12 +321,12 @@ export default {
       quoteform:{
         email: '',
         qty: 1,
-        description: '',
+        message: '',
       },
       quoteformerror:{
         email:[],
         qty: [],
-        description: [],
+        message: [],
       },
     };
   },
