@@ -25,6 +25,7 @@ class CouponRequest extends FormRequest
     {
         $id = intval(optional($this->route('coupon'))->id);
         return [
+            'name'=>'required|max:255',
             'code'=>'required|max:255|unique:App\Models\Coupon,code'.($id>0?(','.$id):''),
             'discount_type'=>'required',
             'discount'=>'required',

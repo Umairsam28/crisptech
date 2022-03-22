@@ -7,6 +7,63 @@
         </template>
       </v-breadcrumbs>
     </v-row>
+    <v-row class="justify-end">
+      <v-btn
+        small color="secondary"
+        @click="isHidden ? (isHidden = false) : (isHidden = true)"
+        >  <v-icon>mdi-filter</v-icon>Filter </v-btn>
+    </v-row>
+
+    <v-container v-if="isHidden">
+        <v-card style="padding: 29px 27px;">
+      <v-row class="inline d-flex">
+        <v-text-field
+          v-model="filter.name_sku"
+          label="Product Name/ SKU"
+          class="mx-4"
+        ></v-text-field>
+        <v-text-field
+          v-model="filter.part_num"
+          label="Part Number"
+          class="mx-4"
+        ></v-text-field>
+        <v-select
+        :items="['New','Refurbished']"
+          label="Condition"
+          item-text="name"
+          v-model="filter.condition"
+          item-value="id"
+          dense
+          class="mx-4 pt-5"
+        ></v-select>
+      </v-row>
+      <v-row class="inline d-flex">
+        <v-select
+          :items="categories"
+          label="Categories"
+          item-text="name"
+          item-value="id"
+          v-model="filter.category"
+          dense
+          class="mx-4 pt-5"
+        ></v-select>
+        <v-select
+          :items="brands"
+          label="Brands"
+          v-model="filter.brand"
+          item-text="name"
+          item-value="id"
+          dense
+          class="mx-4 pt-5"
+        ></v-select>
+        <v-btn elevation="1" color="primary" class="mt-5" raised v-on:click="applyFilter()"
+          >Apply Filter</v-btn
+        >
+        <v-btn depressed  class="mt-5" raised v-on:click="resetFilter()">Reset</v-btn>
+      </v-row>
+        </v-card>
+    </v-container>
+
     <v-data-table
       :headers="headers"
       :items="items"
@@ -42,11 +99,24 @@
 <script>
 import Swal from "sweetalert2";
 import productservice from "@services/auth/product";
+import categoryservice from "@services/auth/category";
+import brandservice from "@services/auth/brand";
 export default {
   name: "auth.products.listing",
   data() {
     return {
+      filter: {
+        name_sku: "",
+        part_num: "",
+        condition: "",
+        category: "",
+        brand: "",
+      },
+      isHidden: false,
       search: "",
+      conditions: [],
+      categories: [],
+      brands: [],
       bread: [
         {
           text: "Dashboard",
@@ -116,6 +186,13 @@ export default {
   },
   mounted() {
     this.getDataFromApi();
+
+    brandservice.getlist("?sortCol=name&sortByDesc=0").then((e) => {
+      this.brands = e.data;
+    });
+    categoryservice.getlist("?sortCol=name&sortByDesc=0").then((e) => {
+      this.categories = e.data;
+    });
   },
   methods: {
     deleteuser: async function (id) {
@@ -167,8 +244,35 @@ export default {
       if (this.search != "") {
         query += "&search=" + this.search;
       }
+      if (this.filter.name_sku != "") {
+        query += "&name_sku=" + this.filter.name_sku;
+      }
+        if (this.filter.part_num != "") {
+        query += "&part_num=" + this.filter.part_num;
+      }
+       if (this.filter.condition) {
+        query += "&condition=" + this.filter.condition;
+      }
+        if (this.filter.brand != "") {
+        query += "&brand=" + this.filter.brand;
+      }
+        if (this.filter.category != "") {
+        query += "&category=" + this.filter.category;
+      }
       return productservice.getlist(query);
     },
+    applyFilter() {
+        this.getDataFromApi();
+    },
+     resetFilter() {
+        this.filter.name_sku = "",
+        this.filter.part_num= "",
+        this.filter.condition= "",
+        this.filter.category= "",
+        this.filter.brand= "",
+        this.isHidden = false,
+        this.getDataFromApi();
+     }
   },
   watch: {
     options: {

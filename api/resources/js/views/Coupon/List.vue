@@ -73,6 +73,12 @@ export default {
           value: "id",
         },
         {
+          text: "Name",
+          align: "start",
+          sortable: true,
+          value: "name",
+        },
+         {
           text: "Code",
           align: "start",
           sortable: true,

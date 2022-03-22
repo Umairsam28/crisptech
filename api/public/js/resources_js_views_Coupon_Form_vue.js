@@ -130,6 +130,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "auth.coupons.add",
@@ -214,12 +226,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 20;
+                  _context2.next = 21;
                   break;
                 }
 
                 this.btnloading = true;
                 formdata = new FormData();
+                formdata.append("name", this.form.name);
                 formdata.append("code", this.form.code);
                 formdata.append("discount", this.form.discount);
                 formdata.append("discount_type", this.form.discount_type);
@@ -228,26 +241,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 16;
+                  _context2.next = 17;
                   break;
                 }
 
-                _context2.next = 13;
+                _context2.next = 14;
                 return _services_auth_coupon__WEBPACK_IMPORTED_MODULE_1__["default"].update(formdata, this.form.id);
 
-              case 13:
+              case 14:
                 res = _context2.sent;
-                _context2.next = 19;
+                _context2.next = 20;
                 break;
 
-              case 16:
-                _context2.next = 18;
+              case 17:
+                _context2.next = 19;
                 return _services_auth_coupon__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 18:
+              case 19:
                 res = _context2.sent;
 
-              case 19:
+              case 20:
                 if (!res.status) {
                   if (res.data.code) {
                     this.errors.code = res.data.code;
@@ -276,7 +289,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-              case 20:
+              case 21:
               case "end":
                 return _context2.stop();
             }
@@ -301,13 +314,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
-        code: '',
+        name: "",
+        code: "",
         discount_type: 0,
         discount: 0,
         minimum_cart_value: 0,
         maximum_cart_value: 0
       },
       errors: {
+        name: [],
         code: [],
         discount_type: [],
         discount: [],
@@ -364,7 +379,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -616,10 +631,29 @@ var render = function () {
                     [
                       _c(
                         "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              rules: [_vm.rules.required],
+                              "error-messages": _vm.errors.name,
+                              label: "Name",
+                            },
+                            model: {
+                              value: _vm.form.name,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "name", $$v)
+                              },
+                              expression: "form.name",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
                           _c("v-text-field", {
                             attrs: {

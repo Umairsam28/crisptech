@@ -24,18 +24,24 @@ class OrderController extends Controller
     }
     public function index()
     {
-        Gate::authorize('viewAny',Order::class);
-        $query = $this->listRep->listFilteredQuery(['shipping_email', 'shipping_company','shipping_state','shipping_country','shipping_phone','shipping_city','shipping_zip','shipping_address','shipping_first_name','shipping_last_name'])
-        ->select('orders.*');
-        if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
-            $query=$query->paginate($_GET['perpage']);
-        }else{
-            $query=$query->get();
+        Gate::authorize('viewAny', Order::class);
+        $query = $this->listRep->listFilteredQuery(['shipping_email', 'shipping_company', 'shipping_state', 'shipping_country', 'shipping_phone', 'shipping_city', 'shipping_zip', 'shipping_address', 'shipping_first_name', 'shipping_last_name'])
+            ->select('orders.*');
+
+        if (isset($_GET['status'])) {
+            $query = $query->where('order_status', $_GET['status']);
+        }
+
+        if (isset($_GET['perpage']) && intval($_GET['perpage']) > 0) {
+            $query = $query->paginate($_GET['perpage']);
+        } else {
+            $query = $query->get();
         }
         return OrderResource::collection($query);
     }
-    public function store(OrderRequest $request){
-        Gate::authorize('create',Order::class);
+    public function store(OrderRequest $request)
+    {
+        Gate::authorize('create', Order::class);
         $arr = $request->only(
             'shipping_email',
             'shipping_notes',
@@ -61,29 +67,29 @@ class OrderController extends Controller
         );
         $order = Order::create($arr);
         $total = 0;
-        foreach($request->items as $key=>$value){
+        foreach ($request->items as $key => $value) {
             $product = Product::find($value['id']);
             $order->products()->create([
-                'product_id'=>$product->id,
-                'quantity'=>$value['quantity'],
-                'rowtotal'=>($product->actual_price*$value['quantity'])
+                'product_id' => $product->id,
+                'quantity' => $value['quantity'],
+                'rowtotal' => ($product->actual_price * $value['quantity'])
             ]);
-            $total+=($product->actual_price*$value['quantity']);
+            $total += ($product->actual_price * $value['quantity']);
         }
         $order->subtotal = $total;
         $total_before_discount = ($total);
-        $total_with_discount = ($total_before_discount-$request->discount_amount);
-        $tax_amount = (($total_with_discount/100)*$request->tax_percent);
+        $total_with_discount = ($total_before_discount - $request->discount_amount);
+        $tax_amount = (($total_with_discount / 100) * $request->tax_percent);
         $order->discount_amount = $request->discount_amount;
         $order->tax_percent = $request->tax_percent;
         $order->tax_amount = $tax_amount;
-        $order->total = ($total_with_discount+$tax_amount);
+        $order->total = ($total_with_discount + $tax_amount);
         $order->save();
         return new OrderResource($order);
     }
     public function update(OrderRequest $request, Order $order)
     {
-        Gate::authorize('update',$order);
+        Gate::authorize('update', $order);
         $arr = $request->only(
             'shipping_email',
             'shipping_notes',
@@ -110,14 +116,14 @@ class OrderController extends Controller
         $order->update($arr);
         $total = 0;
         $order->products()->delete();
-        foreach($request->items as $key=>$value){
+        foreach ($request->items as $key => $value) {
             $product = Product::find($value['id']);
             $order->products()->create([
-                'product_id'=>$product->id,
-                'quantity'=>$value['quantity'],
-                'rowtotal'=>($product->price*$value['quantity'])
+                'product_id' => $product->id,
+                'quantity' => $value['quantity'],
+                'rowtotal' => ($product->price * $value['quantity'])
             ]);
-            $total+=($product->price*$value['quantity']);
+            $total += ($product->price * $value['quantity']);
         }
         $order->total = $total;
         $order->save();
@@ -125,13 +131,13 @@ class OrderController extends Controller
     }
     public function show(Order $order)
     {
-        Gate::authorize('view',$order);
-        $order->load('products','products.product');
+        Gate::authorize('view', $order);
+        $order->load('products', 'products.product');
         return new OrderResource($order);
     }
     public function destroy(Order $order)
     {
-        Gate::authorize('delete',$order);
+        Gate::authorize('delete', $order);
         $order->products()->delete();
         $order->delete();
         return response()->json(null, 204);

@@ -56,7 +56,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Gate::authorize('create',Category::class);
-        $category = Category::create($request->only('name','slug','short_description','description','parent_id', 'is_featured', 'show_in_home_sidemenu','show_in_main_menu'));
+        $category = Category::create($request->only('name','slug','category_alias','short_description','description','parent_id', 'is_featured', 'show_in_home_sidemenu','show_in_main_menu'));
         $level = $this->getParents($category, 0);
         $category->level = $level;
         $category->save();
