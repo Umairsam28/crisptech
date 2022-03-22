@@ -22,6 +22,7 @@ class QuoteForms extends Migration
             $table->integer('quantity');
             $table->integer('quote_id');
             $table->string('phone',100);
+            $table->tinyInteger('is_new')->default(1);
             $table->timestamps();
         });
     }
