@@ -113,23 +113,23 @@ import userervice from "@services/auth/user";
 import rolesservice from "@services/auth/roles";
 export default {
   name: "auth.users.add",
-  mounted(){
-    rolesservice.get('').then(e=>{
-      this.roles=e
-    })
+  mounted() {
+    rolesservice.get("").then((e) => {
+      this.roles = e;
+    });
   },
   methods: {
-    resetError(){
-        this.errors = {
-          name:[],
-          email: [],
-          password: [],
-          role_id: [],
-          image: [],
-      }
+    resetError() {
+      this.errors = {
+        name: [],
+        email: [],
+        password: [],
+        role_id: [],
+        image: [],
+      };
     },
     addbrand: async function () {
-        this.resetError()
+      this.resetError();
       if (this.$refs.form.validate()) {
         this.btnloading = true;
         var formdata = new FormData();
@@ -137,54 +137,54 @@ export default {
         formdata.append("email", this.email);
         formdata.append("password", this.password);
         formdata.append("role_id", this.role_id);
-        if(this.image){
-            formdata.append("image", this.image);
+        if (this.image) {
+          formdata.append("image", this.image);
         }
         this.btnloading = false;
-        var res = await userervice.create(formdata)
-        if(!res.status){
-            if(res.data.name){
-                this.errors.name = res.data.name
-            }
-            if(res.data.email){
-                this.errors.email = res.data.email
-            }
-            if(res.data.password){
-                this.errors.password = res.data.password
-            }
-            if(res.data.role_id){
-                this.errors.role_id = res.data.role_id
-            }
-            if(res.data.image){
-                this.errors.image = res.data.image
-            }
-            //errors here
-        }else{
-            //suuccess here
-            this.$router.push({ name: "auth.users.listing" });
+        var res = await userervice.create(formdata);
+        if (!res.status) {
+          if (res.data.name) {
+            this.errors.name = res.data.name;
+          }
+          if (res.data.email) {
+            this.errors.email = res.data.email;
+          }
+          if (res.data.password) {
+            this.errors.password = res.data.password;
+          }
+          if (res.data.role_id) {
+            this.errors.role_id = res.data.role_id;
+          }
+          if (res.data.image) {
+            this.errors.image = res.data.image;
+          }
+          //errors here
+        } else {
+          //suuccess here
+          this.$router.push({ name: "auth.users.listing" });
         }
       }
     },
   },
   computed: {
     user() {
-        return this.$store.getters.loggedInUser;
+      return this.$store.getters.loggedInUser;
     },
   },
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      role_id: '',
+      name: "",
+      email: "",
+      password: "",
+      role_id: "",
       image: {},
       roles: [],
       errors: {
-          name:[],
-          email: [],
-          password: [],
-          role_id: [],
-          image: [],
+        name: [],
+        email: [],
+        password: [],
+        role_id: [],
+        image: [],
       },
       bread: [
         {

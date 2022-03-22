@@ -397,6 +397,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
@@ -443,7 +465,17 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
     sendTrackingCode: function sendTrackingCode() {
       alert("her");
     },
-    captureOrder: function captureOrder() {}
+    captureOrder: function captureOrder() {},
+    copyToClipboard: function copyToClipboard(id) {
+      var copyText = document.getElementById(id).textContent;
+      var textArea = document.createElement('textarea');
+      textArea.textContent = copyText.replace(/ /, '');
+      document.body.append(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      this.$store.commit("setNotification", "Address copied to clipboard.");
+      textArea.empty();
+    }
   }
 });
 
@@ -1030,6 +1062,20 @@ var render = function () {
                       _c("v-toolbar-title", [_vm._v("Shipping Detail")]),
                       _vm._v(" "),
                       _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { small: "", fab: "" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.copyToClipboard("shipping")
+                            },
+                          },
+                        },
+                        [_c("v-icon", [_vm._v("mdi-content-copy")])],
+                        1
+                      ),
                     ],
                     1
                   ),
@@ -1153,7 +1199,11 @@ var render = function () {
                             "v-list-item-content",
                             [
                               _c("v-list-item-title", [
-                                _vm._v(_vm._s(_vm.invoice.shipping_address)),
+                                _vm._v(
+                                  "\n                 " +
+                                    _vm._s(_vm.invoice.shipping_address) +
+                                    "\n              "
+                                ),
                               ]),
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
@@ -1167,9 +1217,51 @@ var render = function () {
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.shipping_country)
+                                    _vm._s(_vm.invoice.shipping_country) +
+                                    "\n                "
                                 ),
                               ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-item-subtitle",
+                                {
+                                  staticClass: "d-none",
+                                  attrs: { id: "shipping" },
+                                },
+                                [
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.invoice.shipping_first_name) +
+                                        " " +
+                                        _vm._s(_vm.invoice.shipping_last_name)
+                                    ),
+                                  ]),
+                                  _vm._v(",\n              "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.invoice.shipping_address)
+                                    ),
+                                  ]),
+                                  _vm._v(",\n              "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.invoice.shipping_city) +
+                                        ", " +
+                                        _vm._s(_vm.invoice.shipping_state) +
+                                        ", " +
+                                        _vm._s(_vm.invoice.shipping_country) +
+                                        ", " +
+                                        _vm._s(_vm.invoice.shipping_zip)
+                                    ),
+                                  ]),
+                                  _vm._v(",\n              "),
+                                  _c("p", [
+                                    _vm._v(
+                                      "T:" + _vm._s(_vm.invoice.shipping_phone)
+                                    ),
+                                  ]),
+                                ]
+                              ),
                             ],
                             1
                           ),
@@ -1194,6 +1286,20 @@ var render = function () {
                       _c("v-toolbar-title", [_vm._v("Billing Detail")]),
                       _vm._v(" "),
                       _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { small: "", fab: "" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.copyToClipboard("billing")
+                            },
+                          },
+                        },
+                        [_c("v-icon", [_vm._v("mdi-content-copy")])],
+                        1
+                      ),
                     ],
                     1
                   ),
@@ -1317,25 +1423,65 @@ var render = function () {
                             "v-list-item-content",
                             [
                               _c("v-list-item-title", [
-                                _vm._v(_vm._s(_vm.invoice.billing_address)),
+                                _vm._v(
+                                  "\n                 " +
+                                    _vm._s(_vm.invoice.billing_address) +
+                                    "\n\n              "
+                                ),
                               ]),
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
-                                  _vm._s(_vm.invoice.bcity) +
+                                  _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.bstate) +
+                                    _vm._s(_vm.invoice.billing_state) +
                                     "\n                " +
-                                    _vm._s(_vm.invoice.billing_zip)
+                                    _vm._s(_vm.invoice.billing_zipcode)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.bcountry)
+                                    _vm._s(_vm.invoice.billing_country)
                                 ),
                               ]),
                             ],
                             1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-subtitle",
+                            { staticClass: "d-none", attrs: { id: "billing" } },
+                            [
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.invoice.billing_first_name) +
+                                    " " +
+                                    _vm._s(_vm.invoice.billing_last_name)
+                                ),
+                              ]),
+                              _vm._v(",\n              "),
+                              _c("p", [
+                                _vm._v(_vm._s(_vm.invoice.billing_address)),
+                              ]),
+                              _vm._v(",\n              "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.invoice.billing_city) +
+                                    ", " +
+                                    _vm._s(_vm.invoice.billing_state) +
+                                    ", " +
+                                    _vm._s(_vm.invoice.billing_country) +
+                                    ", " +
+                                    _vm._s(_vm.invoice.billing_zipcode)
+                                ),
+                              ]),
+                              _vm._v(",\n              "),
+                              _c("p", [
+                                _vm._v(
+                                  "T:" + _vm._s(_vm.invoice.billing_phone)
+                                ),
+                              ]),
+                            ]
                           ),
                         ],
                         1

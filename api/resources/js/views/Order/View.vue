@@ -74,14 +74,20 @@
               </v-btn-toggle>
             </v-list-item-content>
           </v-list-item>
+
         </v-col>
         <v-col cols="4">
           <v-toolbar
             color="pink"
             dark
           >
+
             <v-toolbar-title>Shipping Detail</v-toolbar-title>
+
             <v-spacer></v-spacer>
+                <v-btn small fab @click="copyToClipboard('shipping')">
+                    <v-icon>mdi-content-copy</v-icon>
+                    </v-btn>
           </v-toolbar>
           <v-list two-line>
             <v-list-item>
@@ -142,14 +148,20 @@
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>{{
-                  invoice.shipping_address
-                }}</v-list-item-title>
+                    <v-list-item-title>
+                   {{ invoice.shipping_address }}
+                </v-list-item-title>
                 <v-list-item-subtitle
                   >{{ invoice.shipping_city }}, {{ invoice.shipping_state }}
                   {{ invoice.shipping_zip }}<br />
-                  {{ invoice.shipping_country }}</v-list-item-subtitle
-                >
+                  {{ invoice.shipping_country }}
+                  </v-list-item-subtitle>
+                <v-list-item-subtitle id="shipping" class="d-none">
+                <p>{{ invoice.shipping_first_name }} {{ invoice.shipping_last_name }}</p>,
+                <p>{{ invoice.shipping_address }}</p>,
+                <p>{{ invoice.shipping_city }}, {{ invoice.shipping_state }}, {{ invoice.shipping_country }}, {{ invoice.shipping_zip }}</p>,
+                <p>T:{{ invoice.shipping_phone }}</p>
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -160,7 +172,10 @@
             dark
           >
             <v-toolbar-title>Billing Detail</v-toolbar-title>
-            <v-spacer></v-spacer>
+                 <v-spacer></v-spacer>
+              <v-btn small fab @click="copyToClipboard('billing')">
+                    <v-icon>mdi-content-copy</v-icon>
+                    </v-btn>
           </v-toolbar>
           <v-list two-line>
             <v-list-item>
@@ -171,8 +186,7 @@
               <v-list-item-content>
                 <v-list-item-title
                   >{{ invoice.billing_first_name }}
-                  {{ invoice.billing_last_name }}</v-list-item-title
-                >
+                  {{ invoice.billing_last_name }}</v-list-item-title>
                 <v-list-item-subtitle>Full Name</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -221,15 +235,23 @@
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title>{{
-                  invoice.billing_address
-                }}</v-list-item-title>
+                <v-list-item-title>
+                   {{ invoice.billing_address }}
+
+                </v-list-item-title>
+
                 <v-list-item-subtitle
-                  >{{ invoice.bcity }}, {{ invoice.bstate }}
-                  {{ invoice.billing_zip }}<br />
-                  {{ invoice.bcountry }}</v-list-item-subtitle
+                  >{{ invoice.billing_city }}, {{ invoice.billing_state }}
+                  {{ invoice.billing_zipcode }}<br />
+                  {{ invoice.billing_country }}</v-list-item-subtitle
                 >
               </v-list-item-content>
+              <v-list-item-subtitle id="billing" class="d-none">
+                <p>{{ invoice.billing_first_name }} {{ invoice.billing_last_name }}</p>,
+                <p>{{ invoice.billing_address }}</p>,
+                <p>{{ invoice.billing_city }}, {{ invoice.billing_state }}, {{ invoice.billing_country }}, {{ invoice.billing_zipcode }}</p>,
+                <p>T:{{ invoice.billing_phone }}</p>
+                </v-list-item-subtitle>
             </v-list-item>
           </v-list>
         </v-col>
@@ -351,6 +373,17 @@ export default {
     },
     captureOrder(){
 
+    },
+    copyToClipboard(id){
+      const copyText = document.getElementById(id).textContent
+      const textArea = document.createElement('textarea')
+      textArea.textContent = copyText.replace(/ /, '')
+      document.body.append(textArea)
+      textArea.select()
+      document.execCommand('copy')
+
+      this.$store.commit("setNotification", "Address copied to clipboard.");
+      textArea.empty();
     }
   },
 };

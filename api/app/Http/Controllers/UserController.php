@@ -64,7 +64,7 @@ class UserController extends Controller
         $user = User::create($request->only('name','email','role_id','password'));
         $user->password = Hash::make($user->password);
         $user->save();
-        if($request->image){
+        if(!is_null($request->file('image')) && $request->image){
             $this->file->create([$request->image], 'users', $user->id, 1);
         }
         return new UserResource($user);

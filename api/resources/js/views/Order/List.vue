@@ -58,6 +58,9 @@
           class="mx-4"
         ></v-text-field>
       </template>
+      <template v-slot:item.date="{ item }">
+        {{ item.shipping_first_name }} {{ item.shipping_last_name }}
+      </template>
       <template v-slot:item.shipping_first_name="{ item }">
         {{ item.shipping_first_name }} {{ item.shipping_last_name }}
       </template>
@@ -143,28 +146,28 @@ export default {
           value: "id",
         },
         {
-          text: "Email",
+          text: "Billing Email",
           align: "start",
           sortable: true,
-          value: "shipping_email",
+          value: "billing_email",
         },
         {
-          text: "Full Name",
+          text: "Date",
+          align: "start",
+          sortable: true,
+          value: "created_date_formatted_us",
+        },
+        {
+          text: "Bill To",
+          align: "start",
+          sortable: true,
+          value: "billing_first_name",
+        },
+        {
+          text: "Ship To",
           align: "start",
           sortable: true,
           value: "shipping_first_name",
-        },
-        {
-          text: "Phone",
-          align: "start",
-          sortable: true,
-          value: "shipping_phone",
-        },
-        {
-          text: "Full Address",
-          align: "start",
-          sortable: true,
-          value: "shipping_address",
         },
         {
           text: "Total",

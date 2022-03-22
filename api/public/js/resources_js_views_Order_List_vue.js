@@ -169,6 +169,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -231,25 +234,25 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_2__["default"]
         sortable: true,
         value: "id"
       }, {
-        text: "Email",
+        text: "Billing Email",
         align: "start",
         sortable: true,
-        value: "shipping_email"
+        value: "billing_email"
       }, {
-        text: "Full Name",
+        text: "Date",
+        align: "start",
+        sortable: true,
+        value: "created_date_formatted_us"
+      }, {
+        text: "Bill To",
+        align: "start",
+        sortable: true,
+        value: "billing_first_name"
+      }, {
+        text: "Ship To",
         align: "start",
         sortable: true,
         value: "shipping_first_name"
-      }, {
-        text: "Phone",
-        align: "start",
-        sortable: true,
-        value: "shipping_phone"
-      }, {
-        text: "Full Address",
-        align: "start",
-        sortable: true,
-        value: "shipping_address"
       }, {
         text: "Total",
         align: "start",
@@ -4286,6 +4289,21 @@ var render = function () {
               ]
             },
             proxy: true,
+          },
+          {
+            key: "item.date",
+            fn: function (ref) {
+              var item = ref.item
+              return [
+                _vm._v(
+                  "\n      " +
+                    _vm._s(item.shipping_first_name) +
+                    " " +
+                    _vm._s(item.shipping_last_name) +
+                    "\n    "
+                ),
+              ]
+            },
           },
           {
             key: "item.shipping_first_name",

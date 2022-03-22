@@ -44,7 +44,7 @@ class CouponController extends Controller
     public function store(CouponRequest $request)
     {
         Gate::authorize('create',Coupon::class);
-        $coupon = Coupon::create($request->only('code','discount_type','discount','minimum_cart_value','maximum_cart_value'));
+        $coupon = Coupon::create($request->only('name','code','discount_type','discount','minimum_cart_value','maximum_cart_value'));
         return new CouponResource($coupon);
     }
 
