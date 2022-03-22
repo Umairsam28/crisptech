@@ -47,10 +47,10 @@ class Order extends Model
     ];
     protected $with = [
         'scountry',
-        'scity',
+        // 'scity',
         'sstate',
         'bcountry',
-        'bcity',
+        // 'bcity',
         'bstate',
     ];
     public function products(){
@@ -65,18 +65,18 @@ class Order extends Model
     public function scountry(){
         return $this->belongsTo(Country::class,'shipping_country');
     }
-    public function scity(){
-        return $this->belongsTo(City::class,'shipping_city');
-    }
+    // public function scity(){
+    //     return $this->belongsTo(City::class,'shipping_city');
+    // }
     public function sstate(){
         return $this->belongsTo(State::class,'shipping_state');
     }
     public function bcountry(){
         return $this->belongsTo(Country::class,'billing_country');
     }
-    public function bcity(){
-        return $this->belongsTo(City::class,'billing_city');
-    }
+    // public function bcity(){
+    //     return $this->belongsTo(City::class,'billing_city');
+    // }
     public function bstate(){
         return $this->belongsTo(State::class,'billing_state');
     }

@@ -404,17 +404,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
@@ -436,7 +425,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
             case 2:
               _this.invoice = _context.sent;
-              console.log(_this.invoice);
+              console.log(_this.invoice.scountry.name);
 
             case 4:
             case "end":
@@ -851,7 +840,7 @@ var render = function () {
                             { staticClass: "text-h6" },
                             [
                               _vm._v(
-                                "\n                Order Status:\n                "
+                                "\n              Order Status:\n              "
                               ),
                               _c("OrderStatus", {
                                 attrs: {
@@ -886,7 +875,7 @@ var render = function () {
                                       { staticClass: "text-h6" },
                                       [
                                         _vm._v(
-                                          "\n                  Date:\n                  "
+                                          "\n                Date:\n                "
                                         ),
                                         hover
                                           ? _c("b", [
@@ -970,7 +959,7 @@ var render = function () {
                         [
                           _c("v-list-item-title", { staticClass: "text-h6" }, [
                             _vm._v(
-                              "\n                Update Order Status\n              "
+                              "\n              Update Order Status\n            "
                             ),
                           ]),
                           _vm._v(" "),
@@ -993,7 +982,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                  Processing\n                "
+                                        "\n                Processing\n              "
                                       ),
                                     ]
                                   )
@@ -1005,7 +994,7 @@ var render = function () {
                                     { attrs: { small: "", value: "3" } },
                                     [
                                       _vm._v(
-                                        "\n                  Holded\n                "
+                                        "\n                Holded\n              "
                                       ),
                                     ]
                                   )
@@ -1017,7 +1006,7 @@ var render = function () {
                                     { attrs: { small: "", value: "4" } },
                                     [
                                       _vm._v(
-                                        "\n                  Canceled\n                "
+                                        "\n                Canceled\n              "
                                       ),
                                     ]
                                   )
@@ -1029,7 +1018,7 @@ var render = function () {
                                     { attrs: { small: "", value: "5" } },
                                     [
                                       _vm._v(
-                                        "\n                  Completed/Delivered\n                "
+                                        "\n                Completed/Delivered\n              "
                                       ),
                                     ]
                                   )
@@ -1097,7 +1086,7 @@ var render = function () {
                               _c("v-list-item-title", [
                                 _vm._v(
                                   _vm._s(_vm.invoice.shipping_first_name) +
-                                    "\n                  " +
+                                    " " +
                                     _vm._s(_vm.invoice.shipping_last_name)
                                 ),
                               ]),
@@ -1194,25 +1183,25 @@ var render = function () {
                             [
                               _c("v-list-item-title", [
                                 _vm._v(
-                                  "\n                   " +
+                                  "\n                 " +
                                     _vm._s(_vm.invoice.shipping_address) +
-                                    "\n                "
+                                    "\n              "
                                 ),
                               ]),
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
                                 _vm._v(
                                   _vm._s(_vm.invoice.shipping_city) +
-                                    ", " +
-                                    _vm._s(_vm.invoice.shipping_state) +
-                                    "\n                  " +
+                                    ",  " +
+                                    _vm._s(_vm.invoice.sstate.name) +
+                                    "\n                " +
                                     _vm._s(_vm.invoice.shipping_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
-                                  "\n                  " +
-                                    _vm._s(_vm.invoice.shipping_country) +
-                                    "\n                  "
+                                  "\n                " +
+                                    _vm._s(_vm.invoice.scountry.name) +
+                                    "\n\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1230,25 +1219,25 @@ var render = function () {
                                         _vm._s(_vm.invoice.shipping_last_name)
                                     ),
                                   ]),
-                                  _vm._v(",\n"),
+                                  _vm._v(",\n                  "),
                                   _c("p", [
                                     _vm._v(
                                       _vm._s(_vm.invoice.shipping_address)
                                     ),
                                   ]),
-                                  _vm._v(",\n"),
+                                  _vm._v(",\n                  "),
                                   _c("p", [
                                     _vm._v(
                                       _vm._s(_vm.invoice.shipping_city) +
                                         ", " +
-                                        _vm._s(_vm.invoice.shipping_state) +
+                                        _vm._s(_vm.invoice.sstate.name) +
                                         ", " +
-                                        _vm._s(_vm.invoice.shipping_country) +
+                                        _vm._s(_vm.invoice.scountry.name) +
                                         ", " +
                                         _vm._s(_vm.invoice.shipping_zip)
                                     ),
                                   ]),
-                                  _vm._v(",\n"),
+                                  _vm._v(",\n                  "),
                                   _c("p", [
                                     _vm._v(
                                       "T:" + _vm._s(_vm.invoice.shipping_phone)
@@ -1319,7 +1308,7 @@ var render = function () {
                               _c("v-list-item-title", [
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_first_name) +
-                                    "\n                  " +
+                                    "\n                " +
                                     _vm._s(_vm.invoice.billing_last_name)
                                 ),
                               ]),
@@ -1416,9 +1405,9 @@ var render = function () {
                             [
                               _c("v-list-item-title", [
                                 _vm._v(
-                                  "\n                   " +
+                                  "\n                 " +
                                     _vm._s(_vm.invoice.billing_address) +
-                                    "\n\n                "
+                                    "\n\n              "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1426,14 +1415,14 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_state) +
-                                    "\n                  " +
+                                    _vm._s(_vm.invoice.bstate.name) +
+                                    "\n                " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),
                                 _c("br"),
                                 _vm._v(
-                                  "\n                  " +
-                                    _vm._s(_vm.invoice.billing_country)
+                                  "\n                " +
+                                    _vm._s(_vm.invoice.bcountry.name)
                                 ),
                               ]),
                             ],
@@ -1451,23 +1440,23 @@ var render = function () {
                                     _vm._s(_vm.invoice.billing_last_name)
                                 ),
                               ]),
-                              _vm._v(",\n"),
+                              _vm._v(",\n                "),
                               _c("p", [
                                 _vm._v(_vm._s(_vm.invoice.billing_address)),
                               ]),
-                              _vm._v(",\n"),
+                              _vm._v(",\n                "),
                               _c("p", [
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_state) +
+                                    _vm._s(_vm.invoice.bstate.name) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_country) +
+                                    _vm._s(_vm.invoice.bcountry.name) +
                                     ", " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),
                               ]),
-                              _vm._v(",\n"),
+                              _vm._v(",\n                "),
                               _c("p", [
                                 _vm._v(
                                   "T:" + _vm._s(_vm.invoice.billing_phone)
