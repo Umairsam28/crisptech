@@ -51,6 +51,10 @@ Route::post('/front/coupon', [CouponFrontController::class,'view']);
 Route::post('/front/orders', [OrderFrontController::class,'store']);
 Route::get('/front/orders/{order}', [OrderFrontController::class,'index']);
 
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+    Route::post('/front/login', [ApiAuthController::class,'login']);
+    Route::post('/front/register', [ApiAuthController::class,'register']);
+});
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', [ApiAuthController::class,'login'])->name('login.api');
@@ -97,6 +101,12 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function ()
     Route::get('/export-products', [ProductController::class,'export']);
 });
 Route::middleware('auth:api')->get('/me', function (Request $request) {
+    $notificationsCount = $request->user()->unreadNotifications()->count();
+    $user = $request->user();
+    $user->notification_count = $notificationsCount;
+    return $user;
+});
+Route::middleware('auth:api')->get('/front/me', function (Request $request) {
     $notificationsCount = $request->user()->unreadNotifications()->count();
     $user = $request->user();
     $user->notification_count = $notificationsCount;
