@@ -2,6 +2,7 @@
   <div>
     <Header />
     <Nuxt />
+    <RequestForQuote />
     <Footer />
   </div>
 </template>

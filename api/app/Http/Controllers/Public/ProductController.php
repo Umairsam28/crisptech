@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductQuoteRequest;
-use App\Models\{Product, Category, ProductQuote, Brand};
+use App\Http\Requests\{ProductQuoteRequest, QuoteFormRequest};
+use App\Models\{Product, Category, ProductQuote, Brand, QuoteForm};
 class ProductController extends Controller
 {
     public function categories(){
@@ -69,6 +69,17 @@ class ProductController extends Controller
         $quote = ProductQuote::create($request->only('email','qty','product_id','message'));
         return response()->json(['quote'=>$quote]);
     }
+    public function quoteform(QuoteFormRequest $request){
+        $quote = QuoteForm::create($request->only(
+            'name',
+            'email',
+            'description',
+            'condition',
+            'quantity',
+            'phone',
+        ));
+        return response()->json(['quote'=>$quote]);
+    }    
     public static function getParents($category, $arr = []){
         $arr[] = $category;
         if($category->parent){

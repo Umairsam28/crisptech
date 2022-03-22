@@ -9,7 +9,6 @@ use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
-use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
 use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 
 
@@ -33,7 +32,6 @@ Route::get('/front/user-exemptions', [CountryCityStateController::class,'exempti
 Route::get('/front/home', [HomeController::class,'index']);
 Route::get('/front/menu', [HomeController::class,'menu']);
 
-Route::post('/front/inquiry', [InquiryFrontController::class,'index']);
 
 Route::post('/front/cart', [CartFrontController::class,'index']);
 Route::get('/front/cart/{cart}', [CartFrontController::class,'get']);
@@ -46,6 +44,7 @@ Route::get('/front/categories', [ProductFrontController::class,'categories']);
 
 Route::get('/front/products/{slug}', [ProductFrontController::class,'get']);
 Route::post('/front/products/quote', [ProductFrontController::class,'quote']);
+Route::post('/front/quote-form', [ProductFrontController::class,'quoteform']);
 
 Route::post('/front/coupon', [CouponFrontController::class,'view']);
 Route::post('/front/orders', [OrderFrontController::class,'store']);

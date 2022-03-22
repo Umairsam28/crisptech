@@ -53,10 +53,7 @@
             </ul>
           </div>
           <div class="rquote">
-            <b-button
-              ><font-awesome-icon icon="fa-regular fa-file-lines" /> Request For
-              Quote</b-button
-            >
+            <b-button v-b-modal.modal-1><font-awesome-icon icon="fa-regular fa-file-lines" /> Request For Quote</b-button>
           </div>
         </div>
       </b-container>
