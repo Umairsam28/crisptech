@@ -28,13 +28,14 @@
 
               <b-form-group
                 id="input-group-2"
-                label="Your Name:"
+                label="Password:"
                 label-for="input-2"
               >
                 <b-form-input
                   id="input-2"
-                  v-model="form.name"
-                  placeholder="Enter name"
+                  v-model="form.password"
+                  type="password"
+                  placeholder="Enter password"
                   required
                 ></b-form-input>
               </b-form-group>
@@ -63,7 +64,8 @@ export default {
   data() {
     return {
       form: {
-       
+       email:'',
+       password: '',
       },
       show: true,
     };
@@ -71,7 +73,7 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.$store.dispatch('tryLogin',this.form)
     },
    
   },

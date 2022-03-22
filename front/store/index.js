@@ -9,7 +9,7 @@ export const state = () => ({
 export const mutations = {
     setAuthToken(state, authtoken) {
         localStorage.setItem('auth_token',authtoken);
-        window.axios.defaults.headers.common['Authorization'] = 'Bearer '+authtoken;
+        this.$axios.setHeader('Authorization', 'Bearer '+authtoken)
         state.authtoken = authtoken
     },
     setLoginStatus(state, loggedIn) {
@@ -35,21 +35,37 @@ export const actions = {
         }).then(async(logindetail)=>{
             if (logindetail.data) {
                 if (logindetail.status) {
-                    this.$store.commit('setLoginStatus',true);
-                    this.$store.commit('setAuthToken',logindetail.data);
-                    var user = await this.$axios.get('me')
-                    this.$store.commit('setloggedInUser',user);
+                    commit('setLoginStatus',true);
+                    commit('setAuthToken',logindetail.data.token);
+                    var user = await this.$axios.get('me').then(e=>e.data)
+                    commit('setloggedInUser',user);
                     if(user.permissions.length>0){
-                    let permissions = user.permissions.map((e)=>{
-                        return e.permission_id
-                    })
-                    this.$store.commit('setPermissions',permissions);
+                        let permissions = user.permissions.map((e)=>{
+                            return e.permission_id
+                        })
+                        commit('setPermissions',permissions);
                     }
+                    this.$router.push('/customer');
                 } else {
                     // this.erorrs.email = logindetail.data;
                 }
             }
         })
         commit('tglLoginloader')
-    }
+    },
+    async checkLogin({commit}){
+        var token = localStorage.getItem('auth_token')?localStorage.getItem('auth_token'):'';
+        if(token!=''){
+            commit('setLoginStatus',true);
+            commit('setAuthToken',token);
+            var user = await this.$axios.get('me').then(e=>e.data)
+            commit('setloggedInUser',user);
+            if(user.permissions.length>0){
+                let permissions = user.permissions.map((e)=>{
+                    return e.permission_id
+                })
+                commit('setPermissions',permissions);
+            }
+        }
+    },
 }

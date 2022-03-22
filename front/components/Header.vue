@@ -127,8 +127,12 @@
                 >
               </li>
             </ul>
-            <ul class="login-links">
+            <ul v-if="!loggedIn" class="login-links">
               <li><nuxt-link to="/login">Sign In/Sign Up</nuxt-link></li>
+            </ul>
+            <ul v-else class="login-links">
+              <li><nuxt-link to="/customer">Dashboard</nuxt-link></li>
+              <li><nuxt-link to="/customer/logout">Logout</nuxt-link></li>
             </ul>
             <div class="cart">
               <div v-b-toggle.my-collapse2>
@@ -268,6 +272,9 @@ export default {
     cartItems() {
       return this.$store.state.cart.items;
     },
+    loggedIn(){
+      return this.$store.state.loggedIn;
+    }
   },
 };
 </script>
