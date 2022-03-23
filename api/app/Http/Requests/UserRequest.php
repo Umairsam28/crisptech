@@ -27,7 +27,8 @@ class UserRequest extends FormRequest
         $has_file = count($request->file()) > 0;
         $id = intval(optional($this->route('user'))->id);
         return [
-            'name'=>'required|max:255',
+            'first_name'=>'required|max:255',
+            'last_name'=>'required|max:100',
             'email'=>'required|max:255|email|unique:App\Models\User,email'.($id>0?(','.$id):''),
             'role_id'=>'required',
             'password'=>'sometimes|required|max:200',

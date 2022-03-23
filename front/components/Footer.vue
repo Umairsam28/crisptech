@@ -21,8 +21,8 @@
               <b-col md="4">
                 <h5>My Account</h5>
                 <ul>
-                  <li><nuxt-link to="/about">Login</nuxt-link></li>
-                  <li><nuxt-link to="/about">Register</nuxt-link></li>
+                  <li><nuxt-link to="/login">Login</nuxt-link></li>
+                  <li><nuxt-link to="/register">Register</nuxt-link></li>
                 </ul>
                 <h5>Information</h5>
                 <ul>
@@ -34,16 +34,12 @@
               <b-col md="4">
                 <h5>Customer Services</h5>
                 <ul>
-                  <li><nuxt-link to="/about">Privacy Policy</nuxt-link></li>
-                  <li><nuxt-link to="/about">Return Policy</nuxt-link></li>
-                  <li>
-                    <nuxt-link to="/about">Warranty information</nuxt-link>
-                  </li>
-                  <li><nuxt-link to="/about">Shipping Policy</nuxt-link></li>
-                  <li><nuxt-link to="/about">RMA Policy</nuxt-link></li>
-                  <li>
-                    <nuxt-link to="/about">International Orders</nuxt-link>
-                  </li>
+                  <li><nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link></li>
+                  <li><nuxt-link to="/return-policy">Return Policy</nuxt-link></li>
+                  <li><nuxt-link to="/warranty-information">Warranty information</nuxt-link></li>
+                  <li><nuxt-link to="/shipping-policy">Shipping Policy</nuxt-link></li>
+                  <li><nuxt-link to="/rma-policy">RMA Policy</nuxt-link></li>
+                  <li><nuxt-link to="/international-orders">International Orders</nuxt-link></li>
                 </ul>
               </b-col>
             </b-row>
@@ -90,12 +86,12 @@
               <img src="~/assets/images/payment-method1.png" alt="payments-logo" />
               <p>NextHDD.com is not a partner or an affiliate of Cisco Systems. All Logos remain intellectual property of the Corresponding Company.
 </p>
-                <ul>
-                    <li><a href="#"><font-awesome-icon icon="fa-brands fa-facebook-f" /></a></li>
-                    <li><a href="#"><font-awesome-icon icon="fa-brands fa-twitter" /></a></li>
-                    <li><a href="#"><font-awesome-icon icon="fa-brands fa-instagram" /></a></li>
-                    <li><a href="#"><font-awesome-icon icon="fa-brands fa-pinterest-p" /></a></li>
-                    <li><a href="#"><font-awesome-icon icon="fa-brands fa-linkedin-in" /></a></li>
+                <ul class="d-block list-inline">
+                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-facebook-f" /></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-twitter" /></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-instagram" /></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-pinterest-p" /></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-linkedin-in" /></a></li>
                 </ul>
           </b-col>
           </b-row>

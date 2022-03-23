@@ -82,10 +82,16 @@ export default {
           value: "id",
         },
         {
-          text: "Name",
+          text: "First Name",
           align: "start",
           sortable: true,
-          value: "name",
+          value: "first_name",
+        },
+        {
+          text: "Last Name",
+          align: "start",
+          sortable: true,
+          value: "last_name",
         },
         {
           text: "Email",

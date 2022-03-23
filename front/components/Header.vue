@@ -43,11 +43,11 @@
           <div class="contact-info">
             <ul>
               <li>
-                <font-awesome-icon icon="fa-solid fa-phone" />
+                <font-awesome-icon icon="fa-solid fa-phone" size="xs" />
                 <span>+1 (832) 344 - 0072</span>
               </li>
               <li>
-                <font-awesome-icon icon="fa-regular fa-comment-dots" />
+                <font-awesome-icon icon="fa-regular fa-comment-dots" size="xs" />
                 <span>Chat Now</span>
               </li>
             </ul>

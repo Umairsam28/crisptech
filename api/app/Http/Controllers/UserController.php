@@ -35,14 +35,15 @@ class UserController extends Controller
             $user = $user->Where(
                 function($query) {
                 $q = $_GET['search'];
-                $query->orWhere('users.name', 'like', '%'.$q.'%')->orWhere('users.email', 'like', '%'.$q.'%')
+                $query->orWhere('users.first_name', 'like', '%'.$q.'%')
+                ->orWhere('users.last_name', 'like', '%'.$q.'%')->orWhere('users.email', 'like', '%'.$q.'%')
                 ->orWhere('roles.title', 'like', '%'.$q.'%')->orWhere('roles.name', 'like', '%'.$q.'%');
             });
         }
         if(!empty($_GET['role_id'])){
             $user = $user->where('role_id',$_GET['role_id']);
         }
-        $user=$user->select('users.id','users.email','users.name','roles.title as role_name');
+        $user=$user->select('users.id','users.email','users.first_name','users.last_name','roles.title as role_name');
         $user=$user->where('users.id','<>',$request->user()->id);
         if(isset($_GET['perpage'])&&intval($_GET['perpage'])>0){
             $user=$user->paginate($_GET['perpage']);
@@ -61,7 +62,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         Gate::authorize('create',User::class);
-        $user = User::create($request->only('name','email','role_id','password'));
+        $user = User::create($request->only('first_name','last_name','email','role_id','password'));
         $user->password = Hash::make($user->password);
         $user->save();
         if($request->image){
@@ -92,7 +93,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         Gate::authorize('update',$user);
-        $user->update($request->only('name','email','role_id','company_id'));
+        $user->update($request->only('first_name','last_name','email','role_id','company_id'));
         if($request->password!=''){
             $user->password = Hash::make($request->password);
             $user->save();

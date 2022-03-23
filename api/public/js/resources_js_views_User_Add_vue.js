@@ -131,6 +131,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -145,7 +158,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     resetError: function resetError() {
       this.errors = {
-        name: [],
+        first_name: [],
+        last_name: [],
         email: [],
         password: [],
         role_id: [],
@@ -162,13 +176,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context.next = 14;
+                  _context.next = 15;
                   break;
                 }
 
                 this.btnloading = true;
                 formdata = new FormData();
-                formdata.append("name", this.name);
+                formdata.append("first_name", this.first_name);
+                formdata.append("last_name", this.last_name);
                 formdata.append("email", this.email);
                 formdata.append("password", this.password);
                 formdata.append("role_id", this.role_id);
@@ -178,15 +193,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 this.btnloading = false;
-                _context.next = 12;
+                _context.next = 13;
                 return _services_auth_user__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 12:
+              case 13:
                 res = _context.sent;
 
                 if (!res.status) {
-                  if (res.data.name) {
-                    this.errors.name = res.data.name;
+                  if (res.data.first_name) {
+                    this.errors.first_name = res.data.first_name;
+                  }
+
+                  if (res.data.last_name) {
+                    this.errors.last_name = res.data.last_name;
                   }
 
                   if (res.data.email) {
@@ -212,7 +231,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -234,14 +253,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      name: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
       role_id: "",
-      image: {},
+      image: undefined,
       roles: [],
       errors: {
-        name: [],
+        first_name: [],
+        last_name: [],
         email: [],
         password: [],
         role_id: [],
@@ -304,7 +325,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -448,7 +469,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -700,23 +721,42 @@ var render = function () {
                     [
                       _c(
                         "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
                           _c("v-text-field", {
                             attrs: {
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.name,
-                              label: "Name",
+                              "error-messages": _vm.errors.first_name,
+                              label: "First Name",
                             },
                             model: {
-                              value: _vm.name,
+                              value: _vm.first_name,
                               callback: function ($$v) {
-                                _vm.name = $$v
+                                _vm.first_name = $$v
                               },
-                              expression: "name",
+                              expression: "first_name",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              rules: [_vm.rules.required],
+                              "error-messages": _vm.errors.last_name,
+                              label: "Last Name",
+                            },
+                            model: {
+                              value: _vm.last_name,
+                              callback: function ($$v) {
+                                _vm.last_name = $$v
+                              },
+                              expression: "last_name",
                             },
                           }),
                         ],
