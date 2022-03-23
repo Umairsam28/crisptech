@@ -58,33 +58,19 @@
           class="mx-4"
         ></v-text-field>
       </template>
-      <template v-slot:item.date="{ item }">
-        {{ item.shipping_first_name }} {{ item.shipping_last_name }}
+      <template v-slot:item.billing_first_name="{ item }">
+        {{ item.billing_first_name }} {{ item.billing_last_name }}
       </template>
-      <template v-slot:item.shipping_first_name="{ item }">
+       <template v-slot:item.shipping_first_name="{ item }">
         {{ item.shipping_first_name }} {{ item.shipping_last_name }}
       </template>
       <template v-slot:item.total="{ item }"> $ {{ item.total }} </template>
-      <template v-slot:item.shipping_address="{ item }">
-        <address>
-          {{ item.shipping_address }} <br />
-          {{ item.shipping_city }}, {{ item.shipping_state }}
-          {{ item.shipping_zip }}<br />
-          {{ item.shipping_country }}
-        </address>
-      </template>
+
       <template v-slot:item.order_status="{ item }">
         <OrderStatus :order_status="item.order_status" />
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn
-          v-if="permissions.indexOf(160) >= 0"
-          color="info"
-          fab
-          x-small
-          dark
-          :to="{ name: 'auth.orders.view', params: { id: item.id } }"
-        >
+        <v-btn v-if="permissions.indexOf(160) >= 0" color="info" fab x-small dark :to="{ name: 'auth.orders.view', params: { id: item.id } }">
           <v-icon>mdi-eye-outline</v-icon>
         </v-btn>
       </template>

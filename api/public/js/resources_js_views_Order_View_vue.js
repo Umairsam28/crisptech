@@ -453,7 +453,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
     copyToClipboard: function copyToClipboard(id) {
       var copyText = document.getElementById(id).textContent;
       var textArea = document.createElement('textarea');
-      textArea.textContent = copyText.replace(/ /, '');
+      textArea.textContent = copyText.replace(/  +/g, '');
       document.body.append(textArea);
       textArea.select();
       document.execCommand('copy');

@@ -88,7 +88,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         Gate::authorize('update',$category);
-        $category->update($request->only('name','slug','short_description','description','parent_id', 'is_featured','show_in_home_sidemenu','show_in_main_menu'));
+        $category->update($request->only('name','slug','category_alias','short_description','description','parent_id', 'is_featured','show_in_home_sidemenu','show_in_main_menu'));
         $level = $this->getParents($category, 0);
         $category->level = $level;
         $category->save();
