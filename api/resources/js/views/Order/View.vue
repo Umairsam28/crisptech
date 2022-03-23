@@ -339,7 +339,6 @@ export default {
       this.order_status = e.order_status
       return e;
     });
-    console.log(this.invoice.scountry.name);
   },
   data() {
     return {
