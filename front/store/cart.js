@@ -56,8 +56,9 @@ export const mutations = {
             this.$router.push('/cart')
         }
     },
-    qtyChange(state, {type, index}){
+    qtyChange(state, {type,index,quantity}){
         let current_qty = state.items[index].quantity
+      if(type != null){
         if(type=='add'){
             state.items[index].quantity++
         }else{
@@ -65,6 +66,9 @@ export const mutations = {
                 state.items[index].quantity--
             }
         }
+      }else{
+        state.items[index].quantity = quantity;
+      }
         localStorage.setItem('cart',JSON.stringify(state.items))
         let total = 0
         let cart = state.items

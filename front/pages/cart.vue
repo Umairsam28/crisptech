@@ -31,8 +31,9 @@
                         <td>
                           <b-form-input
                             id="input-1"
-                            :value="cartItem.quantity"
                             type="text"
+                            :value="cartItem.quantity"
+                            @keyup="updateCart({$event,cartItemKey})"
                           ></b-form-input>
                         </td>
                         <td class="price">${{cartItem.product.actual_price*cartItem.quantity}}</td>
@@ -40,14 +41,14 @@
                           <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
                             <font-awesome-icon icon="fa-solid fa-trash-can"/>
                           </b-button>
-                          <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
+                          <!-- <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
                             <font-awesome-icon icon="fa-solid fa-pencil"/>
-                          </b-button>
+                          </b-button> -->
                         </td>
                       </tr>
                     </tbody>
                   </table>
-                  <b-button class="blue-btn">Update Shoppuing Cart</b-button>
+                  <!-- <b-button class="blue-btn">Update Shoppuing Cart</b-button> -->
                 </div>
                 <Coupon />
               </div>
@@ -98,6 +99,7 @@ export default {
     return {
       form: {},
       show: true,
+      qty: '',
     };
   },
   methods: {
@@ -105,6 +107,13 @@ export default {
       this.$store.commit('cart/remove',{
         index: index,
       })
+    },
+    updateCart(e){
+      let qty = e.$event.target.value;
+      let index = e.cartItemKey;
+      if(qty > 0){
+            this.$store.commit('cart/qtyChange',{type:null,index:index,quantity: qty})
+      }
     }
   },
   computed:{
