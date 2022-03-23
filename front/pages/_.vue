@@ -121,7 +121,8 @@
                   <div class="show-filter">
                     <div class="sort-div">
                       <span>Sort By</span>
-                       <b-form-select v-model="selected" :options="options"></b-form-select>
+                       <b-form-select @change="getProducts" v-model="selected" :options="options"></b-form-select>
+                    &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" />
                     </div>
                     
                   </div>
@@ -189,6 +190,7 @@ export default {
   data() {
     return {
       page: 1,
+      sortBy:'desc',
       totalPages: 1,
       totalProducts: 0,
       products: [],
@@ -196,13 +198,12 @@ export default {
       items: [],
       brands: [],
       category: {},
-      selected: null,
+      selected: 'id',
       options: [
-          { value: null, text: 'Please select an option' },
-          { value: 'a', text: 'This is First option' },
-          { value: 'b', text: 'Selected Option' },
-          { value: { C: '3PO' }, text: 'This is an option with object value' },
-          { value: 'd', text: 'This one is disabled', disabled: true }
+          { value: 'id', text: 'New'},
+          { value: 'name', text: 'Product Name'},
+          { value: 'sale_price', text: 'Price'},
+          { value: 'brand_id', text: 'Manufacturer'},
         ],
     };
   },
@@ -226,9 +227,11 @@ export default {
       return pageNum === 1 ? '?' : `?page=${pageNum}`
     },
     async getProducts(){
-      await this.$axios.post('products-viaslug?page='+this.page,{
-        slug: this.lastSlug
-      }).then(e=>{
+      let query = '?page='+this.page;
+      query += '&orderBy='+this.sortBy;
+      query += '&sortBy='+this.selected;
+      query += '&slug='+this.lastSlug;
+      await this.$axios.post('products-viaslug'+query).then(e=>{
         this.products = e.data.products.data
         this.totalProducts = e.data.products.total
         this.totalPages = e.data.products.last_page
@@ -249,6 +252,10 @@ export default {
           active: (this.parents[i].slug==this.lastSlug?true:false)
         })
       }
+    },
+    byAscDesc(){
+      this.sortBy == 'desc'? this.sortBy = 'asc' : this.sortBy = 'desc';
+      this.getProducts();
     }
   },
   mounted(){

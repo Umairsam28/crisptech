@@ -29,7 +29,8 @@ class ProductController extends Controller
     }
     public function getViaSlug(Request $request){
         $category = Category::where('slug',$request->slug)->first();
-        $products = Product::orderBy('id','desc');
+        $prducts = Product::query();
+        $products =  $prducts->orderBy($request->sortBy,$request->orderBy);
         $ids = $this->childs($category);
         $products = $products->whereIn('category_id',$ids);
         $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
@@ -79,7 +80,7 @@ class ProductController extends Controller
             'phone',
         ));
         return response()->json(['quote'=>$quote]);
-    }    
+    }
     public static function getParents($category, $arr = []){
         $arr[] = $category;
         if($category->parent){
