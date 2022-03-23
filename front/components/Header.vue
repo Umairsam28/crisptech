@@ -43,17 +43,17 @@
           <div class="contact-info">
             <ul>
               <li>
-                <font-awesome-icon icon="fa-solid fa-phone" size="xs" />
+                <font-awesome-icon icon="fa-solid fa-phone" size="lg" />
                 <span>+1 (832) 344 - 0072</span>
               </li>
               <li>
-                <font-awesome-icon icon="fa-regular fa-comment-dots" size="xs" />
+                <font-awesome-icon icon="fa-regular fa-comment-dots" size="xl" />
                 <span>Chat Now</span>
               </li>
             </ul>
           </div>
           <div class="rquote">
-            <b-button v-b-modal.modal-1><font-awesome-icon icon="fa-regular fa-file-lines" /> Request For Quote</b-button>
+            <b-button v-b-modal.modal-1><font-awesome-icon size="sm" icon="fa-regular fa-file-lines" /> Request For Quote</b-button>
           </div>
         </div>
       </b-container>

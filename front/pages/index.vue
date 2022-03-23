@@ -186,21 +186,11 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import VueSlickCarousel from "vue-slick-carousel";
-import "vue-slick-carousel/dist/vue-slick-carousel.css";
-import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-
 export default {
   // name: 'MyComponent',
   async asyncData({ params, $axios }) {
     const {banners, categories, featured_products, most_selling_products} = await $axios.$get('home')
     return {banners, categories, featured_products, most_selling_products} 
-  },
-  components: {
-    FontAwesomeIcon,
-    VueSlickCarousel,
   },
   data() {
     return {

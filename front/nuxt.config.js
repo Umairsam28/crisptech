@@ -16,10 +16,16 @@ module.exports = {
         // BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
     },
     css:[
-      '@/assets/css/custom.css',
       '@fortawesome/fontawesome-svg-core/styles.css',
+      'vue-slick-carousel/dist/vue-slick-carousel.css',
+      'vue-slick-carousel/dist/vue-slick-carousel-theme.css',
+      '@/assets/css/custom.css',
     ],
     plugins: [
-      '~/plugins/fontawesome.js'
-    ]
+      '~/plugins/fontawesome.js',
+      '~/plugins/slick.js',
+    ],
+    build: {
+      extractCSS: true
+    }
   }
