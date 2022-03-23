@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WishlistRequest;
 use App\Http\Resources\WishlistResource;
+use App\Models\User;
 use App\Models\Wishlist;
 use App\Repositories\FileRepository;
 use App\Repositories\ListRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
@@ -26,24 +26,14 @@ class WishlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $query = $this->listRep->listFilteredQuery(['user_id', 'product_id','users.name','products.name'])
         ->leftJoin('users','users.id','=','wishlists.user_id')
         ->leftJoin('products','products.id','=','wishlists.product_id')
         ->select('wishlists.*')->with('products.image');
-            $query=$query->where('user_id', $request->user_id)->get();
+            $query=$query->where('user_id', auth('api')->user()->id)->get();
         return WishlistResource::collection($query);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -52,9 +42,15 @@ class WishlistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(WishlistRequest $request)
+    public function store(Request $request)
     {
-        Wishlist::create($request->only('user_id','product_id','variation_id'));
+        $user = User::with('wishlist')->find($request->user_id);
+        $wishlist = $user->wishlist()->where('product_id', $request->product_id);
+        if($wishlist->count() > 0){
+                $wishlist->delete();
+        }else{
+            $wishlist->create($request->only('user_id','product_id','variation_id'));
+        }
         return response()->json(true,200);
     }
 
@@ -67,17 +63,6 @@ class WishlistController extends Controller
     public function show(Wishlist $wishlist)
     {
         return response()->json(['wishlist' =>$wishlist]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

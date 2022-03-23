@@ -54,7 +54,7 @@ Route::get('/front/orders/{order}', [OrderFrontController::class,'index']);
 Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/front/login', [ApiAuthController::class,'login']);
     Route::post('/front/register', [ApiAuthController::class,'register']);
-    Route::apiResource('/front/wishlist', WishlistController::class);
+    Route::apiResource('/front/wishlist', WishlistController::class)->middleware('auth:api');
 
 });
 

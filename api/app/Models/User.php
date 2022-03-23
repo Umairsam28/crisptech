@@ -69,4 +69,7 @@ class User extends Authenticatable
     public function schedule(){
         return $this->hasMany(DjSchedule::class);
     }
+    public function wishlist(){
+        return $this->belongsTo(Wishlist::class, 'id', 'user_id');
+    }
 }

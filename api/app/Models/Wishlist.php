@@ -13,7 +13,7 @@ class Wishlist extends Model
         'user_id','product_id'
     ];
 
-public function products(){
-    return $this->hasMany(Product::class, 'id', 'product_id');
-}
+    public function products(){
+        return $this->hasOne(Product::class,'id','product_id');
+    }
 }

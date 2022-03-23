@@ -27,7 +27,7 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
     public function wishlist(){
-        return $this->hasMany(Wishlist::class);
+        return $this->belongsTo(Wishlist::class,'id','product_id');
     }
     public function image(){
         return $this->morphOne(File::class,'fileable');

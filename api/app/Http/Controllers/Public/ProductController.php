@@ -57,16 +57,16 @@ class ProductController extends Controller
     }
     public function get($slug){
         $product = Product::where('slug',$slug)->with('related')->firstOrfail();
-        $product->in_wishlist = false;
+        $in_wishlist = false;
         $auth = auth('api');
         if($auth->check()){
             $count = $product->wishlist()->where('user_id',$auth->user()->id)->count();
-            $product->in_wishlist = ($count > 0) ? true : false;
+            $in_wishlist = ($count > 0) ? true : false;
         }
         $parents = ($this->getParents($product->category));
         $parents = array_reverse($parents);
         $product->load('brand');
-        return response()->json(['product'=>$product,'parents'=>$parents]);
+        return response()->json(['product'=>$product,'parents'=>$parents,'in_wishlist' => $in_wishlist]);
     }
     public function category(Category $category){
         return response()->json(['category'=>$category]);
