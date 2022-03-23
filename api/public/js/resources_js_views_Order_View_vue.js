@@ -403,6 +403,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
@@ -424,7 +425,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
             case 2:
               _this.invoice = _context.sent;
-              console.log(_this.invoice);
+              console.log(_this.invoice.scountry.name);
 
             case 4:
             case "end":
@@ -1191,16 +1192,16 @@ var render = function () {
                               _c("v-list-item-subtitle", [
                                 _vm._v(
                                   _vm._s(_vm.invoice.shipping_city) +
-                                    ", " +
-                                    _vm._s(_vm.invoice.shipping_state) +
+                                    ",  " +
+                                    _vm._s(_vm.invoice.sstate.name) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.shipping_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.shipping_country) +
-                                    "\n                "
+                                    _vm._s(_vm.invoice.scountry.name) +
+                                    "\n\n                "
                                 ),
                               ]),
                               _vm._v(" "),
@@ -1229,9 +1230,9 @@ var render = function () {
                                     _vm._v(
                                       _vm._s(_vm.invoice.shipping_city) +
                                         ", " +
-                                        _vm._s(_vm.invoice.shipping_state) +
+                                        _vm._s(_vm.invoice.sstate.name) +
                                         ", " +
-                                        _vm._s(_vm.invoice.shipping_country) +
+                                        _vm._s(_vm.invoice.scountry.name) +
                                         ", " +
                                         _vm._s(_vm.invoice.shipping_zip)
                                     ),
@@ -1414,14 +1415,14 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_state) +
+                                    _vm._s(_vm.invoice.bstate.name) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.billing_country)
+                                    _vm._s(_vm.invoice.bcountry.name)
                                 ),
                               ]),
                             ],
@@ -1448,9 +1449,9 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_state) +
+                                    _vm._s(_vm.invoice.bstate.name) +
                                     ", " +
-                                    _vm._s(_vm.invoice.billing_country) +
+                                    _vm._s(_vm.invoice.bcountry.name) +
                                     ", " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),
