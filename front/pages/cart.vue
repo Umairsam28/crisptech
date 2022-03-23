@@ -112,7 +112,7 @@ export default {
       let qty = e.$event.target.value;
       let index = e.cartItemKey;
       if(qty > 0){
-            this.$store.commit('cart/update_quantity',{index:index,quantity: qty})
+            this.$store.commit('cart/qtyChange',{type:null,index:index,quantity: qty})
       }
     }
   },

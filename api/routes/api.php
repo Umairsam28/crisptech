@@ -35,7 +35,6 @@ Route::get('/front/menu', [HomeController::class,'menu']);
 
 Route::post('/front/cart', [CartFrontController::class,'index']);
 Route::get('/front/cart/{cart}', [CartFrontController::class,'get']);
-Route::get('/front/cart/update/{cart}', [CartFrontController::class,'update_cart']);
 Route::post('/front/cart/{cart}', [CartFrontController::class,'item']);
 
 Route::get('/front/products', [ProductFrontController::class,'index']);
