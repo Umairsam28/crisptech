@@ -198,12 +198,12 @@ export default {
       items: [],
       brands: [],
       category: {},
-      selected: 'N',
+      selected: 'id',
       options: [
-          { value: 'N', text: 'New'},
-          { value: 'PN', text: 'Product Name'},
-          { value: 'P', text: 'Price'},
-          { value: 'M', text: 'Manufacturer'},
+          { value: 'id', text: 'New'},
+          { value: 'name', text: 'Product Name'},
+          { value: 'sale_price', text: 'Price'},
+          { value: 'brand_id', text: 'Manufacturer'},
         ],
     };
   },
@@ -228,8 +228,8 @@ export default {
     },
     async getProducts(){
       let query = '?page='+this.page;
-      query += '&orderBy='+this.selected;
-      query += '&sortBy='+this.sortBy;
+      query += '&orderBy='+this.sortBy;
+      query += '&sortBy='+this.selected;
       query += '&slug='+this.lastSlug;
       await this.$axios.post('products-viaslug'+query).then(e=>{
         this.products = e.data.products.data

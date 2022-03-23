@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function getViaSlug(Request $request){
         $category = Category::where('slug',$request->slug)->first();
         $prducts = Product::query();
-        $products = $this->ProductSortBy($prducts, $request);
+        $products =  $prducts->orderBy($request->sortBy,$request->orderBy);
         $ids = $this->childs($category);
         $products = $products->whereIn('category_id',$ids);
         $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
@@ -87,21 +87,5 @@ class ProductController extends Controller
             $arr = self::getParents($category->parent, ($arr));
         }
         return $arr;
-    }
-
-    public static function ProductSortBy($prducts, $request)
-    {
-        if($request->orderBy == 'N'){
-            return  $prducts->orderBy('id',$request->sortBy);
-        }
-        if($request->orderBy == 'PN'){
-            return $prducts->orderBy('name',$request->sortBy);
-        }
-        if($request->orderBy == 'P'){
-            return $prducts->orderBy('sale_price',$request->sortBy);
-        }
-        if($request->orderBy == 'M'){
-            return $prducts->orderBy('brand_id',$request->sortBy);
-        }
     }
 }
