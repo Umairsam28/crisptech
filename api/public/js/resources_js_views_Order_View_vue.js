@@ -425,9 +425,8 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
 
             case 2:
               _this.invoice = _context.sent;
-              console.log(_this.invoice.scountry.name);
 
-            case 4:
+            case 3:
             case "end":
               return _context.stop();
           }
