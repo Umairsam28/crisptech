@@ -121,7 +121,7 @@
                   <div class="show-filter">
                     <div class="sort-div">
                       <span>Sort By</span>
-                       <b-form-select @change="bySortOrder" v-model="selected" :options="options"></b-form-select>
+                       <b-form-select @change="getProducts" v-model="selected" :options="options"></b-form-select>
                     &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" />
                     </div>
                     
@@ -253,12 +253,9 @@ export default {
         })
       }
     },
-    bySortOrder(){
-    this.getProducts();
-    },
     byAscDesc(){
-    this.sortBy == 'desc'? this.sortBy = 'asc' : this.sortBy = 'desc';
-    this.getProducts();
+      this.sortBy == 'desc'? this.sortBy = 'asc' : this.sortBy = 'desc';
+      this.getProducts();
     }
   },
   mounted(){
