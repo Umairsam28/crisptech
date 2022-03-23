@@ -121,8 +121,8 @@
                   <div class="show-filter">
                     <div class="sort-div">
                       <span>Sort By</span>
-                       <b-form-select @change="sortProduts" v-model="selected" :options="options"></b-form-select>
-                     <font-awesome-icon icon="fa-solid fa-arrow-down-arrow-up"/>
+                       <b-form-select @change="bySortOrder" v-model="selected" :options="options"></b-form-select>
+                    &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" />
                     </div>
                     
                   </div>
@@ -190,6 +190,7 @@ export default {
   data() {
     return {
       page: 1,
+      sortBy:'desc',
       totalPages: 1,
       totalProducts: 0,
       products: [],
@@ -227,7 +228,8 @@ export default {
     },
     async getProducts(){
       let query = '?page='+this.page;
-      query += '&sortBy='+this.selected;
+      query += '&orderBy='+this.selected;
+      query += '&sortBy='+this.sortBy;
       query += '&slug='+this.lastSlug;
       await this.$axios.post('products-viaslug'+query).then(e=>{
         this.products = e.data.products.data
@@ -251,7 +253,11 @@ export default {
         })
       }
     },
-    sortProduts(){
+    bySortOrder(){
+    this.getProducts();
+    },
+    byAscDesc(){
+    this.sortBy == 'desc'? this.sortBy = 'asc' : this.sortBy = 'desc';
     this.getProducts();
     }
   },
