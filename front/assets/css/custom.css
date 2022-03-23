@@ -1379,3 +1379,59 @@ input{font-size: 13px;}
     margin: 0 0 0 auto;
 }
 /* END CHECKOUT */
+.my-account{
+    /* background-color:#017CBA ; */
+
+}
+.my-account.container {
+    margin: 100px 50px;
+}
+.list-group-item:hover {
+    background-color: #017CBA;
+ }
+ .list-group-item:hover a {
+    color: #f6f6f6;
+ }
+ .list-group.my-account-sidebar {
+    margin-top: 10px;
+}
+button.btn.submit {
+    background-color: #017CBA;
+    float: right;
+}
+.form-group label {
+    font-size: 22px;
+    font-weight: 300;
+    color: #017CBA;
+}
+.list-group-item a {
+    font-size: 17px;
+    /* font-weight: 700; */
+    color: #017CBA;
+}
+.text-muted {
+    font-size: 14px;
+}
+.my-account h1 {
+    font-size: 38px;
+     padding-bottom: 14px;
+    color: #017CBA;
+}
+.my-account-sidebar >div{
+    padding: 0px;
+}
+.my-account-sidebar a{
+    padding: 0.75rem 1.25rem;
+    display: block;
+}
+.my-account-sidebar a.nuxt-link-exact-active{
+    background-color: #017CBA;
+    color: white;
+}
+
+.my-account .page-item.active .page-link{
+    background-color: #017CBA;
+}
+.my-account .page-link{
+    color: #017CBA;
+}
