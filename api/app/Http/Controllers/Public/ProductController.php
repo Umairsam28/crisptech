@@ -29,7 +29,15 @@ class ProductController extends Controller
     }
     public function getViaSlug(Request $request){
         $category = Category::where('slug',$request->slug)->first();
-        $products = Product::orderBy('id','desc');
+        if($request->sortBy == 'N'){
+            $products = Product::orderBy('id','desc');
+        }
+        if($request->sortBy == 'PN'){
+            $products = Product::orderBy('name','asc');
+        }
+        if($request->sortBy == 'P'){
+            $products = Product::orderBy('sale_price','asc');
+        }
         $ids = $this->childs($category);
         $products = $products->whereIn('category_id',$ids);
         $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
@@ -79,7 +87,7 @@ class ProductController extends Controller
             'phone',
         ));
         return response()->json(['quote'=>$quote]);
-    }    
+    }
     public static function getParents($category, $arr = []){
         $arr[] = $category;
         if($category->parent){
