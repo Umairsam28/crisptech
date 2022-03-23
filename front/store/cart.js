@@ -85,6 +85,17 @@ export const mutations = {
         state.subtotal = total
         state.total = total
     },
+    update_quantity(state,data){
+        state.items[data.index].quantity = data.quantity;
+        localStorage.setItem('cart',JSON.stringify(state.items))
+        let total = 0
+        let cart = state.items
+        for(let q = 0; q < cart.length; q++){
+            total += (cart[q].product.actual_price*cart[q].quantity)
+        }
+        state.subtotal = total
+        state.total = total
+    },
     tglCouponloader(state){
         state.couponloader = !state.couponloader
     },

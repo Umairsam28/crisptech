@@ -32,4 +32,9 @@ class CartController extends Controller
         $cart->refresh();
         return response()->json(['cart'=>$cart]);
     }
+    public function update_cart(Request $request, Cart $cart)
+    {
+      $cart = $cart->items()->where('product_id',$request->product_id)->update(['quantity' =>$request->qty]);
+      return response()->json(true,200);
+    }
 }

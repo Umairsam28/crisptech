@@ -276,7 +276,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       password: '',
       role_id: '',
       roles: [],
-      image: null,
+      image: undefined,
       image_url: '',
       id: 0,
       errors: {
