@@ -24,7 +24,7 @@ use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 */
 
 // ------------------------------------------------ Frontend Routes-------->>>
-Route::group(['prefix' => '/front'], function () {
+Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], function () {
     Route::get('/countries', [CountryCityStateController::class, 'countries']);
     Route::get('/states/{country}', [CountryCityStateController::class, 'states']);
     Route::get('/states-single/{state}', [CountryCityStateController::class, 'state']);
@@ -43,26 +43,36 @@ Route::group(['prefix' => '/front'], function () {
     Route::post('/products/quote', [ProductFrontController::class, 'quote']);
     Route::post('/quote-form', [ProductFrontController::class, 'quoteform']);
     Route::post('/coupon', [CouponFrontController::class, 'view']);
-    Route::get('/orders/all', [OrderFrontController::class, 'getallorders']);
     Route::post('/orders', [OrderFrontController::class, 'store']);
-    Route::get('/orders/{order}', [OrderFrontController::class, 'index']);
-    Route::group(['middleware' => ['cors', 'json.response']], function () {
-        Route::post('/register', [ApiAuthController::class, 'register']);
-        Route::post('/login', [ApiAuthController::class, 'login']);
-        Route::get('/customer/edit', [ApiAuthController::class, 'edit'])->middleware('auth:api');
-        Route::put('/updateprofile', [ApiAuthController::class, 'updateprofile'])->middleware('auth:api');
+    Route::get('/orders/{order}', [OrderFrontController::class, 'get']);
+    
+    Route::post('/register', [ApiAuthController::class, 'register']);
+    Route::post('/login', [ApiAuthController::class, 'login']);
+    
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::post('/logout', [ApiAuthController::class, 'logout']);
+        Route::put('/updateprofile', [ApiAuthController::class, 'updateprofile']);
+        Route::get('/me', function (Request $request) {
+            $notificationsCount = $request->user()->unreadNotifications()->count();
+            $user = $request->user();
+            $user->notification_count = $notificationsCount;
+            return $user;
+        });
+        Route::get('/orders', [OrderFrontController::class, 'index']);
     });
+
 });
 
 
 // ------------------------------------------------Backend Routes--------->>>
 Route::group(['middleware' => ['cors', 'json.response']], function () {
-    Route::post('/login', [ApiAuthController::class, 'login'])->name('login.api');
-    Route::post('/register', [ApiAuthController::class, 'register'])->name('register.api');
+    Route::post('/login', [ApiAuthController::class, 'login']);
+    Route::post('/register', [ApiAuthController::class, 'register']);
 });
 
 Route::group(['middleware' => ['cors', 'json.response', 'auth:api']], function () {
-    Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
+    Route::post('/logout', [ApiAuthController::class, 'logout']);
+    Route::put('/updateprofile', [ApiAuthController::class, 'updateprofile']);
 
     /*Company resource*/
     // Route::apiResource('departments', DepartmentController::class);
@@ -100,12 +110,6 @@ Route::group(['middleware' => ['cors', 'json.response', 'auth:api']], function (
     Route::get('/export-products', [ProductController::class, 'export']);
 });
 Route::middleware('auth:api')->get('/me', function (Request $request) {
-    $notificationsCount = $request->user()->unreadNotifications()->count();
-    $user = $request->user();
-    $user->notification_count = $notificationsCount;
-    return $user;
-});
-Route::middleware('auth:api')->get('/front/me', function (Request $request) {
     $notificationsCount = $request->user()->unreadNotifications()->count();
     $user = $request->user();
     $user->notification_count = $notificationsCount;

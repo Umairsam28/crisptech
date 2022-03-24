@@ -69,7 +69,4 @@ class ApiAuthController extends Controller
         $data = User::where('id',$request->user()->id)->update($arr);
         return new UserResource(User::find($request->user()->id));
     }
-    public function edit(){
-        return response()->json(auth('api')->user());
-    }
 }
