@@ -10,8 +10,8 @@ use Stripe;
 class OrderController extends Controller
 {
     public function getallorders(){
-        $order = Order::with('sstate','scountry')->where('user_id', auth('api')->user()->id)->get();
-        $order->load('products','products.product');
+        $order = Order::with('sstate','scountry')->where('user_id', auth('api')->user()->id);
+        $order = $order->orderby('id','desc')->paginate($_GET['perPage']);
         return response()->json(['data'=>$order]);
     }
     public function index(Order $order){
