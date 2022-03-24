@@ -58,46 +58,7 @@ lazy-validation
   sm="12"
   class="pb-0"
 >
-<v-card
-    color="primary"
-    dark
-  >
-  <label v-if="form.product">Selected SKU: {{form.product.sku}}</label>
-  <v-card-text>
-    <v-autocomplete
-    v-model="autocomplete.model"
-    :items="autocomplete.entries"
-    :loading="autocomplete.isLoading"
-    :search-input.sync="autocomplete.search"
-    color="white"
-    hide-no-data
-    hide-selected
-    item-text="sku"
-    item-value="id"
-    label="Product"
-    placeholder="Start typing to Search"
-    prepend-icon="mdi-database-search"
-    return-object
-    ></v-autocomplete>
-  </v-card-text>
-  <v-divider></v-divider>
-  <v-expand-transition>
-    <v-list
-    v-if="autocomplete.entries.length>0"
-    class="primary lighten-2"
-    >
-    <v-list-item
-        v-for="(field, i) in autocomplete.entries"
-        :key="i"
-    >
-        <v-list-item-content>
-        <v-list-item-title v-text="field.sku+'|'+field.part_number"></v-list-item-title>
-        <v-list-item-subtitle v-text="field.id"></v-list-item-subtitle>
-        </v-list-item-content>
-    </v-list-item>
-    </v-list>
-</v-expand-transition>
-</v-card>
+Product: <a target="_blank" :href="MIX_FRONT_WEBSITE_URL+'/product/'+form.product.slug">{{form.product.sku}}</a>
 </v-col>
 
 </v-row>
@@ -114,16 +75,7 @@ import productservice from "@services/auth/product";
 export default {
   name: "auth.product_quotes.add",
   watch:{
-    'autocomplete.search': async function(){
-        // if (this.autocomplete.items.length > 0) return
-        if (this.autocomplete.isLoading) return
-        if (!this.autocomplete.search) return
-        this.autocomplete.isLoading = true
-        await productservice.getlist('?search='+this.autocomplete.search+'&perpage=20&restrict=true').then(e=>{
-            this.autocomplete.entries = e.data
-        })
-        this.autocomplete.isLoading = false
-    },
+    
   },
   methods: {
     
@@ -135,18 +87,13 @@ export default {
   },
   data() {
     return {
+      MIX_FRONT_WEBSITE_URL: process.env.MIX_FRONT_WEBSITE_URL,
       form:{
           id: (this.$route.params.id?this.$route.params.id:0),
           email: '',
           qty: 0,
           message: '',
           product_id: 0,
-      },
-      autocomplete:{
-          isLoading: false,
-          model: '',
-          search: '',
-          entries: [],
       },
       bread: [
         {
@@ -164,7 +111,7 @@ export default {
         {
           text: "View",
           to: { name: "auth.product_quotes.edit", params: {id: this.$route.params.id} },
-          disabled: false,
+          disabled: true,
           exact: true,
         }
       ],
@@ -186,9 +133,6 @@ export default {
             id: this.$route.params.id,
             product: res.product,
         }
-        // console.log(res.product.sku)
-        // this.autocomplete.model = res.product.sku
-        this.autocomplete.search = res.product.sku
         let formData = new FormData()
         formData.append('is_new',0)
         productquoteservice.update(formData, this.$route.params.id)

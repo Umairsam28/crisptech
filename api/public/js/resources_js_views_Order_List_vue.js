@@ -2288,10 +2288,6 @@ var defaultservice = /*#__PURE__*/function () {
       undoIOSfix();
       unsetAriaHidden();
     }
-  }
-  function isAwaitingPromise() {
-    return !!privateProps.awaitingPromise.get(this);
-  }
 
     removeBodyClasses();
   }
@@ -2427,7 +2423,6 @@ var defaultservice = /*#__PURE__*/function () {
     if (!input) {
       return false;
     }
-  } // Hide block with validation message
 
     if (input.type === 'radio') {
       const radiosContainer = input.parentNode.parentNode;
@@ -2463,7 +2458,6 @@ var defaultservice = /*#__PURE__*/function () {
     if (params.customClass && params.customClass.validationMessage) {
       addClass(domCache.validationMessage, params.customClass.validationMessage);
     }
-  }
 
     show(domCache.validationMessage);
     const input = this.getInput();

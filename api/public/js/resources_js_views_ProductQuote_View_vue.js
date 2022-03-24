@@ -92,98 +92,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "auth.product_quotes.add",
-  watch: {
-    'autocomplete.search': function () {
-      var _autocompleteSearch = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _this = this;
-
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!this.autocomplete.isLoading) {
-                  _context.next = 2;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 2:
-                if (this.autocomplete.search) {
-                  _context.next = 4;
-                  break;
-                }
-
-                return _context.abrupt("return");
-
-              case 4:
-                this.autocomplete.isLoading = true;
-                _context.next = 7;
-                return _services_auth_product__WEBPACK_IMPORTED_MODULE_2__["default"].getlist('?search=' + this.autocomplete.search + '&perpage=20&restrict=true').then(function (e) {
-                  _this.autocomplete.entries = e.data;
-                });
-
-              case 7:
-                this.autocomplete.isLoading = false;
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function autocompleteSearch() {
-        return _autocompleteSearch.apply(this, arguments);
-      }
-
-      return autocompleteSearch;
-    }()
-  },
+  watch: {},
   methods: {},
   computed: {
     user: function user() {
@@ -192,18 +105,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
         email: '',
         qty: 0,
         message: '',
         product_id: 0
-      },
-      autocomplete: {
-        isLoading: false,
-        model: '',
-        search: '',
-        entries: []
       },
       bread: [{
         text: "Dashboard",
@@ -227,7 +135,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             id: this.$route.params.id
           }
         },
-        disabled: false,
+        disabled: true,
         exact: true
       }],
       loading: false,
@@ -240,45 +148,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var res, formData;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context.prev = _context.next) {
             case 0:
-              if (!_this2.$route.params.id) {
-                _context2.next = 9;
+              if (!_this.$route.params.id) {
+                _context.next = 8;
                 break;
               }
 
-              _context2.next = 3;
-              return _services_auth_productquote__WEBPACK_IMPORTED_MODULE_1__["default"].get(_this2.form.id);
+              _context.next = 3;
+              return _services_auth_productquote__WEBPACK_IMPORTED_MODULE_1__["default"].get(_this.form.id);
 
             case 3:
-              res = _context2.sent;
-              _this2.form = {
+              res = _context.sent;
+              _this.form = {
                 email: res.email,
                 qty: res.qty,
                 message: res.message,
                 product_id: res.product_id,
-                id: _this2.$route.params.id,
+                id: _this.$route.params.id,
                 product: res.product
-              }; // console.log(res.product.sku)
-              // this.autocomplete.model = res.product.sku
-
-              _this2.autocomplete.search = res.product.sku;
+              };
               formData = new FormData();
               formData.append('is_new', 0);
-              _services_auth_productquote__WEBPACK_IMPORTED_MODULE_1__["default"].update(formData, _this2.$route.params.id);
+              _services_auth_productquote__WEBPACK_IMPORTED_MODULE_1__["default"].update(formData, _this.$route.params.id);
 
-            case 9:
+            case 8:
             case "end":
-              return _context2.stop();
+              return _context.stop();
           }
         }
-      }, _callee2);
+      }, _callee);
     }))();
   }
 });
@@ -716,120 +621,21 @@ var render = function () {
                           attrs: { cols: "12", sm: "12" },
                         },
                         [
+                          _vm._v("\nProduct: "),
                           _c(
-                            "v-card",
-                            { attrs: { color: "primary", dark: "" } },
-                            [
-                              _vm.form.product
-                                ? _c("label", [
-                                    _vm._v(
-                                      "Selected SKU: " +
-                                        _vm._s(_vm.form.product.sku)
-                                    ),
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
-                              _c(
-                                "v-card-text",
-                                [
-                                  _c("v-autocomplete", {
-                                    attrs: {
-                                      items: _vm.autocomplete.entries,
-                                      loading: _vm.autocomplete.isLoading,
-                                      "search-input": _vm.autocomplete.search,
-                                      color: "white",
-                                      "hide-no-data": "",
-                                      "hide-selected": "",
-                                      "item-text": "sku",
-                                      "item-value": "id",
-                                      label: "Product",
-                                      placeholder: "Start typing to Search",
-                                      "prepend-icon": "mdi-database-search",
-                                      "return-object": "",
-                                    },
-                                    on: {
-                                      "update:searchInput": function ($event) {
-                                        return _vm.$set(
-                                          _vm.autocomplete,
-                                          "search",
-                                          $event
-                                        )
-                                      },
-                                      "update:search-input": function ($event) {
-                                        return _vm.$set(
-                                          _vm.autocomplete,
-                                          "search",
-                                          $event
-                                        )
-                                      },
-                                    },
-                                    model: {
-                                      value: _vm.autocomplete.model,
-                                      callback: function ($$v) {
-                                        _vm.$set(_vm.autocomplete, "model", $$v)
-                                      },
-                                      expression: "autocomplete.model",
-                                    },
-                                  }),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("v-divider"),
-                              _vm._v(" "),
-                              _c(
-                                "v-expand-transition",
-                                [
-                                  _vm.autocomplete.entries.length > 0
-                                    ? _c(
-                                        "v-list",
-                                        { staticClass: "primary lighten-2" },
-                                        _vm._l(
-                                          _vm.autocomplete.entries,
-                                          function (field, i) {
-                                            return _c(
-                                              "v-list-item",
-                                              { key: i },
-                                              [
-                                                _c(
-                                                  "v-list-item-content",
-                                                  [
-                                                    _c("v-list-item-title", {
-                                                      domProps: {
-                                                        textContent: _vm._s(
-                                                          field.sku +
-                                                            "|" +
-                                                            field.part_number
-                                                        ),
-                                                      },
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("v-list-item-subtitle", {
-                                                      domProps: {
-                                                        textContent: _vm._s(
-                                                          field.id
-                                                        ),
-                                                      },
-                                                    }),
-                                                  ],
-                                                  1
-                                                ),
-                                              ],
-                                              1
-                                            )
-                                          }
-                                        ),
-                                        1
-                                      )
-                                    : _vm._e(),
-                                ],
-                                1
-                              ),
-                            ],
-                            1
+                            "a",
+                            {
+                              attrs: {
+                                target: "_blank",
+                                href:
+                                  _vm.MIX_FRONT_WEBSITE_URL +
+                                  "/product/" +
+                                  _vm.form.product.slug,
+                              },
+                            },
+                            [_vm._v(_vm._s(_vm.form.product.sku))]
                           ),
-                        ],
-                        1
+                        ]
                       ),
                     ],
                     1

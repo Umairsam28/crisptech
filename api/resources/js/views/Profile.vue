@@ -13,15 +13,28 @@ lazy-validation
 
 <v-row>
 <v-col
-  cols="12"
-  sm="12"
+  cols="6"
+  sm="6"
   class="pb-0"
 >
   <v-text-field
-    v-model="name"
+    v-model="first_name"
     :rules="[rules.required]"
-    :error-messages="errors.name"
-    label="Company Name"
+    :error-messages="errors.first_name"
+    label="First Name"
+  ></v-text-field>
+</v-col>
+
+<v-col
+  cols="6"
+  sm="6"
+  class="pb-0"
+>
+  <v-text-field
+    v-model="last_name"
+    :rules="[rules.required]"
+    :error-messages="errors.last_name"
+    label="Last Name"
   ></v-text-field>
 </v-col>
 
@@ -110,14 +123,16 @@ export default {
     async startProfile(){
       this.id = this.$route.params.id
       var res = await loginservice.me()
-      this.name = res.name
+      this.last_name = res.last_name
+      this.first_name = res.first_name
       this.email = res.email
       this.password = ''
       this.imageurl = res.image_url
     },
     resetError(){
         this.errors = {
-          name:[],
+          last_name:[],
+          first_name:[],
           password: [],
           email: [],
           file: [],
@@ -128,7 +143,8 @@ export default {
       if (this.$refs.form.validate()) {
         this.btnloading = true;
         var formdata = new FormData();
-        formdata.append("name", this.name);
+        formdata.append("first_name", this.first_name);
+        formdata.append("last_name", this.last_name);
         formdata.append("email", this.email);
         if(this.password){
             formdata.append("password", this.password);
@@ -139,8 +155,11 @@ export default {
         this.btnloading = false;
         var res = await loginservice.updateProfile(formdata, this.id)
         if(!res.status){
-            if(res.data.name){
-                this.errors.name = res.data.name
+            if(res.data.last_name){
+                this.errors.last_name = res.data.last_name
+            }
+            if(res.data.first_name){
+                this.errors.first_name = res.data.first_name
             }
             if(res.data.email){
                 this.errors.email = res.data.email
@@ -169,13 +188,15 @@ export default {
   },
   data() {
     return {
-      name: "",
+      last_name: "",
+      first_name: "",
       id: 0,
       email:'',
       password: '',
       imageurl: '',
       errors: {
-          name:[],
+          last_name:[],
+          first_name: [],
           email: [],
           password: [],
           file: [],

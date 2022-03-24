@@ -121,6 +121,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -144,12 +157,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context.sent;
-                _this.name = res.name;
+                _this.last_name = res.last_name;
+                _this.first_name = res.first_name;
                 _this.email = res.email;
                 _this.password = '';
                 _this.imageurl = res.image_url;
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -159,7 +173,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     resetError: function resetError() {
       this.errors = {
-        name: [],
+        last_name: [],
+        first_name: [],
         password: [],
         email: [],
         file: []
@@ -175,13 +190,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 28;
+                  _context2.next = 30;
                   break;
                 }
 
                 this.btnloading = true;
                 formdata = new FormData();
-                formdata.append("name", this.name);
+                formdata.append("first_name", this.first_name);
+                formdata.append("last_name", this.last_name);
                 formdata.append("email", this.email);
 
                 if (this.password) {
@@ -193,19 +209,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 this.btnloading = false;
-                _context2.next = 11;
+                _context2.next = 12;
                 return _services_auth_login__WEBPACK_IMPORTED_MODULE_1__["default"].updateProfile(formdata, this.id);
 
-              case 11:
+              case 12:
                 res = _context2.sent;
 
                 if (res.status) {
-                  _context2.next = 19;
+                  _context2.next = 21;
                   break;
                 }
 
-                if (res.data.name) {
-                  this.errors.name = res.data.name;
+                if (res.data.last_name) {
+                  this.errors.last_name = res.data.last_name;
+                }
+
+                if (res.data.first_name) {
+                  this.errors.first_name = res.data.first_name;
                 }
 
                 if (res.data.email) {
@@ -221,12 +241,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 } //errors here
 
 
-                _context2.next = 28;
+                _context2.next = 30;
                 break;
 
-              case 19:
+              case 21:
                 if (!this.image.size) {
-                  _context2.next = 27;
+                  _context2.next = 29;
                   break;
                 }
 
@@ -235,13 +255,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 fileData.append("table_name", 'users');
                 fileData.append("type", '1');
                 fileData.append("attachements[0]", this.image);
-                _context2.next = 27;
+                _context2.next = 29;
                 return _services_auth_file__WEBPACK_IMPORTED_MODULE_2__["default"].create(fileData);
 
-              case 27:
+              case 29:
                 this.startProfile();
 
-              case 28:
+              case 30:
               case "end":
                 return _context2.stop();
             }
@@ -258,13 +278,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      name: "",
+      last_name: "",
+      first_name: "",
       id: 0,
       email: '',
       password: '',
       imageurl: '',
       errors: {
-        name: [],
+        last_name: [],
+        first_name: [],
         email: [],
         password: [],
         file: []
@@ -525,23 +547,42 @@ var render = function () {
                     [
                       _c(
                         "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
                         [
                           _c("v-text-field", {
                             attrs: {
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.name,
-                              label: "Company Name",
+                              "error-messages": _vm.errors.first_name,
+                              label: "First Name",
                             },
                             model: {
-                              value: _vm.name,
+                              value: _vm.first_name,
                               callback: function ($$v) {
-                                _vm.name = $$v
+                                _vm.first_name = $$v
                               },
-                              expression: "name",
+                              expression: "first_name",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "6", sm: "6" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              rules: [_vm.rules.required],
+                              "error-messages": _vm.errors.last_name,
+                              label: "Last Name",
+                            },
+                            model: {
+                              value: _vm.last_name,
+                              callback: function ($$v) {
+                                _vm.last_name = $$v
+                              },
+                              expression: "last_name",
                             },
                           }),
                         ],
