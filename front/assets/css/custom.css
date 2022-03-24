@@ -129,7 +129,12 @@ header {
     border-radius: 15px;
     padding: 3px 25px;
 }
-
+.rquote button i {
+    font-size: 16px;
+    margin-right: 5px;
+    float: left;
+    margin-top: 2px;
+}
 .rquote button svg {
     margin-right: 5px;
 }
@@ -365,7 +370,11 @@ footer {
     font-size: 21px;
     margin-right: 12px;
 }
-
+.footer-top .right-area li i {
+    min-width: 40px;
+    font-size: 17px;
+    text-align: center;
+}
 .footer-top .right-area li:last-child {
     padding-left: 34px;
 }
@@ -740,13 +749,13 @@ a {
 .mid-links li {
     display: inline-block;
 }
-
 .mid-links li a {
-    padding: 20px 15px;
+    padding: 20px 6px;
     display: inline-block;
+    font-size: 12px;
 }
 .login-links a {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: capitalize;
     color: #017CBA;
@@ -768,7 +777,9 @@ a {
 .cart-logo {
     position: relative;
 }
-
+.cart-logo i {
+    font-size: 28px;
+}
 .cart-logo svg {
     font-size: 25px;
 }
@@ -799,7 +810,9 @@ a {
 .last-bar ul {
     padding: 0 15px;
 }
-
+ul.mid-links {
+    padding: 0;
+}
 .last-bar {
     border-bottom: 4px solid #017CBA;
     background-color: #232E38;
@@ -1434,4 +1447,8 @@ button.btn.submit {
 }
 .my-account .page-link{
     color: #017CBA;
+}
+.contact-info li i {
+    font-size: 20px;
+    margin-right: 5px;
 }
