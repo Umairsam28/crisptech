@@ -1399,33 +1399,33 @@ input{font-size: 13px;}
 .my-account.container {
     margin: 100px 50px;
 }
-.list-group-item:hover {
+.my-account .list-group-item:hover {
     background-color: #017CBA;
  }
- .list-group-item:hover a {
+ .my-account .list-group-item:hover a {
     color: #f6f6f6;
  }
- .list-group.my-account-sidebar {
+.my-account .list-group.my-account-sidebar {
     margin-top: 10px;
 }
-button.btn.submit {
+.my-account button.btn.submit {
     background-color: #017CBA;
     float: right;
 }
-.form-group label {
+.my-account .form-group label {
     font-size: 22px;
     font-weight: 300;
     color: #017CBA;
 }
-.list-group-item a {
+.my-account .list-group-item a {
     font-size: 17px;
     /* font-weight: 700; */
     color: #017CBA;
 }
-.text-muted {
+.my-account .text-muted {
     font-size: 14px;
 }
-.my-account h1 {
+.my-account .my-account h1 {
     font-size: 38px;
      padding-bottom: 14px;
     color: #017CBA;
@@ -1442,10 +1442,10 @@ button.btn.submit {
     color: white;
 }
 
-.my-account .page-item.active .page-link{
+.page-item.active .page-link{
     background-color: #017CBA;
 }
-.my-account .page-link{
+.page-link{
     color: #017CBA;
 }
 .contact-info li i {
