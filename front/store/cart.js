@@ -53,6 +53,8 @@ export const mutations = {
         state.subtotal = total
         state.total = total
         if(redirect==true){
+            this.$router.push('/checkout')
+        }else{
             this.$router.push('/cart')
         }
     },

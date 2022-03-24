@@ -130,7 +130,7 @@
                   <span>{{ cartItems.length }}</span>
                 </div>
                 <div class="cart-info">
-                  My Cart <span>${{ cartTotal }}</span>
+                  My Cart <span>${{ parseFloat(cartTotal).toFixed(2) }}</span>
                 </div>
               </div>
               <b-collapse id="my-collapse2" v-model="mycollapse2toggle">
@@ -188,9 +188,9 @@
                                 :value="parseInt(cartItem.quantity)"
                                 type="number"
                               ></b-form-input>
-                              <b-button type="submit" class="blue-btn"
+                              <!-- <b-button type="submit" class="blue-btn"
                                 >Update</b-button
-                              >
+                              > -->
                             </b-form>
                           </div>
                         </div>
@@ -203,7 +203,7 @@
                     </div>
                     <ul class="cart-total-price">
                       <li>Cart Subtotal:</li>
-                      <li>${{ cartTotal }}</li>
+                      <li>${{ parseFloat(cartTotal).toFixed(2) }}</li>
                     </ul>
                     <div v-if="cartItems.length > 0" class="link-btns">
                       <nuxt-link to="/checkout" class="blue-btn"
