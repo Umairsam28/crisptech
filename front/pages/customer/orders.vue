@@ -73,7 +73,7 @@ export default {
     getAllOrders() {
       let query = "?page=" + this.currentPage;
           query += '&perPage='+this.perPage;
-      this.$axios.get("orders/all"+query).then((response) => {
+      this.$axios.get("orders"+query).then((response) => {
       let res = response.data.data;
       this.items = res.data;
       this.rows = res.total;

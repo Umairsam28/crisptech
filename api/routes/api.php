@@ -45,10 +45,9 @@ Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], 
     Route::post('/coupon', [CouponFrontController::class, 'view']);
     Route::post('/orders', [OrderFrontController::class, 'store']);
     Route::get('/orders/{order}', [OrderFrontController::class, 'get']);
-    
     Route::post('/register', [ApiAuthController::class, 'register']);
     Route::post('/login', [ApiAuthController::class, 'login']);
-    
+
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/logout', [ApiAuthController::class, 'logout']);
         Route::put('/updateprofile', [ApiAuthController::class, 'updateprofile']);

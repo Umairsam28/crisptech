@@ -60,6 +60,7 @@
                 ></b-form-input>
                 <b-form-invalid-feedback
                   :force-show="true"
+                  style="font-size: 20px;"
                   id="input-1-live-feedback"
                   v-if="errors.email.length > 0"
                   >{{ errors.email }}</b-form-invalid-feedback
@@ -82,6 +83,7 @@
                 <b-form-invalid-feedback
                   :force-show="true"
                   id="input-1-live-feedback"
+                  style="font-size: 20px;"
                   v-if="errors.password.length > 0"
                   >{{ errors.password }}</b-form-invalid-feedback
                 >
@@ -121,6 +123,8 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault();
+      this.errors.email = [];
+      this.errors.password = [];
       var formdata = new FormData();
       formdata.append("id", this.customer.id);
       formdata.append("first_name", this.customer.fname);
@@ -142,7 +146,7 @@ export default {
         if (res.data.email) {
           this.errors.email = res.data.email[0];
         }
-        if (res.response.data.errors.password) {
+        if (res.data.password) {
           this.errors.password = res.data.password[0];
         }
       } else {
@@ -151,7 +155,7 @@ export default {
       }
     },
     getCustomerDetails() {
-      this.$axios.get("/customer/edit").then((resp) => {
+      this.$axios.get("/me").then((resp) => {
         this.customer.id = resp.data.id;
         this.customer.fname = resp.data.first_name;
         this.customer.lname = resp.data.last_name;
