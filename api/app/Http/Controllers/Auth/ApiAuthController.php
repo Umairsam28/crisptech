@@ -57,7 +57,8 @@ class ApiAuthController extends Controller
     }
     public function updateprofile(ProfileRequest $request){
         $arr = [
-            'name'=>$request->name,
+            'first_name'=>$request->first_name,
+            'last_name'=>$request->last_name,
             'email'=>$request->email,
         ];
         if(isset($request->password)){
@@ -67,5 +68,8 @@ class ApiAuthController extends Controller
         }
         $data = User::where('id',$request->user()->id)->update($arr);
         return new UserResource(User::find($request->user()->id));
+    }
+    public function edit(){
+        return response()->json(auth('api')->user());
     }
 }

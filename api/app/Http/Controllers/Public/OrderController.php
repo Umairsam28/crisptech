@@ -9,6 +9,11 @@ use App\Http\Requests\OrderRequestFront;
 use Stripe;
 class OrderController extends Controller
 {
+    public function getallorders(){
+        $order = Order::with('sstate','scountry')->where('user_id', auth('api')->user()->id)->get();
+        $order->load('products','products.product');
+        return response()->json(['data'=>$order]);
+    }
     public function index(Order $order){
         $order->load('products','products.product');
         return response()->json(['data'=>$order]);

@@ -23,10 +23,10 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
-        $user_id = Auth::user()->id;
+        $user_id = auth('api')->user()->id;
         return [
             'email'=>'required|email|max:255|unique:App\Models\User,email'.($user_id>0?(','.$user_id):''),
-            'password'=>'sometimes|required|max:200',
+            'password'=>'sometimes|required|max:200|min:5',
             'file'=>'sometimes|required|image',
         ];
     }

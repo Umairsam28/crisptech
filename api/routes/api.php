@@ -43,13 +43,14 @@ Route::group(['prefix' => '/front'], function () {
     Route::post('/products/quote', [ProductFrontController::class, 'quote']);
     Route::post('/quote-form', [ProductFrontController::class, 'quoteform']);
     Route::post('/coupon', [CouponFrontController::class, 'view']);
+    Route::get('/orders/all', [OrderFrontController::class, 'getallorders']);
     Route::post('/orders', [OrderFrontController::class, 'store']);
     Route::get('/orders/{order}', [OrderFrontController::class, 'index']);
     Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
+        Route::get('/customer/edit', [ApiAuthController::class, 'edit'])->middleware('auth:api');
         Route::put('/updateprofile', [ApiAuthController::class, 'updateprofile'])->middleware('auth:api');
-        Route::post('/logout', [ApiAuthController::class, 'logout'])->middleware('auth:api');
     });
 });
 
