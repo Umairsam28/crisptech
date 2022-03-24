@@ -40,7 +40,7 @@
                   <ProductPrice :product="product" />
                 </div>
                 <div v-if="product.price>product.sale_price" class="pro-save">
-                  You Save: <span>${{parseFloat(product.price-product.sale_price).toFixed(2)}}</span> ({{product.discount}}% Special Discount)
+                  You Save: <span>${{parseFloat(product.price-product.sale_price).toFixed(2)}}</span> ({{discount_percent}}% Special Discount)
                 </div>
                 <div v-if="stock_available" class="quantity">
                   <span>Quantity: </span>
@@ -292,6 +292,9 @@ export default {
     }
   },
   computed:{
+    discount_percent(){
+      return parseFloat((this.product.sale_price/this.product.price)*100).toFixed(2)
+    },
     stock_available(){
       var stock_available_bool = false
       if(this.product.in_stock==1){
