@@ -1452,3 +1452,23 @@ input{font-size: 13px;}
     font-size: 20px;
     margin-right: 5px;
 }
+.price_container .old-price {
+    color: red;
+    text-decoration: line-through;
+    font-size: 16px;
+    color: red;
+    font-weight: 600;
+    text-align: left;
+}
+.price_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.price_container .new_price {
+    font-size: 16px;
+    color: #2457aa;
+    font-weight: 600;
+}

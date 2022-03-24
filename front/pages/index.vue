@@ -116,11 +116,7 @@
                     </ul>
                     <span>26</span>
                   </div> -->
-                  <div class="save">
-                    <strong>${{most_selling_product.product.actual_price}}</strong>
-                    <strike v-if="most_selling_product.product.discount>0">$500</strike>
-                    <p v-if="most_selling_product.product.discount>0">Save ${{most_selling_product.product.discount_amount}}</p>
-                  </div>
+                  <ProductPrice :product="most_selling_product.product" />
                 </b-col>
               </b-row>
             </b-col>

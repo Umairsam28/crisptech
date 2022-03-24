@@ -146,10 +146,7 @@
                   </ul>
                   <span>26</span>
                   </div> -->
-                  <div class="price">
-                    ${{product.actual_price}}
-                  </div>
-
+                  <ProductPrice :product="product" />
                   <div class="p-ob">
                     <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
                     <b-button @click="addToCart(product, false)" type="button" class="blue-btn">Add to cart</b-button>

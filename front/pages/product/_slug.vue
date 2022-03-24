@@ -37,11 +37,10 @@
                   </ul>
                 </div>
                 <div class="pro-price">
-                  <strike v-if="product.discount>0">${{product.price}}</strike>
-                  <strong>${{product.actual_price}}</strong>
+                  <ProductPrice :product="product" />
                 </div>
-                <div v-if="product.discount>0" class="pro-save">
-                  You Save: <span>${{product.discount_amount}}</span> ({{product.discount}}% Special Discount)
+                <div v-if="product.price>product.sale_price" class="pro-save">
+                  You Save: <span>${{parseFloat(product.price-product.sale_price).toFixed(2)}}</span> ({{product.discount}}% Special Discount)
                 </div>
                 <div v-if="stock_available" class="quantity">
                   <span>Quantity: </span>

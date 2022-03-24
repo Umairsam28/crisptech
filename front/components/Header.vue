@@ -61,7 +61,7 @@
     <div class="last-bar">
       <b-container>
         <b-row>
-          <b-col md="2">
+          <b-col v-b-hover="toggleCollapseMega" md="2">
             <div class="menu-btn">
               <b-button v-b-toggle.collapse-1 variant="primary">
                 <i aria-hidden="true" class="fa fa-list"></i>
@@ -255,6 +255,9 @@ export default {
         index: index,
       });
     },
+    toggleCollapseMega(hovered){
+      this.mycollapse1toggle = hovered
+    }
   },
   computed: {
     cartTotal() {
