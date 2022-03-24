@@ -155,7 +155,12 @@
                 </b-col>
               </b-row>
               <div class="overflow-auto">
-                <b-pagination-nav v-model="page" :link-gen="linkGen" :number-of-pages="totalPages" use-router></b-pagination-nav>
+                <b-pagination-nav v-model="page" :link-gen="linkGen" :number-of-pages="totalPages" use-router>
+                  <template #first-text><i class="fa fa-angle-double-left" aria-hidden="true"></i></template>
+                  <template #prev-text><i class="fa fa-angle-left" aria-hidden="true"></i></template>
+                  <template #next-text><i class="fa fa-angle-right" aria-hidden="true"></i></template>
+                  <template #last-text><i class="fa fa-angle-double-right" aria-hidden="true"></i></template>
+                </b-pagination-nav>
               </div>
             </div>
             

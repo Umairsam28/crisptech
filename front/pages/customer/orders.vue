@@ -30,15 +30,16 @@
               </template>
             </b-table>
               <b-pagination
-              v-model="currentPage"
-              :total-rows="rows"
-              :per-page="perPage"
-              aria-controls="items"
-              first-text="First"
-              prev-text="Prev"
-              next-text="Next"
-              last-text="Last"
-              ></b-pagination>
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                aria-controls="items"
+              >
+              <template #first-text><i class="fa fa-angle-double-left" aria-hidden="true"></i></template>
+              <template #prev-text><i class="fa fa-angle-left" aria-hidden="true"></i></template>
+              <template #next-text><i class="fa fa-angle-right" aria-hidden="true"></i></template>
+              <template #last-text><i class="fa fa-angle-double-right" aria-hidden="true"></i></template>
+              </b-pagination>
           </b-col>
         </b-row>
     </b-container>

@@ -12,9 +12,6 @@ module.exports = {
     target: 'static',
     ssr: false,
     modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
-    bootstrapVue: {
-      icons: true
-    },
     axios: {
       //  baseURL: 'http://localhost:8000/api/front/',
       baseURL: 'https://crisptechllc.digitalservicescorp.com/api/front/'
