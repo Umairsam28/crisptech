@@ -1,10 +1,26 @@
 <template>
   <div class="main">
+    <!-- TOP CAT -->
+    <div class="all-cat-t">
+      <b-container>
+        <ul>
+            <li v-for="category in categories" :key="category.id">
+              <p>
+              <nuxt-link :to="'/'+category.slug">
+                {{category.name}}
+              </nuxt-link>
+              </p>
+            </li>
+        </ul>
+        </b-container>
+    </div>
+    <!-- END TOP CAT -->
     <!-- BANNER -->
     <div class="top-banner">
       <b-container>
         <b-carousel
           id="carousel-1"
+          fade          
           v-model="slide"
           :interval="4000"
           controls
@@ -23,7 +39,7 @@
     <!-- END BANNER -->
 
     <!-- ALL CATEGORY -->
-    <div class="all-cat">
+    <!-- <div class="all-cat">
       <b-container>
         <div class="max-holder">
           <b-row>
@@ -38,7 +54,7 @@
           </b-row>
         </div>
       </b-container>
-    </div>
+    </div> -->
     <!-- END ALL CATEGORY -->
 
     <!-- THREE COL -->
@@ -48,10 +64,11 @@
           <h2 class="sec-heading">Featured Products</h2>
           <b-row>
             <!-- PRODUCT -->
-            <b-col v-for="featured_product in featured_products" md="4" :key="featured_product.id">
+            <b-col v-for="featured_product in featured_products" md="3" :key="featured_product.id">
               <nuxt-link :to="'/product/'+featured_product.slug">
                 <div class="img-holder">
                   <img :src="featured_product.home_image" alt="" />
+                  
                 </div>
                 <div class="pro-desc">
                   <h5>{{featured_product.name}}</h5>

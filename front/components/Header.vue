@@ -105,7 +105,7 @@
               </b-collapse>
             </div>
           </b-col>
-          <b-col md="10">
+          <b-col md="10" class="ryt-menu">
             <ul class="mid-links">
               <li v-for="mainmenunames in mainmenu" :key="mainmenunames.id">
                 <nuxt-link :to="'/' + mainmenunames.slug">{{
@@ -116,6 +116,7 @@
                 <nuxt-link to="/products"><i aria-hidden="true" class="fa fa-truck"></i> Track Your Order</nuxt-link>
               </li>
             </ul>
+            <div class="sign-div">
             <ul v-if="!loggedIn" class="login-links">
               <li><nuxt-link to="/login">Sign In/Sign Up</nuxt-link></li>
             </ul>
@@ -216,6 +217,7 @@
                   </div>
                 </b-card>
               </b-collapse>
+            </div>
             </div>
           </b-col>
         </b-row>
