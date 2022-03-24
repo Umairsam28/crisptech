@@ -9,7 +9,13 @@ use App\Http\Requests\OrderRequestFront;
 use Stripe;
 class OrderController extends Controller
 {
-    public function index(Order $order){
+    public function index(Request $request){
+        $order = $request->user()->orders()->with('sstate','scountry')->orderby('id','desc')->paginate($_GET['perPage']);
+        // $order = Order::with('sstate','scountry')->where('user_id', auth('api')->user()->id);
+        // $order = $order->orderby('id','desc')->paginate($_GET['perPage']);
+        return response()->json(['data'=>$order]);
+    }
+    public function get(Order $order){
         $order->load('products','products.product');
         return response()->json(['data'=>$order]);
     }
