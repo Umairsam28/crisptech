@@ -26,8 +26,8 @@
                 </ul>
                 <h5>Information</h5>
                 <ul>
-                  <li><nuxt-link to="/about">About Us</nuxt-link></li>
-                  <li><nuxt-link to="/about">Contact Us</nuxt-link></li>
+                  <li><nuxt-link to="/about-us">About Us</nuxt-link></li>
+                  <li><nuxt-link to="/contact">Contact Us</nuxt-link></li>
                 </ul>
               </b-col>
 
