@@ -40,6 +40,17 @@ class ProductController extends Controller
         $parents = ($this->getParents($category));
         $parents = array_reverse($parents);
         return response()->json(['products'=>$products,'parents'=>$parents,'brands'=>$brands,'category'=>$category]);
+
+    }
+
+    public function getViaBrand(Request $request){
+        $brand      = Brand::where('slug',$request->slug)->first();
+        $products   = $brand->products()->orderBy($request->sortBy,$request->orderBy)->paginate(16);
+        $brand_Ids[] = $brand->id;
+        $categories = Category::whereIn('id',Product::whereIn('brand_id',$brand_Ids)
+        ->select('category_id')->distinct()->get()->pluck('category_id'))
+        ->withCount('products')->get();
+        return response()->json(['products'=>$products,'parents'=> [],'brand'=>$brand,'brands'=>[],'category'=> $categories]);
     }
     public function index(){
         $products = Product::orderBy('id','desc');

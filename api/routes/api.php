@@ -37,6 +37,7 @@ Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], 
     Route::post('/cart/{cart}', [CartFrontController::class, 'item']);
     Route::get('/products', [ProductFrontController::class, 'index']);
     Route::post('/products-viaslug', [ProductFrontController::class, 'getViaSlug']);
+    Route::get('/products-viaBrand', [ProductFrontController::class, 'getViaBrand']);
     Route::get('/category/{category}', [ProductFrontController::class, 'category']);
     Route::get('/categories', [ProductFrontController::class, 'categories']);
     Route::get('/products/{slug}', [ProductFrontController::class, 'get']);
