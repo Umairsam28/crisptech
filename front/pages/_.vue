@@ -17,9 +17,7 @@
             <div class="accordion" role="tablist">
               <b-card v-if="category.children&&category.children.length>0" no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
-                  <b-button block v-b-toggle.accordion-3
-                    >Categories <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
-                  >
+                  <b-button block v-b-toggle.accordion-3>Categories <i aria-hidden="true" class="fa fa-angle-down"></i></b-button>
                 </b-card-header>
                 <b-collapse
                   id="accordion-3"
@@ -38,9 +36,7 @@
               </b-card>
               <b-card v-if="brands.length>0" no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
-                  <b-button block v-b-toggle.accordion-1
-                    >Manufacturer <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
-                  >
+                  <b-button block v-b-toggle.accordion-1>Manufacturer <i aria-hidden="true" class="fa fa-angle-down"></i></b-button>
                 </b-card-header>
                 <b-collapse
                   id="accordion-1"
@@ -111,8 +107,8 @@
                 <b-col md="6">
                   <div class="view-mode">
                     <ul>
-                      <li><nuxt-link to="/products"><font-awesome-icon icon="fa-solid fa-border-all" /></nuxt-link></li>
-                      <li><nuxt-link to="/productslist"><font-awesome-icon icon="fa-solid fa-list" /></nuxt-link></li>
+                      <li><nuxt-link to="/products"><i aria-hidden="true" class="fa fa-th"></i></nuxt-link></li>
+                      <li><nuxt-link to="/productslist"><i aria-hidden="true" class="fa fa-list-ul"></i></nuxt-link></li>
                     </ul>
                     <span>Items {{page}}-{{totalPages}} of {{totalProducts}}</span>
                   </div>
@@ -122,7 +118,7 @@
                     <div class="sort-div">
                       <span>Sort By</span>
                        <b-form-select @change="getProducts" v-model="selected" :options="options"></b-form-select>
-                    &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" />
+                    <!-- &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" /> -->
                     </div>
                     
                   </div>

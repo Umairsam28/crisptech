@@ -49,11 +49,9 @@
               <b-col md="6">
                 <h5>Contact Us</h5>
                 <ul>
-                  <li><font-awesome-icon icon="fa-solid fa-map-location-dot" />11814 Hueco Tanks Dr, Sugar Land TX 77498</li>
-                  <li><font-awesome-icon icon="fa-solid fa-headset" /><a href="tel:+18323440072">+1 (832) 344-0072</a></li>
-                  <li><font-awesome-icon icon="fa-solid fa-envelope-open-text" />
-                    <a href="mailto:Support@Nexthdd.Com">Support@Nexthdd.Com</a>
-                  </li>
+                  <li><i aria-hidden="true" class="fa fa-map-marker"></i>11814 Hueco Tanks Dr, Sugar Land TX 77498</li>
+                  <li><i aria-hidden="true" class="fa fa-headphones"></i><a href="tel:+18323440072">+1 (832) 344-0072</a></li>
+                  <li><i aria-hidden="true" class="fa fa-envelope"></i><a href="mailto:Support@Nexthdd.Com">Support@Nexthdd.Com</a></li>
                   <li>
                     Timings (Phone & Chat): 7:00 AM CST to 6:00 PM (Monday to Friday)
                   </li>
@@ -75,8 +73,7 @@
                         required
                       ></b-form-input>
                     </b-form-group>
-                    <b-button type="submit" variant="primary"
-                      ><font-awesome-icon icon="fa-regular fa-paper-plane" /></b-button>
+                    <b-button type="submit" variant="primary"><i aria-hidden="true" class="fa fa-paper-plane"></i></b-button>
                   </div>
                 </b-form>
               </b-col>
@@ -87,11 +84,11 @@
               <p>NextHDD.com is not a partner or an affiliate of Cisco Systems. All Logos remain intellectual property of the Corresponding Company.
 </p>
                 <ul class="d-block list-inline">
-                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-facebook-f" /></a></li>
-                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-twitter" /></a></li>
-                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-instagram" /></a></li>
-                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-pinterest-p" /></a></li>
-                    <li class="list-inline-item"><a target="_blank" href="#"><font-awesome-icon icon="fa-brands fa-linkedin-in" /></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><i aria-hidden="true" class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><i aria-hidden="true" class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><i aria-hidden="true" class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><i aria-hidden="true" class="fa fa-pinterest-p"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="#"><i aria-hidden="true" class="fa fa-linkedin"></i></a></li>
                 </ul>
           </b-col>
           </b-row>
@@ -104,13 +101,11 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 export default {
  
   data() {
     return {
       components: {
-    FontAwesomeIcon
     
   },
       form: {

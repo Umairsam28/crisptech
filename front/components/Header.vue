@@ -35,25 +35,23 @@
                   required
                 ></b-form-input>
               </b-form-group>
-              <b-button type="submit" variant="primary"
-                ><font-awesome-icon icon="fa-solid fa-magnifying-glass"
-              /></b-button>
+              <b-button type="submit" variant="primary"><i aria-hidden="true" class="fa fa-search"></i></b-button>
             </div>
           </b-form>
           <div class="contact-info">
             <ul>
               <li>
-                <font-awesome-icon icon="fa-solid fa-phone" size="lg" />
+                <i aria-hidden="true" class="fa fa-phone"></i>
                 <span>+1 (832) 344 - 0072</span>
               </li>
               <li>
-                <font-awesome-icon icon="fa-regular fa-comment-dots" size="xl" />
+                <i aria-hidden="true" class="fa fa-commenting-o"></i>
                 <span>Chat Now</span>
               </li>
             </ul>
           </div>
           <div class="rquote">
-            <b-button v-b-modal.modal-1><font-awesome-icon size="sm" icon="fa-regular fa-file-lines" /> Request For Quote</b-button>
+            <b-button v-b-modal.modal-1><i aria-hidden="true" class="fa fa-quote-right"></i> Request For Quote</b-button>
           </div>
         </div>
       </b-container>
@@ -65,20 +63,18 @@
         <b-row>
           <b-col md="2">
             <div class="menu-btn">
-              <b-button v-b-toggle.collapse-1 variant="primary"
-                ><font-awesome-icon icon="fa-solid fa-list" />
+              <b-button v-b-toggle.collapse-1 variant="primary">
+                <i aria-hidden="true" class="fa fa-list"></i>
                 <span>Categories</span>
-                <font-awesome-icon icon="fa-solid fa-caret-down"
-              /></b-button>
+                <i aria-hidden="true" class="fa fa-caret-down"></i>
+              </b-button>
               <b-collapse v-model="mycollapse1toggle" id="collapse-1" class="">
                 <b-card>
                   <div class="menu-blk">
                     <ul class="menu">
                       <li v-for="sidemenuname in sidemenu" :key="sidemenuname.id">
                         <nuxt-link :to="'/' + sidemenuname.slug">
-                          <font-awesome-icon
-                            icon="fa-solid fa-arrow-right-long"
-                          />
+                          <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
                           {{ sidemenuname.category_alias }}
                         </nuxt-link>
                         <div v-if="sidemenuname.children.length>0" class="megadrop">
@@ -93,11 +89,10 @@
                                   v-for="childTwo in childOne.children"
                                   :key="childTwo.id"
                                 >
-                                  <nuxt-link :to="'/' + childTwo.slug"
-                                    ><font-awesome-icon
-                                      icon="fa-solid fa-angle-right"
-                                    />{{ childTwo.category_alias }}</nuxt-link
-                                  >
+                                  <nuxt-link :to="'/' + childTwo.slug">
+                                  <i aria-hidden="true" class="fa fa-angle-right"></i>
+                                  {{ childTwo.category_alias }}
+                                  </nuxt-link>
                                 </li>
                               </ul>
                             </b-col>
@@ -118,10 +113,7 @@
                 }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link to="/products"
-                  ><font-awesome-icon icon="fa-solid fa-truck-fast" /> Track
-                  Your Order</nuxt-link
-                >
+                <nuxt-link to="/products"><i aria-hidden="true" class="fa fa-truck"></i> Track Your Order</nuxt-link>
               </li>
             </ul>
             <ul v-if="!loggedIn" class="login-links">
@@ -134,7 +126,7 @@
             <div class="cart">
               <div v-b-toggle.my-collapse2>
                 <div class="cart-logo">
-                  <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+                  <i aria-hidden="true" class="fa fa-shopping-cart"></i>
                   <span>{{ cartItems.length }}</span>
                 </div>
                 <div class="cart-info">
@@ -166,7 +158,7 @@
                               size="sm"
                               @click="removeItem(cartItemIndex)"
                             >
-                              <font-awesome-icon icon="fa-solid fa-trash-can" />
+                              <i aria-hidden="true" class="fa fa-trash-o"></i>
                             </b-button>
                           </li>
                           <li>
@@ -175,7 +167,7 @@
                               :to="'/product/' + cartItem.product.slug"
                               size="sm"
                             >
-                              <font-awesome-icon icon="fa-solid fa-pencil" />
+                              <i aria-hidden="true" class="fa fa-pencil"></i>
                             </b-button>
                           </li>
                         </ul>

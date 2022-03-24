@@ -39,7 +39,7 @@
                         <td class="price">${{cartItem.product.actual_price*cartItem.quantity}}</td>
                         <td>
                           <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
-                            <font-awesome-icon icon="fa-solid fa-trash-can"/>
+                            <i aria-hidden="true" class="fa fa-trash"></i>
                           </b-button>
                           <!-- <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
                             <font-awesome-icon icon="fa-solid fa-pencil"/>

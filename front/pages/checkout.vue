@@ -411,7 +411,7 @@
                   <p>Enter your card details:</p>
                   <ul>
                     <li class="cnum">
-                      <font-awesome-icon icon="fa-solid fa-credit-card" />
+                      <i aria-hidden="true" class="fa fa-credit-card"></i>
                       <b-form-input
                         id="input-1"
                         type="text"
@@ -423,14 +423,14 @@
                       <b-form-invalid-feedback v-if="card_number_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_number_err[0] }}</b-form-invalid-feedback>
                     </li>
                     <li class="cmonth">
-                      <font-awesome-icon icon="fa-solid fa-calendar-days" />
+                      <i aria-hidden="true" class="fa fa-calendar"></i>
                       <b-form-select text-field="value" value-field="id" required v-model="card.month" :options="[{'id':1, value: 'January'},{'id':2, value: 'February'},{'id':3, value: 'March'},{'id':4, value: 'April'},{'id':5, value: 'May'},{'id':6, value: 'June'},{'id':7, value: 'July'},{'id':8, value: 'August'},{'id':9, value: 'September'},{'id':10, value: 'Octuber'},{'id':11, value: 'November'},{'id':12, value: 'December'}]"></b-form-select>
                       <b-form-invalid-feedback v-if="card_month_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_month_err[0] }}</b-form-invalid-feedback>
                       <b-form-select text-field="value" value-field="id" required v-model="card.year" :options="card_years"></b-form-select>
                       <b-form-invalid-feedback v-if="card_year_err.length>0" :force-show="true" id="input-1-live-feedback">{{ card_year_err[0] }}</b-form-invalid-feedback>
                     </li>
                     <li class="cnum">
-                      <font-awesome-icon icon="fa-solid fa-credit-card" />
+                      <i aria-hidden="true" class="fa fa-credit-card"></i>
                       <b-form-input
                         id="input-1"
                         type="text"
@@ -443,7 +443,7 @@
                     </li>
                   </ul>
                   <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-lock" /></li>
+                    <li><i aria-hidden="true" class="fa fa-lock"></i></li>
                     <li>
                       Your card details are protected using PCI DSS v3.2
                       security standards.

@@ -1,4 +1,12 @@
 module.exports = {
+    head:{
+      title: 'Crisptech LLC',
+      script:[
+        {
+          src: 'https://use.fontawesome.com/3af70af034.js',
+        }
+      ]
+    },
     components: true,
     trailingSlash: true,
     target: 'static',
@@ -16,13 +24,11 @@ module.exports = {
         // BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
     },
     css:[
-      '@fortawesome/fontawesome-svg-core/styles.css',
       'vue-slick-carousel/dist/vue-slick-carousel.css',
       'vue-slick-carousel/dist/vue-slick-carousel-theme.css',
       '@/assets/css/custom.css',
     ],
     plugins: [
-      '~/plugins/fontawesome.js',
       '~/plugins/slick.js',
     ],
     build: {

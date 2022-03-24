@@ -1,9 +1,7 @@
 <template>
   <div v-if="couponApplied==false" class="coupon">
     <div>
-      <b-button v-b-toggle.my-collapse class="blue-btn"
-        >Apply Discount Code <font-awesome-icon icon="fa-solid fa-angle-down"
-      /></b-button>
+      <b-button v-b-toggle.my-collapse class="blue-btn">Apply Discount Code <i aria-hidden="true" class="fa fa-angle-down"></i></b-button>
     </div>
 
     <b-collapse id="my-collapse">
