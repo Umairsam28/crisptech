@@ -23,9 +23,9 @@ class HomeController extends Controller
     }
     public function menu(){
         $mainMenuCategories = Category::without(['image','parent','children'])
-        ->select('name','slug','id')->where('show_in_main_menu',1)->get();
+        ->select('name','category_alias','slug','id')->where('show_in_main_menu',1)->get();
         $SideMenuCategories = Category::without(['image','parent'])
-        ->select('name','slug','id')->where('show_in_home_sidemenu',1)
+        ->select('name','category_alias','slug','id')->where('show_in_home_sidemenu',1)
         ->where('parent_id',0)->get();
         return response()->json([
             'mainmenu'=>$mainMenuCategories,

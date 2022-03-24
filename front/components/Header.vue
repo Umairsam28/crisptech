@@ -70,7 +70,7 @@
                 <span>Categories</span>
                 <font-awesome-icon icon="fa-solid fa-caret-down"
               /></b-button>
-              <b-collapse id="collapse-1" class="">
+              <b-collapse v-model="mycollapse1toggle" id="collapse-1" class="">
                 <b-card>
                   <div class="menu-blk">
                     <ul class="menu">
@@ -79,7 +79,7 @@
                           <font-awesome-icon
                             icon="fa-solid fa-arrow-right-long"
                           />
-                          {{ sidemenuname.name }}
+                          {{ sidemenuname.category_alias }}
                         </nuxt-link>
                         <div v-if="sidemenuname.children.length>0" class="megadrop">
                           <b-row>
@@ -87,7 +87,7 @@
                               v-for="childOne in sidemenuname.children"
                               md="4"
                               :key="childOne.id"
-                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.name }}</nuxt-link></h3>
+                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.category_alias }}</nuxt-link></h3>
                               <ul>
                                 <li
                                   v-for="childTwo in childOne.children"
@@ -96,7 +96,7 @@
                                   <nuxt-link :to="'/' + childTwo.slug"
                                     ><font-awesome-icon
                                       icon="fa-solid fa-angle-right"
-                                    />{{ childTwo.name }}</nuxt-link
+                                    />{{ childTwo.category_alias }}</nuxt-link
                                   >
                                 </li>
                               </ul>
@@ -114,7 +114,7 @@
             <ul class="mid-links">
               <li v-for="mainmenunames in mainmenu" :key="mainmenunames.id">
                 <nuxt-link :to="'/' + mainmenunames.slug">{{
-                  mainmenunames.name
+                  mainmenunames.category_alias
                 }}</nuxt-link>
               </li>
               <li>
@@ -141,7 +141,7 @@
                   My Cart <span>${{ cartTotal }}</span>
                 </div>
               </div>
-              <b-collapse id="my-collapse2">
+              <b-collapse id="my-collapse2" v-model="mycollapse2toggle">
                 <b-card>
                   <div v-if="cartItems.length == 0" class="no-item">
                     You have no items in your shopping cart.
@@ -249,6 +249,8 @@ export default {
       show: true,
       sidemenu: [],
       mainmenu: [],
+      mycollapse2toggle: false,
+      mycollapse1toggle: false,
     };
   },
   methods: {
@@ -273,5 +275,12 @@ export default {
       return this.$store.state.loggedIn;
     }
   },
+  watch:{
+    $route(){
+      this.mycollapse2toggle = false
+      this.mycollapse1toggle = false
+      //turn off menu here
+    }
+  }
 };
 </script>
