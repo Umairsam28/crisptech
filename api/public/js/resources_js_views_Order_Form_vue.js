@@ -556,10 +556,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
 
 var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('orders');
 var countryservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]('countries');
@@ -585,43 +581,28 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
       stateservice.getlist('?country_id=' + this.form.shipping_country).then(function (e) {
         _this.cities = [];
         _this.form.shipping_state = 0;
-        _this.form.shipping_city = 0;
         _this.states = e.data;
       });
     },
-    'form.shipping_state': function formShipping_state() {
+    'form.shipping_state': function formShipping_state() {},
+    'form.billing_country': function formBilling_country() {
       var _this2 = this;
 
-      citieservice.getlist('?state_id=' + this.form.shipping_state).then(function (e) {
-        _this2.form.shipping_city = 0;
-        _this2.cities = e.data;
-      });
-    },
-    'form.billing_country': function formBilling_country() {
-      var _this3 = this;
-
       stateservice.getlist('?country_id=' + this.form.billing_country).then(function (e) {
-        _this3.cities = [];
+        _this2.cities = [];
 
-        if (_this3.same_as_shipping == true) {
-          _this3.form.billing_state = _this3.form.shipping_state;
-          _this3.form.billing_city = _this3.form.shipping_city;
+        if (_this2.same_as_shipping == true) {
+          _this2.form.billing_state = _this2.form.shipping_state;
+          _this2.form.billing_city = _this2.form.shipping_city;
         } else {
-          _this3.form.billing_state = 0;
-          _this3.form.billing_city = 0;
+          _this2.form.billing_state = 0;
+          _this2.form.billing_city = '';
         }
 
-        _this3.billing_states = e.data;
+        _this2.billing_states = e.data;
       });
     },
-    'form.billing_state': function formBilling_state() {
-      var _this4 = this;
-
-      citieservice.getlist('?state_id=' + this.form.billing_state).then(function (e) {
-        _this4.form.billing_city = 0;
-        _this4.billing_cities = e.data;
-      });
-    },
+    'form.billing_state': function formBilling_state() {},
     'same_as_shipping': function same_as_shipping() {
       if (this.same_as_shipping == true) {
         this.form.billing_first_name = this.form.shipping_first_name;
@@ -649,7 +630,7 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
+    var _this3 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var res;
@@ -658,35 +639,35 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
           switch (_context.prev = _context.next) {
             case 0:
               countryservice.getlist('').then(function (e) {
-                _this5.countries = e.data;
-                _this5.billing_countries = e.data;
+                _this3.countries = e.data;
+                _this3.billing_countries = e.data;
               });
               setInterval(function () {
-                if (_this5.same_as_shipping == true) {
-                  _this5.form.billing_first_name = _this5.form.shipping_first_name;
-                  _this5.form.billing_last_name = _this5.form.shipping_last_name;
-                  _this5.form.billing_email = _this5.form.shipping_email;
-                  _this5.form.billing_address = _this5.form.shipping_address;
-                  _this5.form.billing_phone = _this5.form.shipping_phone;
-                  _this5.form.billing_zipcode = _this5.form.shipping_zip;
-                  _this5.form.billing_company = _this5.form.shipping_company;
-                  _this5.form.billing_country = _this5.form.shipping_country;
-                  _this5.form.billing_city = _this5.form.shipping_city;
-                  _this5.form.billing_state = _this5.form.shipping_state;
+                if (_this3.same_as_shipping == true) {
+                  _this3.form.billing_first_name = _this3.form.shipping_first_name;
+                  _this3.form.billing_last_name = _this3.form.shipping_last_name;
+                  _this3.form.billing_email = _this3.form.shipping_email;
+                  _this3.form.billing_address = _this3.form.shipping_address;
+                  _this3.form.billing_phone = _this3.form.shipping_phone;
+                  _this3.form.billing_zipcode = _this3.form.shipping_zip;
+                  _this3.form.billing_company = _this3.form.shipping_company;
+                  _this3.form.billing_country = _this3.form.shipping_country;
+                  _this3.form.billing_city = _this3.form.shipping_city;
+                  _this3.form.billing_state = _this3.form.shipping_state;
                 }
               }, 300);
 
-              if (!_this5.$route.params.id) {
+              if (!_this3.$route.params.id) {
                 _context.next = 10;
                 break;
               }
 
               _context.next = 5;
-              return service.get(_this5.form.id);
+              return service.get(_this3.form.id);
 
             case 5:
               res = _context.sent;
-              _this5.form = {
+              _this3.form = {
                 shipping_email: res.shipping_email,
                 shipping_first_name: res.shipping_first_name,
                 shipping_last_name: res.shipping_last_name,
@@ -708,15 +689,15 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
                 billing_company: res.billing_company,
                 billing_phone: res.billing_phone,
                 billing_address: res.billing_address,
-                id: _this5.$route.params.id
+                id: _this3.$route.params.id
               };
 
-              _this5.bread.push({
+              _this3.bread.push({
                 text: "Edit",
                 to: {
                   name: "auth.orders.edit",
                   params: {
-                    id: _this5.$route.params.id
+                    id: _this3.$route.params.id
                   }
                 },
                 disabled: false,
@@ -727,7 +708,7 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
               break;
 
             case 10:
-              _this5.bread.push({
+              _this3.bread.push({
                 text: "Add",
                 to: {
                   name: "auth.orders.add"
@@ -746,18 +727,18 @@ var exemptionservice = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["
   },
   methods: {
     checkfortax: function checkfortax() {
-      var _this6 = this;
+      var _this4 = this;
 
       this.tax_percent = 0;
 
       if (parseInt(this.form.billing_state) > 0) {
         clearInterval(this.taxcalls);
         this.taxcalls = setInterval(function () {
-          clearInterval(_this6.taxcalls);
-          exemptionservice.getlist('?user_email=' + _this6.form.billing_email + '&state_id=' + _this6.form.billing_state).then(function (e) {
+          clearInterval(_this4.taxcalls);
+          exemptionservice.getlist('?user_email=' + _this4.form.billing_email + '&state_id=' + _this4.form.billing_state).then(function (e) {
             if (e.data.length == 0) {
-              stateservice.get(_this6.form.billing_state).then(function (e) {
-                _this6.tax_percent = e.tax_percent;
+              stateservice.get(_this4.form.billing_state).then(function (e) {
+                _this4.tax_percent = e.tax_percent;
               });
             }
           });
@@ -1611,13 +1592,11 @@ var render = function () {
                         "v-col",
                         { staticClass: "pb-0", attrs: { cols: "3", sm: "3" } },
                         [
-                          _c("v-select", {
+                          _c("v-text-field", {
                             attrs: {
+                              rules: [_vm.rules.required],
                               "error-messages": _vm.errors.shipping_city,
-                              items: _vm.cities,
                               label: "City",
-                              "item-text": "name",
-                              "item-value": "id",
                             },
                             model: {
                               value: _vm.form.shipping_city,
@@ -1914,14 +1893,12 @@ var render = function () {
                                       attrs: { cols: "3", sm: "3" },
                                     },
                                     [
-                                      _c("v-select", {
+                                      _c("v-text-field", {
                                         attrs: {
+                                          rules: [_vm.rules.required],
                                           "error-messages":
                                             _vm.errors.billing_city,
-                                          items: _vm.cities,
                                           label: "City",
-                                          "item-text": "name",
-                                          "item-value": "id",
                                         },
                                         model: {
                                           value: _vm.form.billing_city,
@@ -2272,7 +2249,7 @@ var render = function () {
                                       step: "any",
                                       readonly: "",
                                       "persistent-hint": "",
-                                      hint: this.tax_amount,
+                                      hint: _vm.tax_amount.toString(),
                                     },
                                     model: {
                                       value: _vm.tax_percent,

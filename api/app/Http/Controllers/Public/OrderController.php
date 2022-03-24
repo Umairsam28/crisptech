@@ -32,7 +32,7 @@ class OrderController extends Controller
                     'name'=>$request->billing_first_name.' '.$request->billing_last_name,
                     'address'=>[
                         'country'=>Country::find($request->billing_country)->iso_code,
-                        'city'=>City::find($request->billing_city)->name,
+                        'city'=>$request->billing_city,
                         'state'=>State::find($request->billing_state)->name,
                         'postal_code'=>$request->billing_zipcode,
                         'line1'=>$request->billing_address,

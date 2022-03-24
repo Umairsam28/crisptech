@@ -92,14 +92,12 @@ lazy-validation
   sm="3"
   class="pb-0"
 >
-<v-select
+<v-text-field
     v-model="form.shipping_city"
+    :rules="[rules.required]"
     :error-messages="errors.shipping_city"
-    :items="cities"
     label="City"
-    item-text="name"
-    item-value="id"
-></v-select>
+  ></v-text-field>
 </v-col>
 
 <v-col
@@ -236,14 +234,12 @@ lazy-validation
   sm="3"
   class="pb-0"
 >
-<v-select
-    v-model="form.billing_city"
-    :error-messages="errors.billing_city"
-    :items="cities"
-    label="City"
-    item-text="name"
-    item-value="id"
-></v-select>
+<v-text-field
+  v-model="form.billing_city"
+  :rules="[rules.required]"
+  :error-messages="errors.billing_city"
+  label="City"
+></v-text-field>
 </v-col>
 
 <v-col
@@ -388,7 +384,7 @@ lazy-validation
         step="any"
         readonly
         persistent-hint
-        :hint="this.tax_amount"
+        :hint="tax_amount.toString()"
         v-model.number="tax_percent"
       ></v-text-field>
       <v-text-field
@@ -449,15 +445,11 @@ export default {
       stateservice.getlist('?country_id='+this.form.shipping_country).then(e=>{
         this.cities = []
         this.form.shipping_state = 0
-        this.form.shipping_city = 0
         this.states = e.data
       })
     },
     'form.shipping_state': function(){
-      citieservice.getlist('?state_id='+this.form.shipping_state).then(e=>{
-        this.form.shipping_city = 0
-        this.cities = e.data
-      })
+      
     },
     'form.billing_country': function(){
       stateservice.getlist('?country_id='+this.form.billing_country).then(e=>{
@@ -467,16 +459,13 @@ export default {
           this.form.billing_city = this.form.shipping_city
         }else{
           this.form.billing_state = 0
-          this.form.billing_city = 0
+          this.form.billing_city = ''
         }
         this.billing_states = e.data
       })
     },
     'form.billing_state': function(){
-      citieservice.getlist('?state_id='+this.form.billing_state).then(e=>{
-        this.form.billing_city = 0
-        this.billing_cities = e.data
-      })
+      
     },
     'same_as_shipping': function(){
       if(this.same_as_shipping==true){

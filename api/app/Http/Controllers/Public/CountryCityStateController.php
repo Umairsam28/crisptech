@@ -8,7 +8,7 @@ use App\Models\{Country, State, City, UserExemption};
 class CountryCityStateController extends Controller
 {
     public function countries(){
-        $countries = Country::all();
+        $countries = Country::where('is_allowed_for_checkout',1)->get();
         return response()->json(['countries'=>$countries]);
     }
     public function states(Country $country){

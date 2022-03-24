@@ -458,7 +458,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
       textArea.select();
       document.execCommand('copy');
       this.$store.commit("setNotification", "Address copied to clipboard.");
-      textArea.empty();
+      textArea.remove();
     }
   }
 });
@@ -1192,14 +1192,22 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.shipping_city) +
                                     ",  " +
-                                    _vm._s(_vm.invoice.sstate.name) +
+                                    _vm._s(
+                                      _vm.invoice.sstate
+                                        ? _vm.invoice.sstate.name
+                                        : ""
+                                    ) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.shipping_zip)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.scountry.name) +
+                                    _vm._s(
+                                      _vm.invoice.scountry
+                                        ? _vm.invoice.scountry.name
+                                        : ""
+                                    ) +
                                     "\n\n                "
                                 ),
                               ]),
@@ -1229,9 +1237,17 @@ var render = function () {
                                     _vm._v(
                                       _vm._s(_vm.invoice.shipping_city) +
                                         ", " +
-                                        _vm._s(_vm.invoice.sstate.name) +
+                                        _vm._s(
+                                          _vm.invoice.sstate
+                                            ? _vm.invoice.sstate.name
+                                            : ""
+                                        ) +
                                         ", " +
-                                        _vm._s(_vm.invoice.scountry.name) +
+                                        _vm._s(
+                                          _vm.invoice.scountry
+                                            ? _vm.invoice.scountry.name
+                                            : ""
+                                        ) +
                                         ", " +
                                         _vm._s(_vm.invoice.shipping_zip)
                                     ),
@@ -1414,14 +1430,22 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.bstate.name) +
+                                    _vm._s(
+                                      _vm.invoice.bstate
+                                        ? _vm.invoice.bstate.name
+                                        : ""
+                                    ) +
                                     "\n                " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   "\n                " +
-                                    _vm._s(_vm.invoice.bcountry.name)
+                                    _vm._s(
+                                      _vm.invoice.bcountry
+                                        ? _vm.invoice.bcountry.name
+                                        : ""
+                                    )
                                 ),
                               ]),
                             ],
@@ -1448,9 +1472,17 @@ var render = function () {
                                 _vm._v(
                                   _vm._s(_vm.invoice.billing_city) +
                                     ", " +
-                                    _vm._s(_vm.invoice.bstate.name) +
+                                    _vm._s(
+                                      _vm.invoice.bstate
+                                        ? _vm.invoice.bstate.name
+                                        : ""
+                                    ) +
                                     ", " +
-                                    _vm._s(_vm.invoice.bcountry.name) +
+                                    _vm._s(
+                                      _vm.invoice.bcountry
+                                        ? _vm.invoice.bcountry.name
+                                        : ""
+                                    ) +
                                     ", " +
                                     _vm._s(_vm.invoice.billing_zipcode)
                                 ),

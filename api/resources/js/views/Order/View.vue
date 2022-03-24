@@ -141,15 +141,15 @@
                    {{ invoice.shipping_address }}
                 </v-list-item-title>
                 <v-list-item-subtitle
-                  >{{ invoice.shipping_city }},  {{invoice.sstate.name}}
+                  >{{ invoice.shipping_city }},  {{invoice.sstate?invoice.sstate.name:''}}
                   {{ invoice.shipping_zip }}<br />
-                  {{ invoice.scountry.name }}
+                  {{ invoice.scountry?invoice.scountry.name:'' }}
 
                   </v-list-item-subtitle>
                   <v-list-item-subtitle id="shipping" class="d-none">
                     <p>{{ invoice.shipping_first_name }} {{ invoice.shipping_last_name }}</p>,
                     <p>{{ invoice.shipping_address }}</p>,
-                    <p>{{ invoice.shipping_city }}, {{ invoice.sstate.name }}, {{ invoice.scountry.name }}, {{ invoice.shipping_zip }}</p>,
+                    <p>{{ invoice.shipping_city }}, {{ invoice.sstate?invoice.sstate.name:'' }}, {{ invoice.scountry?invoice.scountry.name:'' }}, {{ invoice.shipping_zip }}</p>,
                     <p>T:{{ invoice.shipping_phone }}</p>
                   </v-list-item-subtitle>
               </v-list-item-content>
@@ -226,15 +226,15 @@
                 </v-list-item-title>
 
                 <v-list-item-subtitle
-                  >{{ invoice.billing_city }}, {{ invoice.bstate.name }}
+                  >{{ invoice.billing_city }}, {{ invoice.bstate?invoice.bstate.name:'' }}
                   {{ invoice.billing_zipcode }}<br />
-                  {{ invoice.bcountry.name }}</v-list-item-subtitle
+                  {{ invoice.bcountry?invoice.bcountry.name:'' }}</v-list-item-subtitle
                 >
               </v-list-item-content>
                 <v-list-item-subtitle id="billing" class="d-none">
                   <p>{{ invoice.billing_first_name }} {{ invoice.billing_last_name }}</p>,
                   <p>{{ invoice.billing_address }}</p>,
-                  <p>{{ invoice.billing_city }}, {{ invoice.bstate.name }}, {{ invoice.bcountry.name }}, {{ invoice.billing_zipcode }}</p>,
+                  <p>{{ invoice.billing_city }}, {{ invoice.bstate?invoice.bstate.name:'' }}, {{ invoice.bcountry?invoice.bcountry.name:'' }}, {{ invoice.billing_zipcode }}</p>,
                   <p>T:{{ invoice.billing_phone }}</p>
                 </v-list-item-subtitle>
             </v-list-item>
@@ -366,7 +366,7 @@ export default {
       textArea.select()
       document.execCommand('copy')
       this.$store.commit("setNotification", "Address copied to clipboard.");
-      textArea.empty();
+      textArea.remove();
     }
   },
 };

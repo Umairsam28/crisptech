@@ -141,12 +141,14 @@
                     label="City:"
                     label-for="input-1"
                   >
-                    <b-form-select
+                     <b-form-input
+                      id="input-1"
                       @input="shipping_city"
-                      :options="shipping_cities"
-                      value-field="id"
-                      text-field="name"
-                    ></b-form-select>
+                      :value="shipping_city_comp"
+                      type="text"
+                      required
+                    >
+                    </b-form-input>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="shipping_city_err.length>0">{{ shipping_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
@@ -317,12 +319,14 @@
                     label="City:"
                     label-for="input-1"
                   >
-                    <b-form-select
+                    <b-form-input
+                      id="input-1"
                       @input="billing_city"
-                      :options="billing_cities"
-                      value-field="id"
-                      text-field="name"
-                    ></b-form-select>
+                      :value="billing_city_comp"
+                      type="text"
+                      required
+                    >
+                    </b-form-input>
                     <b-form-invalid-feedback :force-show="true" id="input-1-live-feedback" v-if="billing_city_err.length>0">{{ billing_city_err[0] }}</b-form-invalid-feedback>
                   </b-form-group>
 
@@ -529,10 +533,8 @@ export default {
       same_as_shipping: true,
       shipping_countries: [],
       shipping_states: [],
-      shipping_cities: [],
       billing_countries: [],
       billing_states: [],
-      billing_cities: [],
       card:{
         number: '',
         month: '',
@@ -548,7 +550,6 @@ export default {
     same_as_shipping(){
       if(this.same_as_shipping===true){
         this.billing_states = this.shipping_states
-        this.billing_cities = this.shipping_cities
         this.billing_email(this.shipping_email_comp)
         this.billing_first_name(this.shipping_first_name_comp)
         this.billing_last_name(this.shipping_last_name_comp)
@@ -562,7 +563,6 @@ export default {
         this.billing_state(this.shipping_state_comp)
       }else{
         this.billing_states = []
-        this.billing_cities = []
         this.billing_email('')
         this.billing_first_name('')
         this.billing_last_name('')
@@ -635,14 +635,6 @@ export default {
       }
     },
     async shipping_state_comp(){
-      if(this.shipping_state_comp){
-        await this.$axios.get('cities/'+this.shipping_state_comp).then(e=>{
-          this.shipping_cities = e.data.cities
-          if(this.same_as_shipping===true){
-            this.billing_cities = e.data.cities
-          }
-        })
-      }
       if(this.same_as_shipping===true){
         this.billing_state(this.shipping_state_comp)
       }
@@ -658,13 +650,6 @@ export default {
     },
     async billing_state_comp(){
       this.checkfortax()
-      if(this.same_as_shipping===false){
-        if(this.billing_state_comp){
-          await this.$axios.get('cities/'+this.billing_state_comp).then(e=>{
-            this.billing_cities = e.data.cities
-          })
-        }
-      }
     },
     async billing_email_comp(){
       this.checkfortax()
