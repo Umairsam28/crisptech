@@ -31,7 +31,7 @@
                 <b-form-input
                   id="input-2"
                   v-model="form.name"
-                  placeholder="Enter name"
+                  placeholder="Search for items or parts ..."
                   required
                 ></b-form-input>
               </b-form-group>
@@ -112,6 +112,7 @@
                   mainmenunames.category_alias
                 }}</nuxt-link>
               </li>
+              <li><nuxt-link to="/brands">Brands</nuxt-link></li>
               <li>
                 <nuxt-link to="/products"><i aria-hidden="true" class="fa fa-truck"></i> Track Your Order</nuxt-link>
               </li>
@@ -152,26 +153,7 @@
                             alt="nextHDD-logo"
                           />
                         </div>
-                        <ul class="edit-pro">
-                          <li>
-                            <b-button
-                              variant="link"
-                              size="sm"
-                              @click="removeItem(cartItemIndex)"
-                            >
-                              <i aria-hidden="true" class="fa fa-trash-o"></i>
-                            </b-button>
-                          </li>
-                          <li>
-                            <b-button
-                              variant="link"
-                              :to="'/product/' + cartItem.product.slug"
-                              size="sm"
-                            >
-                              <i aria-hidden="true" class="fa fa-pencil"></i>
-                            </b-button>
-                          </li>
-                        </ul>
+                        
                       </b-col>
                       <b-col md="8">
                         <div class="pro-info">
@@ -194,6 +176,26 @@
                               > -->
                             </b-form>
                           </div>
+                          <ul class="edit-pro">
+                          <li>
+                            <b-button
+                              variant="link"
+                              size="sm"
+                              @click="removeItem(cartItemIndex)"
+                            >
+                              <i aria-hidden="true" class="fa fa-trash-o"></i>
+                            </b-button>
+                          </li>
+                          <li>
+                            <b-button
+                              variant="link"
+                              :to="'/product/' + cartItem.product.slug"
+                              size="sm"
+                            >
+                              <i aria-hidden="true" class="fa fa-pencil"></i>
+                            </b-button>
+                          </li>
+                        </ul>
                         </div>
                       </b-col>
                     </b-row>

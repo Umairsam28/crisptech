@@ -13,7 +13,7 @@
     <div class="pro-container">
       <b-container>
         <b-row>
-          <b-col md="8" class="product-side">
+          <b-col md="9" class="product-side">
             <b-row>
               <b-col md="6">
                 <div class="img-holder">
@@ -44,14 +44,19 @@
                 </div>
                 <div v-if="stock_available" class="quantity">
                   <span>Quantity: </span>
-                  <input
+                  <div class="in-line">
+                    <b-button><i class="fa fa-minus" aria-hidden="true"></i></b-button>
+                    <input type="text"/>
+                    <b-button><i class="fa fa-plus" aria-hidden="true"></i></b-button>
+                  </div>
+                  <!-- <input
                     type="number"
                     id="quantity"
                     name="quantity"
                     min="1"
                     v-model="quantity"
                     :max="stock_available_max"
-                  />
+                  /> -->
                   <div class="p-ob">
                     <b-button @click="addToCart(true)" class="yellow-btn">Buy Now</b-button>
                     <b-button @click="addToCart(false)" class="blue-btn">Add to cart</b-button>
@@ -83,7 +88,7 @@
               </b-col>
             </b-row>
           </b-col>
-          <b-col md="4" class="right-sidebar">
+          <b-col md="3" class="right-sidebar">
             <h4 class="side-heading">Request For Quote</h4>
             <div class="req-form">
               <p>

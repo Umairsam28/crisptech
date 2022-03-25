@@ -56,16 +56,51 @@
       </b-container>
     </div> -->
     <!-- END ALL CATEGORY -->
+    
+    <!-- P LIST -->
+
 
     <!-- THREE COL -->
     <div class="three-col">
       <b-container>
         <div class="content-container">
           <h2 class="sec-heading">Featured Products</h2>
-          <b-row>
-            <!-- PRODUCT -->
+          <div class="all-prod">
+              <b-row>
+                <b-col v-for="featured_product in featured_products" :key="featured_product.id">
+                  <div class="inner">
+                    <nuxt-link to="/">
+                  <div class="img-holder">
+                  <img :src="featured_product.home_image" alt="" />
+                  
+                  </div>
+                    </nuxt-link>
+                  <div class="p-details">
+                    <nuxt-link to="/">
+                  <div class="pro-name">
+                    <h5>{{featured_product.name}}</h5>
+                  </div></nuxt-link>
+                  
+                  
+                 <div class="price_container"><span class="old-price">$548.44</span><span class="new_price">${{featured_product.actual_price}}</span></div>
+                 
+                  <div class="save_per">Save 27%</div>
+                  
+                  <div class="p-ob">
+                    <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
+                    <b-button @click="addToCart(product, false)" type="button" class="blue-btn">Add to cart</b-button>
+                  </div>
+                  </div>
+                  </div>
+                </b-col>
+              </b-row>
+              
+            </div>
+          <!-- <b-row>
+            
             <b-col v-for="featured_product in featured_products" md="3" :key="featured_product.id">
               <nuxt-link :to="'/product/'+featured_product.slug">
+
                 <div class="img-holder">
                   <img :src="featured_product.home_image" alt="" />
                   
@@ -75,7 +110,7 @@
                 </div>
                 <b-row class="other-details">
                   <b-col md="12">
-                    <!-- <div class="star-rate">
+                    <div class="star-rate">
                       <ul>
                         <li><font-awesome-icon icon="fa-solid fa-star" /></li>
                         <li><font-awesome-icon icon="fa-solid fa-star" /></li>
@@ -86,7 +121,7 @@
                         </li>
                       </ul>
                       <span>26</span>
-                    </div> -->
+                    </div>
                     <div class="p-price">
                       <h3>{{featured_product.actual_price}}</h3>
                     </div>
@@ -98,21 +133,55 @@
                 </b-row>
               </nuxt-link>
             </b-col>
-            <!-- END PRODUCT -->
-          </b-row>
+            
+          </b-row> -->
         </div>
       </b-container>
     </div>
     <!-- END THREE COL -->
 
     <!-- INLINE COL -->
-    <div class="inline-pro" >
+    <div class="three-col" >
       <b-container>
         <div class="content-container">
           <h2 class="sec-heading">Most Selling Products</h2>
+          <div class="all-prod">
+               <b-row>
+                <b-col v-for="most_selling_product in most_selling_products" :key="most_selling_product.id" v-show="most_selling_product.product">
+                  <div v-if="most_selling_product.product" class="content-holder no-lr">
+                  <div class="inner">
+                    
+                  <div class="img-holder">
+                    <nuxt-link :to="'/product/'+most_selling_product.product.slug">
+                    <img :src="most_selling_product.product.image_url" alt=""
+                  /></nuxt-link>
+                  
+                  </div>
+                  <div class="p-details">
+                    <nuxt-link :to="'/product/'+most_selling_product.product.slug">
+                  <div class="pro-name">
+                    <h5>{{most_selling_product.product.name}}</h5>
+                  </div></nuxt-link>
+                  
+                  <ProductPrice :product="most_selling_product.product" />
+                 
+                 
+                  <div class="save_per">Save 27%</div>
+                  
+                  <div class="p-ob">
+                    <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
+                    <b-button @click="addToCart(product, false)" type="button" class="blue-btn">Add to cart</b-button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                </b-col>
+              </b-row>
+              
+            </div>
           <b-row>
             <!-- PRODUCT -->
-            <b-col v-for="most_selling_product in most_selling_products" md="4" :key="most_selling_product.id" v-show="most_selling_product.product">
+            <!-- <b-col v-for="most_selling_product in most_selling_products" md="4" :key="most_selling_product.id" v-show="most_selling_product.product">
               <b-row v-if="most_selling_product.product" class="content-holder no-lr">
                 <b-col md="5" class="img-holder">
                   <nuxt-link :to="'/product/'+most_selling_product.product.slug">
@@ -121,22 +190,11 @@
                 </b-col>
                 <b-col md="7" class="pro-details">
                   <h5>{{most_selling_product.product.name}}</h5>
-                  <!-- <div class="star-rate">
-                    <ul>
-                      <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                      <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                      <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                      <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                      <li>
-                        <font-awesome-icon icon="fa-solid fa-star-half" />
-                      </li>
-                    </ul>
-                    <span>26</span>
-                  </div> -->
+                  
                   <ProductPrice :product="most_selling_product.product" />
                 </b-col>
               </b-row>
-            </b-col>
+            </b-col> -->
             <!-- END PRODUCT -->
           </b-row>
         </div>

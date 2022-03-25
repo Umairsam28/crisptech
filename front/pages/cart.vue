@@ -10,20 +10,20 @@
             <!-- CART AREA -->
             <b-col md="9">
               <div class="cart-area">
-                <div class="table-responsive table-striped">
+                <div class="table-responsive">
                   <table>
                     <thead>
                       <tr>
-                        <th>Item</th>
+                        <th class="iname">Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Subtotal</th>
-                        <th></th>
+                        <!-- <th></th> -->
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(cartItem, cartItemKey) in cartItems" :key="cartItemKey">
-                        <td>
+                        <td class="itdname">
                           <img :src="cartItem.product.home_image" alt="" />
                           {{cartItem.product.part_number}}
                         </td>
@@ -36,15 +36,17 @@
                             @keyup="updateCart({$event,cartItemKey})"
                           ></b-form-input>
                         </td>
-                        <td class="price">${{parseFloat(cartItem.product.actual_price*cartItem.quantity).toFixed(2)}}</td>
-                        <td>
+                        <td class="price">${{parseFloat(cartItem.product.actual_price*cartItem.quantity).toFixed(2)}}<br>
+                        <div class="dbtn">
                           <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
                             <i aria-hidden="true" class="fa fa-trash"></i>
                           </b-button>
                           <b-button variant="link" size="sm" :to="'/product/'+cartItem.product.slug">
                             <i aria-hidden="true" class="fa fa-pencil"></i>
                           </b-button>
+                        </div>
                         </td>
+                        
                       </tr>
                     </tbody>
                   </table>

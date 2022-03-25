@@ -4,7 +4,7 @@
     <div class="bread-crumbs">
       <b-container>
          <b-row>
-        <b-breadcrumb :items="items"></b-breadcrumb>
+          <b-breadcrumb :items="items"></b-breadcrumb>
          </b-row>
       </b-container>
     </div>
@@ -128,12 +128,15 @@
             <div class="all-prod">
               <b-row>
                 <b-col v-for="product in products" :key="product.id" md="3">
+                  <div class="inner">
+                  <nuxt-link :to="'/product/'+product.slug">
                   <div class="img-holder">
-                    <nuxt-link :to="'/product/'+product.slug"><img :src="product.home_image" alt=""></nuxt-link>
+                    <img :src="product.home_image" alt="">
                   </div>
+                  </nuxt-link>
                   <div class="p-details">
                   <div class="pro-name">
-                    <h6>{{product.name}}</h6>
+                    <h6><nuxt-link :to="'/product/'+product.slug">{{product.name}} </nuxt-link></h6>
                   </div>
                   
                   <!-- <div class="star-rate">
@@ -150,6 +153,7 @@
                   <div class="p-ob">
                     <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
                     <b-button @click="addToCart(product, false)" type="button" class="blue-btn">Add to cart</b-button>
+                  </div>
                   </div>
                   </div>
                 </b-col>
@@ -241,6 +245,7 @@ export default {
       this.items = [{
         text: "Home",
         to: "/",
+        active: false,
       }]
       for(let i = 0; i < this.parents.length; i++){
         // console.log(parents[i].slug)
