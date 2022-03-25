@@ -31,11 +31,12 @@
                 <b-form-input
                   id="input-2"
                   v-model="form.name"
-                  placeholder="Enter name"
-                  required
-                ></b-form-input>
+                  placeholder="Search for item or parts.."
+                  required 
+                >
+                </b-form-input>
               </b-form-group>
-              <b-button type="submit" variant="primary"><i aria-hidden="true" class="fa fa-search"></i></b-button>
+              <b-button type="button" @click="onSubmit" variant="primary"><i aria-hidden="true" class="fa fa-search"></i></b-button>
             </div>
           </b-form>
           <div class="contact-info">
@@ -238,6 +239,9 @@ export default {
       form: {
         name: "",
       },
+      search: {
+        name: "",
+      },
       show: true,
       sidemenu: [],
       mainmenu: [],
@@ -246,9 +250,23 @@ export default {
     };
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+  onSubmit() {
+  
+
+  if(this.form.name != ""){
+  this.$router.push('/search/'+this.form.name);
+  }
+      // if(!this.loading){
+      //   event.preventDefault()
+      //   this.loading=true
+      //   let res = await this.$axios.post('/product/search',this.form).then(function(e){
+      //       return {status: 1, data: e.data}
+      //   }).catch(function(e){return {status: 0, data: e.response.data.errors};})
+      //   if(res.status ==1){   
+      //     console.log(res.data);
+      //      }
+      //   this.loading = false
+      // }
     },
     removeItem(index) {
       this.$store.commit("cart/remove", {

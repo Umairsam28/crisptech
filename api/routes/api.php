@@ -41,6 +41,7 @@ Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], 
     Route::get('/categories', [ProductFrontController::class, 'categories']);
     Route::get('/products/{slug}', [ProductFrontController::class, 'get']);
     Route::post('/products/quote', [ProductFrontController::class, 'quote']);
+    Route::post('/product/search', [ProductFrontController::class, 'getSearch']);
     Route::post('/quote-form', [ProductFrontController::class, 'quoteform']);
     Route::post('/coupon', [CouponFrontController::class, 'view']);
     Route::post('/orders', [OrderFrontController::class, 'store']);
