@@ -50,7 +50,7 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         Gate::authorize('create',Brand::class);
-        $brand = Brand::create($request->only('name','slug'));
+        $brand = Brand::create($request->only('name','slug','is_featured','is_active'));
         if($request->image){
             $this->file->create([$request->image], 'brands', $brand->id, 1);
         }
@@ -79,7 +79,7 @@ class BrandController extends Controller
     public function update(BrandRequest $request, Brand $brand)
     {
         Gate::authorize('update',$brand);
-        $brand->update($request->only('name','slug'));
+        $brand->update($request->only('name','slug','is_featured','is_active'));
         if($request->image){
             $this->file->create([$request->image], 'brands', $brand->id, 1);
         }

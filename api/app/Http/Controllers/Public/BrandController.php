@@ -9,7 +9,7 @@ use DB;
 class BrandController extends Controller
 {
     public function index(Request $request){
-        $brands = Brand::orderBy('name','asc');
+        $brands = Brand::orderBy('name','asc')->where('is_active',1);
         if(!empty($_GET['filter'])){
             if(strtolower($_GET['filter'])!='all'){
                 $brands = $brands->whereRaw("LEFT(name,1) = '".$request->filter."'");

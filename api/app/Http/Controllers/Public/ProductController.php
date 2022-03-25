@@ -29,11 +29,12 @@ class ProductController extends Controller
     }
     public function getViaSlug(Request $request){
         $category = Category::where('slug',$request->slug)->first();
-        $prducts = Product::query();
-        $products =  $prducts->orderBy($request->sortBy,$request->orderBy);
+        $products =  Product::orderBy($request->sortBy,$request->orderBy)
+        ->where('products.is_active',1);
         $ids = $this->childs($category);
         $products = $products->whereIn('category_id',$ids);
         $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
+        ->where('is_active',1)
         ->select('brand_id')->distinct()->get()->pluck('brand_id'))
         ->withCount('products')->get();
         $products=$products->paginate(16);
@@ -42,7 +43,7 @@ class ProductController extends Controller
         return response()->json(['products'=>$products,'parents'=>$parents,'brands'=>$brands,'category'=>$category]);
     }
     public function index(){
-        $products = Product::orderBy('id','desc');
+        $products = Product::orderBy('id','desc')->where('products.is_active',1);
         if(isset($_GET['featured'])){
             $products = $products->where('is_featured',1);
         }
@@ -57,7 +58,8 @@ class ProductController extends Controller
         return response()->json(['products'=>$products]);
     }
     public function get($slug){
-        $product = Product::where('slug',$slug)->with('related')->firstOrfail();
+        $product = Product::where('slug',$slug)
+        ->where('products.is_active',1)->with('related')->firstOrfail();
         $parents = ($this->getParents($product->category));
         $parents = array_reverse($parents);
         $product->load('brand');
