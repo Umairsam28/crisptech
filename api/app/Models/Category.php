@@ -14,6 +14,9 @@ class Category extends Model
         'parent_id','name','slug','category_alias','short_description','description','is_featured','level',
         'show_in_main_menu','show_in_home_sidemenu',
     ];
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
     public function getRouteKeyName()
     {
         return 'slug';

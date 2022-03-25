@@ -13,8 +13,8 @@ module.exports = {
     ssr: false,
     modules: ['bootstrap-vue/nuxt', '@nuxtjs/axios'],
     axios: {
-      //  baseURL: 'http://localhost:8000/api/front/',
-      baseURL: 'https://crisptechllc.digitalservicescorp.com/api/front/'
+       baseURL: 'http://localhost:8000/api/front/',
+      // baseURL: 'https://crisptechllc.digitalservicescorp.com/api/front/'
     },
     env: {
       // STRIPE_SK: 'sk_test_51JLEABHp3dFXYI5tM0HRVjZzXGfnlPU0t6ieRmOUEooGJ33JenoZa366jAoPThF2JyZOsJwZawA4u7m7oAavBdHn004eykG4NS',
