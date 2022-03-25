@@ -182,8 +182,6 @@ export default {
         this.parents = e.data.parents
         this.brands = e.data.brands
         this.category = e.data.category
-       
-
       })
       this.search_title = 'Search result for : ' + this.lastSlug;
       this.items = []

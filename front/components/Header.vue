@@ -283,7 +283,7 @@ export default {
   methods: {
     onSubmit() {
       if (this.form.name != "") {
-        this.$router.push("/product/search/" + this.form.name);
+        this.$router.push("/search/" + this.form.name);
       }
     },
     removeItem(index) {
