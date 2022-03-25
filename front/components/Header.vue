@@ -31,7 +31,7 @@
                 <b-form-input
                   id="input-2"
                   v-model="form.name"
-                  placeholder="Search for item or parts.."
+                  placeholder="Search for items or parts ..."
                   required
                 >
                 </b-form-input>
@@ -44,12 +44,15 @@
           <div class="contact-info">
             <ul>
               <li>
+                <nuxt-link to="">
                 <i aria-hidden="true" class="fa fa-phone"></i>
-                <span>+1 (832) 344 - 0072</span>
+                <span>+1 (832) 344 - 0072</span></nuxt-link>
               </li>
               <li>
+                <nuxt-link to="">
                 <i aria-hidden="true" class="fa fa-commenting-o"></i>
                 <span>Chat Now</span>
+                </nuxt-link>
               </li>
             </ul>
           </div>
@@ -127,13 +130,14 @@
               </b-collapse>
             </div>
           </b-col>
-          <b-col md="10">
+          <b-col md="10" class="ryt-menu">
             <ul class="mid-links">
               <li v-for="mainmenunames in mainmenu" :key="mainmenunames.id">
                 <nuxt-link :to="'/' + mainmenunames.slug">{{
                   mainmenunames.category_alias
                 }}</nuxt-link>
               </li>
+              <li><nuxt-link to="/brands">Brands</nuxt-link></li>
               <li>
                 <nuxt-link to="/products"
                   ><i aria-hidden="true" class="fa fa-truck"></i> Track Your
@@ -141,6 +145,7 @@
                 >
               </li>
             </ul>
+            <div class="sign-div">
             <ul v-if="!loggedIn" class="login-links">
               <li><nuxt-link to="/login">Sign In/Sign Up</nuxt-link></li>
             </ul>
@@ -155,7 +160,7 @@
                   <span>{{ cartItems.length }}</span>
                 </div>
                 <div class="cart-info">
-                  My Cart <span>${{ cartTotal }}</span>
+                  My Cart <span>${{ parseFloat(cartTotal).toFixed(2) }}</span>
                 </div>
               </div>
               <b-collapse id="my-collapse2" v-model="mycollapse2toggle">
@@ -176,7 +181,30 @@
                             alt="nextHDD-logo"
                           />
                         </div>
-                        <ul class="edit-pro">
+                        
+                      </b-col>
+                      <b-col md="8">
+                        <div class="pro-info">
+                          <div class="cp-name">
+                            {{ cartItem.product.part_number }}
+                          </div>
+                          <div class="cp-price">
+                            ${{ cartItem.product.actual_price }}
+                          </div>
+                          <div class="cp-quantity">
+                            <span>Qty:</span>
+                            <b-form>
+                              <b-form-input
+                                id="input-1"
+                                :value="parseInt(cartItem.quantity)"
+                                type="number"
+                              ></b-form-input>
+                              <!-- <b-button type="submit" class="blue-btn"
+                                >Update</b-button
+                              > -->
+                            </b-form>
+                          </div>
+                          <ul class="edit-pro">
                           <li>
                             <b-button
                               variant="link"
@@ -196,28 +224,6 @@
                             </b-button>
                           </li>
                         </ul>
-                      </b-col>
-                      <b-col md="8">
-                        <div class="pro-info">
-                          <div class="cp-name">
-                            {{ cartItem.product.part_number }}
-                          </div>
-                          <div class="cp-price">
-                            ${{ cartItem.product.actual_price }}
-                          </div>
-                          <div class="cp-quantity">
-                            <span>Qty:</span>
-                            <b-form>
-                              <b-form-input
-                                id="input-1"
-                                :value="parseInt(cartItem.quantity)"
-                                type="number"
-                              ></b-form-input>
-                              <b-button type="submit" class="blue-btn"
-                                >Update</b-button
-                              >
-                            </b-form>
-                          </div>
                         </div>
                       </b-col>
                     </b-row>
@@ -228,7 +234,7 @@
                     </div>
                     <ul class="cart-total-price">
                       <li>Cart Subtotal:</li>
-                      <li>${{ cartTotal }}</li>
+                      <li>${{ parseFloat(cartTotal).toFixed(2) }}</li>
                     </ul>
                     <div v-if="cartItems.length > 0" class="link-btns">
                       <nuxt-link to="/checkout" class="blue-btn"
@@ -241,6 +247,7 @@
                   </div>
                 </b-card>
               </b-collapse>
+            </div>
             </div>
           </b-col>
         </b-row>

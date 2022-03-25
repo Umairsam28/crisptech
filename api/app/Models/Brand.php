@@ -11,7 +11,7 @@ class Brand extends Model
     protected $appends = ['image_url'];
     protected $with = ['image'];
     protected $fillable = [
-        'name','slug',
+        'name','slug','is_featured','is_active',
     ];
     public function products(){
         return $this->hasMany(Product::class);

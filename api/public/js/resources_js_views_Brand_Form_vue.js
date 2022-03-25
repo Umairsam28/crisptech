@@ -107,6 +107,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "auth.users.add",
@@ -141,7 +154,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 name: res.name,
                 slug: res.slug,
                 id: _this.$route.params.id,
-                image_url: res.image_url
+                image_url: res.image_url,
+                is_featured: res.is_featured == 1 ? true : false,
+                is_active: res.is_active == 1 ? true : false
               };
 
               _this.bread.push({
@@ -182,7 +197,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.errors = {
         name: [],
         slug: [],
-        image: []
+        image: [],
+        is_featured: [],
+        is_active: []
       };
     },
     addpermission: function () {
@@ -195,7 +212,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.resetError();
 
                 if (!this.$refs.form.validate()) {
-                  _context2.next = 18;
+                  _context2.next = 20;
                   break;
                 }
 
@@ -203,6 +220,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formdata = new FormData();
                 formdata.append("name", this.form.name);
                 formdata.append("slug", this.form.slug);
+                formdata.append("is_featured", this.form.is_featured == true ? 1 : 0);
+                formdata.append("is_active", this.form.is_active == true ? 1 : 0);
 
                 if (this.form.image) {
                   formdata.append("image", this.form.image);
@@ -211,26 +230,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.btnloading = false;
 
                 if (!(this.form.id > 0)) {
-                  _context2.next = 14;
+                  _context2.next = 16;
                   break;
                 }
 
-                _context2.next = 11;
+                _context2.next = 13;
                 return _services_auth_brand__WEBPACK_IMPORTED_MODULE_1__["default"].update(formdata, this.form.id);
 
-              case 11:
+              case 13:
                 res = _context2.sent;
-                _context2.next = 17;
+                _context2.next = 19;
                 break;
 
-              case 14:
-                _context2.next = 16;
+              case 16:
+                _context2.next = 18;
                 return _services_auth_brand__WEBPACK_IMPORTED_MODULE_1__["default"].create(formdata);
 
-              case 16:
+              case 18:
                 res = _context2.sent;
 
-              case 17:
+              case 19:
                 if (!res.status) {
                   if (res.data.name) {
                     this.errors.name = res.data.name;
@@ -242,6 +261,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   if (res.data.image) {
                     this.errors.image = res.data.image;
+                  }
+
+                  if (res.data.is_featured) {
+                    this.errors.is_featured = res.data.is_featured;
+                  }
+
+                  if (res.data.is_active) {
+                    this.errors.is_active = res.data.is_active;
                   } //errors here
 
                 } else {
@@ -251,7 +278,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 }
 
-              case 18:
+              case 20:
               case "end":
                 return _context2.stop();
             }
@@ -277,12 +304,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: this.$route.params.id ? this.$route.params.id : 0,
         name: '',
         slug: '',
-        image: undefined
+        image: undefined,
+        is_featured: false,
+        is_active: true
       },
       errors: {
         name: [],
         slug: [],
-        image: []
+        image: [],
+        is_featured: [],
+        is_active: []
       },
       bread: [{
         text: "Dashboard",
@@ -622,6 +653,42 @@ var render = function () {
                                 _vm.$set(_vm.form, "slug", $$v)
                               },
                               expression: "form.slug",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Is Featured?" },
+                            model: {
+                              value: _vm.form.is_featured,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "is_featured", $$v)
+                              },
+                              expression: "form.is_featured",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { staticClass: "pb-0", attrs: { cols: "4", sm: "4" } },
+                        [
+                          _c("v-checkbox", {
+                            attrs: { label: "Is Active?" },
+                            model: {
+                              value: _vm.form.is_active,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "is_active", $$v)
+                              },
+                              expression: "form.is_active",
                             },
                           }),
                         ],

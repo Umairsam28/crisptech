@@ -19,8 +19,10 @@ class BrandsImport implements ToModel, WithChunkReading, ShouldQueue
     public function model(array $row)
     {
         return new Brand([
-           'name'     => $row[0],
-           'slug'    => Str::slug($row[0],'-'),
+           'name' => $row[0],
+           'slug' => Str::slug($row[0],'-'),
+           'is_active' => 1,
+           'is_featured' => 0,
         ]);
     }
     public function chunkSize(): int

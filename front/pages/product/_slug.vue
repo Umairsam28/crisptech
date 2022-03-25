@@ -13,7 +13,7 @@
     <div class="pro-container">
       <b-container>
         <b-row>
-          <b-col md="8" class="product-side">
+          <b-col md="9" class="product-side">
             <b-row>
               <b-col md="6">
                 <div class="img-holder">
@@ -32,7 +32,7 @@
                     <li>
                       <strong>AVAILABILITY</strong>
                       <span v-if="stock_available" class="i-stock">IN STOCK</span>
-                      <span v-else class="o-stock">Out of STOCK</span>
+                      <span v-else class="o-stock">LOW STOCK</span>
                     </li>
                   </ul>
                 </div>
@@ -40,21 +40,31 @@
                   <ProductPrice :product="product" />
                 </div>
                 <div v-if="product.price>product.sale_price" class="pro-save">
-                  You Save: <span>${{parseFloat(product.price-product.sale_price).toFixed(2)}}</span> ({{product.discount}}% Special Discount)
+                  You Save: <span>${{parseFloat(product.price-product.sale_price).toFixed(2)}}</span> ({{discount_percent}}% Special Discount)
                 </div>
                 <div v-if="stock_available" class="quantity">
                   <span>Quantity: </span>
-                  <input
+                  <div class="in-line">
+                    <b-button @click="less"><i class="fa fa-minus" aria-hidden="true"></i></b-button>
+                    <input v-model="quantity" readonly type="text"/>
+                    <b-button @click="add"><i class="fa fa-plus" aria-hidden="true"></i></b-button>
+                  </div>
+                  <!-- <input
                     type="number"
                     id="quantity"
                     name="quantity"
                     min="1"
                     v-model="quantity"
                     :max="stock_available_max"
-                  />
+                  /> -->
                   <div class="p-ob">
                     <b-button @click="addToCart(true)" class="yellow-btn">Buy Now</b-button>
                     <b-button @click="addToCart(false)" class="blue-btn">Add to cart</b-button>
+                  </div>
+                </div>
+                <div v-else class="quantity">
+                  <div class="p-ob">
+                    <b-button href="tel:+18323440072" class="blue-btn"><i aria-hidden="true" class="fa fa-phone"></i> +1 (832) 344 - 0072</b-button>
                   </div>
                 </div>
                 <div class="payment-logo">
@@ -83,7 +93,7 @@
               </b-col>
             </b-row>
           </b-col>
-          <b-col md="4" class="right-sidebar">
+          <b-col md="3" class="right-sidebar">
             <h4 class="side-heading">Request For Quote</h4>
             <div class="req-form">
               <p>
@@ -244,6 +254,14 @@ export default {
     return {product, items}
   },
   methods:{
+    less(){
+      if(this.quantity>1){
+        this.quantity--
+      }
+    },
+    add(){
+      this.quantity++
+    },
     resetError(){
         this.quoteformerror = {
           email:[],
@@ -292,6 +310,9 @@ export default {
     }
   },
   computed:{
+    discount_percent(){
+      return parseFloat((100-(this.product.sale_price/this.product.price)*100)).toFixed(2)
+    },
     stock_available(){
       var stock_available_bool = false
       if(this.product.in_stock==1){

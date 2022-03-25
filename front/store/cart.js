@@ -25,6 +25,9 @@ export const mutations = {
             state.total = total
         }
     },
+    lowstock(state, {item}){
+        this.$router.push('/product/'+item.slug)
+    },
     add(state, {item, quantity, redirect}){
         let cart_index = 0;
         let index = state.items.findIndex((v, k)=>{
@@ -53,6 +56,8 @@ export const mutations = {
         state.subtotal = total
         state.total = total
         if(redirect==true){
+            this.$router.push('/checkout')
+        }else{
             this.$router.push('/cart')
         }
     },

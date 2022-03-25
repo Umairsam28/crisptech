@@ -30,26 +30,25 @@ class ProductController extends Controller
         }
         return $arr;
     }
-    public function getViaSlug(Request $request)
-    {
-        $category = Category::where('slug', $request->slug)->first();
-        $prducts = Product::query();
-        $products =  $prducts->orderBy($request->sortBy, $request->orderBy);
+    public function getViaSlug(Request $request){
+        $category = Category::where('slug',$request->slug)->first();
+        $products =  Product::orderBy($request->sortBy,$request->orderBy)
+        ->where('products.is_active',1);
         $ids = $this->childs($category);
-        $products = $products->whereIn('category_id', $ids);
-        $brands = Brand::whereIn('id', Product::whereIn('category_id', $ids)
-            ->select('brand_id')->distinct()->get()->pluck('brand_id'))
-            ->withCount('products')->get();
-        $products = $products->paginate(16);
+        $products = $products->whereIn('category_id',$ids);
+        $brands = Brand::whereIn('id',Product::whereIn('category_id',$ids)
+        ->where('is_active',1)
+        ->select('brand_id')->distinct()->get()->pluck('brand_id'))
+        ->withCount('products')->get();
+        $products=$products->paginate(16);
         $parents = ($this->getParents($category));
         $parents = array_reverse($parents);
         return response()->json(['products' => $products, 'parents' => $parents, 'brands' => $brands, 'category' => $category]);
     }
-    public function index()
-    {
-        $products = Product::orderBy('id', 'desc');
-        if (isset($_GET['featured'])) {
-            $products = $products->where('is_featured', 1);
+    public function index(){
+        $products = Product::orderBy('id','desc')->where('products.is_active',1);
+        if(isset($_GET['featured'])){
+            $products = $products->where('is_featured',1);
         }
         if (isset($_GET['category_id']) && intval($_GET['category_id']) > 0) {
             $products = $products->where('category_id', intval($_GET['category_id']));
@@ -61,9 +60,9 @@ class ProductController extends Controller
         }
         return response()->json(['products' => $products]);
     }
-    public function get($slug)
-    {
-        $product = Product::where('slug', $slug)->with('related')->firstOrfail();
+    public function get($slug){
+        $product = Product::where('slug',$slug)
+        ->where('products.is_active',1)->with('related')->firstOrfail();
         $parents = ($this->getParents($product->category));
         $parents = array_reverse($parents);
         $product->load('brand');

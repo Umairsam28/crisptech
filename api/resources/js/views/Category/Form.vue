@@ -51,7 +51,7 @@ lazy-validation
   <v-text-field
     v-model="form.category_alias"
     :rules="[rules.required]"
-    :error-messages="errors.alias"
+    :error-messages="errors.category_alias"
     label="Alias"
   ></v-text-field>
 </v-col>
@@ -198,6 +198,7 @@ export default {
       var res = await categoryservice.get(this.form.id);
       this.form = {
         name: res.name,
+        category_alias: res.category_alias,
         slug: res.slug,
         category_alias: res.category_alias,
         parent_id: res.parent_id,

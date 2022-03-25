@@ -44,6 +44,19 @@ lazy-validation
   ></v-text-field>
 </v-col>
 
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.is_featured"
+    label="Is Featured?"
+  ></v-checkbox>
+</v-col>
+<v-col cols="4" sm="4" class="pb-0">
+  <v-checkbox
+    v-model="form.is_active"
+    label="Is Active?"
+  ></v-checkbox>
+</v-col>
+
 <v-col cols="12" cm="12" class="pb-0">
 <v-file-input
     accept="image/*"
@@ -105,6 +118,8 @@ export default {
             slug: res.slug,
             id: this.$route.params.id,
             image_url: res.image_url,
+            is_featured: (res.is_featured==1?true:false),
+            is_active: (res.is_active==1?true:false),
         }
         this.bread.push({
           text: "Edit",
@@ -127,6 +142,8 @@ export default {
           name:[],
           slug: [],
           image: [],
+          is_featured: [],
+          is_active: [],
       }
     },
     addpermission: async function () {
@@ -136,6 +153,8 @@ export default {
         var formdata = new FormData();
         formdata.append("name", this.form.name);
         formdata.append("slug", this.form.slug);
+        formdata.append("is_featured", (this.form.is_featured==true?1:0));
+        formdata.append("is_active", (this.form.is_active==true?1:0));
         if(this.form.image){
             formdata.append("image", this.form.image);
         }
@@ -154,6 +173,12 @@ export default {
             }
             if(res.data.image){
                 this.errors.image = res.data.image
+            }
+            if(res.data.is_featured){
+                this.errors.is_featured = res.data.is_featured
+            }
+            if(res.data.is_active){
+                this.errors.is_active = res.data.is_active
             }
             //errors here
         }else{
@@ -175,11 +200,15 @@ export default {
           name: '',
           slug: '',
           image: undefined,
+          is_featured: false,
+          is_active: true,
       },
       errors: {
           name:[],
           slug: [],
           image: [],
+          is_featured: [],
+          is_active: [],
       },
       bread: [
         {

@@ -9,6 +9,7 @@ use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
+use App\Http\Controllers\Public\BrandController as BrandFrontController;
 use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 
 
@@ -39,6 +40,7 @@ Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], 
     Route::post('/products-viaslug', [ProductFrontController::class, 'getViaSlug']);
     Route::get('/category/{category}', [ProductFrontController::class, 'category']);
     Route::get('/categories', [ProductFrontController::class, 'categories']);
+    Route::get('/brands', [BrandFrontController::class, 'index']);
     Route::get('/products/{slug}', [ProductFrontController::class, 'get']);
     Route::post('/products/quote', [ProductFrontController::class, 'quote']);
     Route::post('/product/search', [ProductFrontController::class, 'getSearch']);

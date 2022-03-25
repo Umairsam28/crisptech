@@ -10,24 +10,24 @@
             <!-- CART AREA -->
             <b-col md="9">
               <div class="cart-area">
-                <div class="table-responsive table-striped">
+                <div class="table-responsive">
                   <table>
                     <thead>
                       <tr>
-                        <th>Item</th>
+                        <th class="iname">Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Subtotal</th>
-                        <th></th>
+                        <!-- <th></th> -->
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="(cartItem, cartItemKey) in cartItems" :key="cartItemKey">
-                        <td>
+                        <td class="itdname">
                           <img :src="cartItem.product.home_image" alt="" />
                           {{cartItem.product.part_number}}
                         </td>
-                        <td class="price">${{cartItem.product.actual_price}}</td>
+                        <td class="price">${{parseFloat(cartItem.product.actual_price).toFixed(2)}}</td>
                         <td>
                           <b-form-input
                             id="input-1"
@@ -36,15 +36,17 @@
                             @keyup="updateCart({$event,cartItemKey})"
                           ></b-form-input>
                         </td>
-                        <td class="price">${{cartItem.product.actual_price*cartItem.quantity}}</td>
-                        <td>
+                        <td class="price">${{parseFloat(cartItem.product.actual_price*cartItem.quantity).toFixed(2)}}<br>
+                        <div class="dbtn">
                           <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
                             <i aria-hidden="true" class="fa fa-trash"></i>
                           </b-button>
-                          <!-- <b-button variant="link" size="sm" @click="removeItem(cartItemIndex)">
-                            <font-awesome-icon icon="fa-solid fa-pencil"/>
-                          </b-button> -->
+                          <b-button variant="link" size="sm" :to="'/product/'+cartItem.product.slug">
+                            <i aria-hidden="true" class="fa fa-pencil"></i>
+                          </b-button>
+                        </div>
                         </td>
+                        
                       </tr>
                     </tbody>
                   </table>
@@ -61,15 +63,15 @@
                 <h6>Summary</h6>
                 <div class="mix-total">
                   <ul>
-                    <li><span>Subtotal</span><span>${{cartSubTotal}}</span></li>
-                    <li><span>Discount</span><span>${{cartDiscountAmount}}</span></li>
+                    <li><span>Subtotal</span><span>${{parseFloat(cartSubTotal).toFixed(2)}}</span></li>
+                    <li><span>Discount</span><span>${{parseFloat(cartDiscountAmount).toFixed(2)}}</span></li>
                     <!-- <li><span>Tax</span><span>$0.00</span></li> -->
                   </ul>
                 </div>
                 <div class="sum-total">
                   <ul>
                     <li>Order Total</li>
-                    <li>${{cartTotal}}</li>
+                    <li>${{parseFloat(cartTotal).toFixed(2)}}</li>
                   </ul>
                 </div>
                 <div class="sum-btns">

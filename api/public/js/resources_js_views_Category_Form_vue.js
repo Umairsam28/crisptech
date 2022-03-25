@@ -33,6 +33,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_2__);
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -239,7 +241,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var res;
+      var _this$form, res;
+
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -267,19 +270,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 4:
               res = _context.sent;
-              _this.form = {
+              _this.form = (_this$form = {
                 name: res.name,
-                slug: res.slug,
                 category_alias: res.category_alias,
-                parent_id: res.parent_id,
-                description: res.description ? res.description : "",
-                short_description: res.short_description ? res.short_description : "",
-                is_featured: res.is_featured == 1 ? true : false,
-                show_in_main_menu: res.show_in_main_menu == 1 ? true : false,
-                show_in_home_sidemenu: res.show_in_home_sidemenu == 1 ? true : false,
-                image_url: res.image_url,
-                id: res.id
-              };
+                slug: res.slug
+              }, _defineProperty(_this$form, "category_alias", res.category_alias), _defineProperty(_this$form, "parent_id", res.parent_id), _defineProperty(_this$form, "description", res.description ? res.description : ""), _defineProperty(_this$form, "short_description", res.short_description ? res.short_description : ""), _defineProperty(_this$form, "is_featured", res.is_featured == 1 ? true : false), _defineProperty(_this$form, "show_in_main_menu", res.show_in_main_menu == 1 ? true : false), _defineProperty(_this$form, "show_in_home_sidemenu", res.show_in_home_sidemenu == 1 ? true : false), _defineProperty(_this$form, "image_url", res.image_url), _defineProperty(_this$form, "id", res.id), _this$form);
               _this.default_category = [];
 
               _this.default_category.push(res.parent_id);
@@ -867,7 +862,7 @@ var render = function () {
                           _c("v-text-field", {
                             attrs: {
                               rules: [_vm.rules.required],
-                              "error-messages": _vm.errors.alias,
+                              "error-messages": _vm.errors.category_alias,
                               label: "Alias",
                             },
                             model: {
