@@ -64,7 +64,7 @@
     <div class="last-bar">
       <b-container>
         <b-row>
-          <b-col v-b-hover="toggleCollapseMega" md="2">
+          <b-col v-b-hover="toggleCollapseMega" md="3" lg="2">
             <div class="menu-btn">
               <b-button v-b-toggle.collapse-1 variant="primary">
                 <i aria-hidden="true" class="fa fa-list"></i>
@@ -108,7 +108,7 @@
               </b-collapse>
             </div>
           </b-col>
-          <b-col md="10" class="ryt-menu">
+          <b-col md="9" lg="10" class="ryt-menu">
             <ul class="mid-links">
               <li v-for="mainmenunames in mainmenu" :key="mainmenunames.id">
                 <nuxt-link :to="'/' + mainmenunames.slug">{{
