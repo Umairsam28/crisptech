@@ -32,7 +32,7 @@
                     <li>
                       <strong>AVAILABILITY</strong>
                       <span v-if="stock_available" class="i-stock">IN STOCK</span>
-                      <span v-else class="o-stock">Out of STOCK</span>
+                      <span v-else class="o-stock">LOW STOCK</span>
                     </li>
                   </ul>
                 </div>
@@ -45,9 +45,9 @@
                 <div v-if="stock_available" class="quantity">
                   <span>Quantity: </span>
                   <div class="in-line">
-                    <b-button><i class="fa fa-minus" aria-hidden="true"></i></b-button>
-                    <input type="text"/>
-                    <b-button><i class="fa fa-plus" aria-hidden="true"></i></b-button>
+                    <b-button @click="less"><i class="fa fa-minus" aria-hidden="true"></i></b-button>
+                    <input v-model="quantity" readonly type="text"/>
+                    <b-button @click="add"><i class="fa fa-plus" aria-hidden="true"></i></b-button>
                   </div>
                   <!-- <input
                     type="number"
@@ -60,6 +60,11 @@
                   <div class="p-ob">
                     <b-button @click="addToCart(true)" class="yellow-btn">Buy Now</b-button>
                     <b-button @click="addToCart(false)" class="blue-btn">Add to cart</b-button>
+                  </div>
+                </div>
+                <div v-else class="quantity">
+                  <div class="p-ob">
+                    <b-button href="tel:+18323440072" class="blue-btn"><i aria-hidden="true" class="fa fa-phone"></i> +1 (832) 344 - 0072</b-button>
                   </div>
                 </div>
                 <div class="payment-logo">
@@ -249,6 +254,14 @@ export default {
     return {product, items}
   },
   methods:{
+    less(){
+      if(this.quantity>1){
+        this.quantity--
+      }
+    },
+    add(){
+      this.quantity++
+    },
     resetError(){
         this.quoteformerror = {
           email:[],
@@ -298,7 +311,7 @@ export default {
   },
   computed:{
     discount_percent(){
-      return parseFloat((this.product.sale_price/this.product.price)*100).toFixed(2)
+      return parseFloat((100-(this.product.sale_price/this.product.price)*100)).toFixed(2)
     },
     stock_available(){
       var stock_available_bool = false

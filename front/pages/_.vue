@@ -223,6 +223,8 @@ export default {
       }
       if(stock_available_bool===true){
         this.$store.commit('cart/add', {item: product,quantity: 1, redirect: redirect})
+      }else{
+        this.$store.commit('cart/lowstock', {item: product})
       }
     },
     linkGen(pageNum) {

@@ -643,6 +643,7 @@ footer {
 .in-line input {
     width: 50px;
     margin: 0 3px;
+    text-align: center;
 }
 .pro-container .right-sidebar .side-heading {
     font-size: 22px;
@@ -759,7 +760,7 @@ footer {
 }
 .o-stock {
     font-weight: 600;
-    color: red;
+    color:#ff8d00;
     text-transform: uppercase;
 }
 .i-stock{
