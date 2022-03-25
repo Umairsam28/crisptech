@@ -199,6 +199,7 @@ export default {
       this.form = {
         name: res.name,
         slug: res.slug,
+        category_alias: res.category_alias,
         parent_id: res.parent_id,
         description: res.description ? res.description : "",
         short_description: res.short_description ? res.short_description : "",

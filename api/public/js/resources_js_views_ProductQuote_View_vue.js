@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_auth_productquote__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @services/auth/productquote */ "./resources/js/services/auth/productquote.js");
 /* harmony import */ var _services_auth_product__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @services/auth/product */ "./resources/js/services/auth/product.js");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -105,7 +106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
+      MIX_FRONT_WEBSITE_URL: process.env.MIX_FRONT_WEBSITE_URL,
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
         email: '',

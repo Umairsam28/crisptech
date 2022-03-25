@@ -32,11 +32,13 @@
                   id="input-2"
                   v-model="form.name"
                   placeholder="Search for item or parts.."
-                  required 
+                  required
                 >
                 </b-form-input>
               </b-form-group>
-              <b-button type="button" @click="onSubmit" variant="primary"><i aria-hidden="true" class="fa fa-search"></i></b-button>
+              <b-button type="button" @click="onSubmit" variant="primary"
+                ><i aria-hidden="true" class="fa fa-search"></i
+              ></b-button>
             </div>
           </b-form>
           <div class="contact-info">
@@ -52,7 +54,10 @@
             </ul>
           </div>
           <div class="rquote">
-            <b-button v-b-modal.modal-1><i aria-hidden="true" class="fa fa-quote-right"></i> Request For Quote</b-button>
+            <b-button v-b-modal.modal-1
+              ><i aria-hidden="true" class="fa fa-quote-right"></i> Request For
+              Quote</b-button
+            >
           </div>
         </div>
       </b-container>
@@ -73,26 +78,42 @@
                 <b-card>
                   <div class="menu-blk">
                     <ul class="menu">
-                      <li v-for="sidemenuname in sidemenu" :key="sidemenuname.id">
+                      <li
+                        v-for="sidemenuname in sidemenu"
+                        :key="sidemenuname.id"
+                      >
                         <nuxt-link :to="'/' + sidemenuname.slug">
-                          <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
+                          <i
+                            aria-hidden="true"
+                            class="fa fa-long-arrow-right"
+                          ></i>
                           {{ sidemenuname.category_alias }}
                         </nuxt-link>
-                        <div v-if="sidemenuname.children.length>0" class="megadrop">
+                        <div
+                          v-if="sidemenuname.children.length > 0"
+                          class="megadrop"
+                        >
                           <b-row>
                             <b-col
                               v-for="childOne in sidemenuname.children"
                               md="4"
                               :key="childOne.id"
-                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.category_alias }}</nuxt-link></h3>
+                              ><h3>
+                                <nuxt-link :to="'/' + childOne.slug">{{
+                                  childOne.category_alias
+                                }}</nuxt-link>
+                              </h3>
                               <ul>
                                 <li
                                   v-for="childTwo in childOne.children"
                                   :key="childTwo.id"
                                 >
                                   <nuxt-link :to="'/' + childTwo.slug">
-                                  <i aria-hidden="true" class="fa fa-angle-right"></i>
-                                  {{ childTwo.category_alias }}
+                                    <i
+                                      aria-hidden="true"
+                                      class="fa fa-angle-right"
+                                    ></i>
+                                    {{ childTwo.category_alias }}
                                   </nuxt-link>
                                 </li>
                               </ul>
@@ -114,7 +135,10 @@
                 }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link to="/products"><i aria-hidden="true" class="fa fa-truck"></i> Track Your Order</nuxt-link>
+                <nuxt-link to="/products"
+                  ><i aria-hidden="true" class="fa fa-truck"></i> Track Your
+                  Order</nuxt-link
+                >
               </li>
             </ul>
             <ul v-if="!loggedIn" class="login-links">
@@ -250,32 +274,19 @@ export default {
     };
   },
   methods: {
-  onSubmit() {
-  
-
-  if(this.form.name != ""){
-  this.$router.push('/search/'+this.form.name);
-  }
-      // if(!this.loading){
-      //   event.preventDefault()
-      //   this.loading=true
-      //   let res = await this.$axios.post('/product/search',this.form).then(function(e){
-      //       return {status: 1, data: e.data}
-      //   }).catch(function(e){return {status: 0, data: e.response.data.errors};})
-      //   if(res.status ==1){   
-      //     console.log(res.data);
-      //      }
-      //   this.loading = false
-      // }
+    onSubmit() {
+      if (this.form.name != "") {
+        this.$router.push("/product/search/" + this.form.name);
+      }
     },
     removeItem(index) {
       this.$store.commit("cart/remove", {
         index: index,
       });
     },
-    toggleCollapseMega(hovered){
-      this.mycollapse1toggle = hovered
-    }
+    toggleCollapseMega(hovered) {
+      this.mycollapse1toggle = hovered;
+    },
   },
   computed: {
     cartTotal() {
@@ -284,16 +295,16 @@ export default {
     cartItems() {
       return this.$store.state.cart.items;
     },
-    loggedIn(){
+    loggedIn() {
       return this.$store.state.loggedIn;
-    }
+    },
   },
-  watch:{
-    $route(){
-      this.mycollapse2toggle = false
-      this.mycollapse1toggle = false
+  watch: {
+    $route() {
+      this.mycollapse2toggle = false;
+      this.mycollapse1toggle = false;
       //turn off menu here
-    }
-  }
+    },
+  },
 };
 </script>

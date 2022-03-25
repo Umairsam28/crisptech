@@ -94,11 +94,12 @@ class ProductController extends Controller
     public function getSearch(Request $request)
     {
         $products = Product::Where(function ($query) use ($request) {
-            $query->where('products.name', 'like', '%' . $request->name . '%')
-                ->orWhere('products.sku', 'like', '%' . $request->name . '%')
-                ->orWhere('products.description', 'like', '%' . $request->name . '%')
-                ->orWhere('products.part_number', 'like', '%' . $request->name . '%');
-        })->get();
+            $query->where('products.name', 'like', '%' . $request->slug . '%')
+                ->orWhere('products.sku', 'like', '%' . $request->slug . '%')
+                ->orWhere('products.description', 'like', '%' . $request->slug . '%')
+                ->orWhere('products.part_number', 'like', '%' . $request->slug . '%');
+        });
+        $products =  $products->orderBy($request->sortBy, $request->orderBy)->get();
         $ids = get_ids($products);
         $brands = Brand::whereIn('id', Product::where('id', $ids)
             ->select('brand_id')->distinct()->get()->pluck('brand_id'))
@@ -106,7 +107,6 @@ class ProductController extends Controller
         $category = Category::whereIn('id', Product::where('id', $ids)
             ->select('category_id')->distinct()->get()->pluck('category_id'))
             ->withCount('products')->get();
-
         return response()->json(['products' => $products, 'parents' => null, 'brands' => $brands, 'category' => $category]);
         // return response()->json(['products'=> $products, 'brands'=> $brands]);
     }

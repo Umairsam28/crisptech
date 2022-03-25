@@ -15,7 +15,7 @@
           <b-col md="3" class="sidebar">
             <h4 class="side-heading">Shop By</h4>
             <div class="accordion" role="tablist">
-              <b-card v-if="category.children&&category.children.length>0" no-body class="mb-1">
+              <b-card v-if="category.length>0" no-body class="mb-1">
                 <b-card-header header-tag="header" class="p-1" role="tab">
                   <b-button block v-b-toggle.accordion-3>Categories <i aria-hidden="true" class="fa fa-angle-down"></i></b-button>
                 </b-card-header>
@@ -28,7 +28,7 @@
                   <b-card-body>
                     <b-card-text>
                       <ul>
-                        <li v-for="childcat in category.children" :key="childcat.id"><nuxt-link :to="'/'+childcat.slug">{{childcat.name}} {{childcat.children.length>0?'>':''}}</nuxt-link></li>
+                        <li v-for="childcat in category" :key="childcat.id"><nuxt-link :to="'/'+childcat.slug">{{childcat.name}} {{childcat.length>0?'>':''}}</nuxt-link></li>
                       </ul>
                     </b-card-text>
                   </b-card-body>
@@ -45,62 +45,20 @@
                   role="tabpanel"
                 >
                   <b-card-body>
-                    
                     <b-card-text>
                       <ul>
                         <li v-for="brand in brands" :key="brand.id"><nuxt-link :to="'/product-brand/'+brand.slug">{{brand.name}} <span>({{brand.products_count}})</span></nuxt-link></li>
                       </ul>
-
                     </b-card-text>
                   </b-card-body>
                 </b-collapse>
               </b-card>
-
-              <!-- <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                  <b-button block v-b-toggle.accordion-2
-                    >Price <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
-                  >
-                </b-card-header>
-                <b-collapse
-                  id="accordion-2"
-                  accordion="my-accordion"
-                  role="tabpanel"
-                >
-                  <b-card-body>
-                    <b-card-text>
-                      <ul>
-                        <li><nuxt-link to="/products">$0.00 - $9,999.99 <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">$0.00 - $9,999.99 <span>(1100)</span></nuxt-link></li>
-                        <li><nuxt-link to="/products">$0.00 - $9,999.99 <span>(1100)</span></nuxt-link></li>
-                      </ul>
-                    </b-card-text>
-                  </b-card-body>
-                </b-collapse>
-              </b-card> -->
-
-              <!-- <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                  <b-button block v-b-toggle.accordion-3
-                    > <font-awesome-icon icon="fa-solid fa-angle-down" /></b-button
-                  >
-                </b-card-header>
-                <b-collapse
-                  id="accordion-3"
-                  accordion="my-accordion"
-                  role="tabpanel"
-                >
-                  <b-card-body>
-                    <b-card-text>3</b-card-text>
-                  </b-card-body>
-                </b-collapse>
-              </b-card> -->
             </div>
           </b-col>
 
           <b-col md="9" class="p-area"> 
             <div class="cat-name">
-              <h4>{{category.name}}</h4>
+              <h4>{{search_title}}</h4>
             </div>
             <div class="cat-filter">
               <b-row>
@@ -118,15 +76,13 @@
                     <div class="sort-div">
                       <span>Sort By</span>
                        <b-form-select @change="getProducts" v-model="selected" :options="options"></b-form-select>
-                    <!-- &nbsp;&nbsp; <font-awesome-icon icon="fa-solid fa-list" style="font-size: 17px;" v-model="sortBy" @click="byAscDesc" /> -->
                     </div>
-                    
                   </div>
                 </b-col>
               </b-row>
             </div>
             <div class="all-prod">
-              <b-row>
+              <b-row v-if="products.length > 0">
                 <b-col v-for="product in products" :key="product.id" md="3">
                   <div class="img-holder">
                     <nuxt-link :to="'/product/'+product.slug"><img :src="product.home_image" alt=""></nuxt-link>
@@ -135,17 +91,6 @@
                   <div class="pro-name">
                     <h6>{{product.name}}</h6>
                   </div>
-                  
-                  <!-- <div class="star-rate">
-                  <ul>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star" /></li>
-                    <li><font-awesome-icon icon="fa-solid fa-star-half" /></li>
-                  </ul>
-                  <span>26</span>
-                  </div> -->
                   <ProductPrice :product="product" />
                   <div class="p-ob">
                     <b-button @click="addToCart(product, true)" type="button" class="yellow-btn">Buy Now</b-button>
@@ -154,6 +99,11 @@
                   </div>
                 </b-col>
               </b-row>
+               <b-row v-else>
+                <b-col>
+                  No Product Found
+                </b-col>
+               </b-row>
               <div class="overflow-auto">
                 <b-pagination-nav v-model="page" :link-gen="linkGen" :number-of-pages="totalPages" use-router>
                   <template #first-text><i class="fa fa-angle-double-left" aria-hidden="true"></i></template>
@@ -177,20 +127,14 @@
 export default {
   async asyncData({ params, $axios }) {
     let lastSlug = '';
-    // console.log(params);
-lastSlug = params.keyword;
-// if(params.pathMatch.indexOf('/search/')>=0){
-    //   let fullUri = params.pathMatch.split('/')
-    //   lastSlug = fullUri[(fullUri.length-1)]
-    // }else{
-    //   lastSlug=params.pathMatch
-    // }
+    lastSlug = params.keyword;
     return {lastSlug}
   },
   data() {
     return {
       page: 1,
       sortBy:'desc',
+      search_title:'',
       totalPages: 1,
       totalProducts: 0,
       products: [],
@@ -232,26 +176,28 @@ lastSlug = params.keyword;
       query += '&sortBy='+this.selected;
       query += '&slug='+this.lastSlug;
       await this.$axios.post('/product/search'+query).then(e=>{
-        this.products = e.data.products.data
+        this.products = e.data.products
         this.totalProducts = e.data.products.total
         this.totalPages = e.data.products.last_page
         this.parents = e.data.parents
         this.brands = e.data.brands
         this.category = e.data.category
+       
+
       })
+      this.search_title = 'Search result for : ' + this.lastSlug;
       this.items = []
       this.items = [{
         text: "Home",
         to: "/",
       }]
-      for(let i = 0; i < this.parents.length; i++){
-        // console.log(parents[i].slug)
-        this.items.push({
-          text: this.parents[i].name,
-          to: '/'+this.parents[i].slug,
-          active: (this.parents[i].slug==this.lastSlug?true:false)
-        })
-      }
+      // for(let i = 0; i < this.parents.length; i++){
+      //   this.items.push({
+      //     text: this.parents[i].name,
+      //     to: '/'+this.parents[i].slug,
+      //     active: (this.parents[i].slug==this.lastSlug?true:false)
+      //   })
+      // }
     },
     byAscDesc(){
       this.sortBy == 'desc'? this.sortBy = 'asc' : this.sortBy = 'desc';
