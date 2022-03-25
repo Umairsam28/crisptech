@@ -112,6 +112,8 @@ header {
     padding: 0;
     display: flex;
     align-items: center;
+    width: 360px;
+    padding: 0 6px;
 }
 
 
@@ -138,8 +140,9 @@ header {
     background: none !important;
     box-shadow: none !important;
     font-size: 13px;
+    padding: 3px 21px;
+    width: 202px;
     border-radius: 15px;
-    padding: 3px 35px;
 }
 .rquote button i {
     font-size: 16px;
@@ -1452,10 +1455,10 @@ table {
     margin: 60px 0;
 }
 button.blue-btn {
-    font-size: 13px;
+    font-size: 12px;
 }
 button.yellow-btn {
-    font-size: 13px;
+    font-size: 12px;
 }
 .cart-area .table-responsive button {
     margin: 30px 0 0 auto;
@@ -1825,3 +1828,188 @@ ul.b-sort {
 border: 1px solid #2457aa;
 box-shadow: inset 0 0 5px #d3d3d3;}
 .brand-list .img-holder {padding: 10px 0;}
+
+.footer-top .right-area ul {
+    margin-left: -12px;
+}
+
+/* SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #017CBA; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #232E38; 
+  }
+
+
+/* RESPONSIVE */
+@media only screen and (max-width:1300px){
+    .header-logo img {
+        min-width: 210px;
+    }
+    .headerright form {
+        width: 310px;
+    }
+    .contact-info li {
+        font-size: 12px;
+        margin-right: 40px;
+       
+    }
+    .contact-info ul{
+        justify-content: center;
+    }
+    .menu-btn > button span {
+        font-size: 14px;
+    }
+    .mid-links li a {
+        padding: 20px 13px;
+        font-size: 12px;
+    }
+    .three-col .all-prod .col {
+        max-width: 25%;
+        flex: 0 0 25%;
+    }
+    .footer-top .right-area:before {
+        left: -28px;
+    }
+    ul.login-links {
+        margin-right: 0;
+    }
+    .last-bar ul {
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width:1199px){
+    .contact-info ul {
+        width: 275px;
+    }
+    .contact-info li {
+        margin-right: 20px;
+    }
+    .headerright {
+        padding: 0 0 0 0px;
+    }
+    .header-logo img {
+        min-width: 190px;
+    }
+    .headerright form {
+        width: 256px;
+    }
+    .login-links a {
+        font-size: 13px;
+      
+    }
+    .cart-info span {
+        font-size: 13px;
+    }
+    .last-bar ul {
+        margin-right: 0;
+    }
+    .mid-links li a {
+        padding: 20px 8px;
+    }
+    button.blue-btn,button.yellow-btn {
+        font-size: 10px;
+    }
+    .three-col .img-holder {
+        padding: 10px;
+    }
+    .three-col .img-holder img {
+        height: 180px;
+    }
+    .footer-top .right-area:before {
+        left: -2px;
+    }
+    .d-block.list-inline i {
+        font-size: 18px;
+        margin: 0 5px;
+    }
+}
+
+@media only screen and (max-width:991px){
+    .mid-links {
+        display: none;
+    }
+    .last-bar .ryt-menu {
+        justify-content: right;
+    }
+    .headerright form {
+        width: 180px;
+    }
+    .contact-info li i {
+        font-size: 16px;
+        margin-right: 4px;
+    }
+    .contact-info li:first-child i {
+        width: 21px;
+        height: 21px;
+        line-height: 21px;
+        font-size: 13px;
+    }
+    .contact-info li {
+        margin-right: 14px;
+    }
+    .header-logo img {
+        min-width: 149px;
+    }
+    .headerright .form-control {
+        height: 34px;
+    }
+    .all-cat-t {
+        display: none;
+    }
+    .contact-info li {
+        font-size: 10px;
+    }
+    .contact-info ul {
+        width: 222px;
+    }
+    .rquote button {
+        font-size: 10px;
+        padding: 3px 6px;
+        width: 120px;
+        border-radius: 13px;
+    }
+    .rquote button i {
+        font-size: 10px;
+        margin-right: 0;
+        float: left;
+    }
+    .three-col .all-prod .col {
+        max-width: 33.333%;
+        flex: 0 0 33.333%;
+    }
+    .three-col .p-ob > button, .p-area .p-ob > button {
+        width: 100%;
+    }
+    .p-ob button:first-child {
+        margin-bottom: 5px;
+    }
+}   
+
+@media only screen and (max-width:767px){
+
+}
+
+@media only screen and (max-width:579px){
+
+}
+
+@media only screen and (max-width:480px){
+
+}
+ 

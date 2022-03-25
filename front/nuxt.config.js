@@ -1,6 +1,10 @@
 module.exports = {
     head:{
       title: 'Crisptech LLC',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' }
+      ],
       script:[
         {
           src: 'https://use.fontawesome.com/3af70af034.js',
