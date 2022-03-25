@@ -78,7 +78,7 @@
                       <li v-for="sidemenuname in sidemenu" :key="sidemenuname.id">
                         <nuxt-link :to="'/' + sidemenuname.slug">
                           <i aria-hidden="true" class="fa fa-long-arrow-right"></i>
-                          {{ sidemenuname.category_alias }}
+                          {{ sidemenuname.name }}
                         </nuxt-link>
                         <div v-if="sidemenuname.children.length>0" class="megadrop">
                           <b-row>
@@ -86,7 +86,7 @@
                               v-for="childOne in sidemenuname.children"
                               md="4"
                               :key="childOne.id"
-                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.category_alias }}</nuxt-link></h3>
+                              ><h3><nuxt-link :to="'/' + childOne.slug">{{ childOne.name }}</nuxt-link></h3>
                               <ul>
                                 <li
                                   v-for="childTwo in childOne.children"
@@ -94,7 +94,7 @@
                                 >
                                   <nuxt-link :to="'/' + childTwo.slug">
                                   <i aria-hidden="true" class="fa fa-angle-right"></i>
-                                  {{ childTwo.category_alias }}
+                                  {{ childTwo.name }}
                                   </nuxt-link>
                                 </li>
                               </ul>
