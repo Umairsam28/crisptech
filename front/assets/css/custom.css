@@ -1180,6 +1180,9 @@ ul.mid-links {
     padding: 0;
     margin-right: 0;
 }
+ul.login-links {
+    margin-right: 40px;
+}
 .menu-blk {
     width: 236px;
 }
