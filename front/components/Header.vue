@@ -30,7 +30,7 @@
               <b-form-group>
                 <b-form-input
                   id="input-2"
-                  v-model="form.name"
+                  v-model="header.search"
                   placeholder="Search for items or parts ..."
                   required
                 ></b-form-input>
@@ -242,8 +242,8 @@ export default {
   },
   data() {
     return {
-      form: {
-        name: "",
+      header: {
+        search: "",
       },
       show: true,
       sidemenu: [],
@@ -255,7 +255,10 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      if(this.header.search){
+        this.$router.push('/search?q='+this.header.search)
+        this.header.search = ''
+      }
     },
     removeItem(index) {
       this.$store.commit("cart/remove", {

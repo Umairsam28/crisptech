@@ -39,5 +39,24 @@ export default {
       type: Object,
     },
   },
+  methods:{
+    addToCart(product, redirect=true){
+      var stock_available_bool = false
+      if(product.in_stock==1){
+        stock_available_bool=true
+        if(product.manage_stock==1){
+          stock_available_bool=false
+          if(product.stock_qty>0){
+            stock_available_bool=true
+          }
+        }
+      }
+      if(stock_available_bool===true){
+        this.$store.commit('cart/add', {item: product,quantity: 1, redirect: redirect})
+      }else{
+        this.$store.commit('cart/lowstock', {item: product})
+      }
+    },
+  }
 };
 </script>

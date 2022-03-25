@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{Order, Country, City, State};
 use App\Http\Requests\OrderRequestFront;
 use Stripe;
+use Auth;
 class OrderController extends Controller
 {
     public function index(Request $request){
@@ -94,6 +95,10 @@ class OrderController extends Controller
                     'tax_percent',
                     );
                     $arr['stripe_charge_id'] = $intent->id;
+                    try{
+                        $arr['user_id'] = $request->user()->id;
+                    }catch(\Exception $ex){
+                    }
                     $order = Order::create($arr);
                     $total = 0;
                     foreach($request->items as $key=>$value){
@@ -137,6 +142,7 @@ class OrderController extends Controller
             // yourself an email
             $error['errors']['card.number'] = [$e->getError()->message];
         } catch (\Exception $e) {
+            echo $e->getMessage();
             // Something else happened, completely unrelated to Stripe
             $error['errors']['card.number'] = ['Something Happened'];
         }

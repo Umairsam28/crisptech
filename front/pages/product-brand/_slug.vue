@@ -106,30 +106,16 @@ export default {
       
   },
   methods:{
-    addToCart(product, redirect=true){
-      var stock_available_bool = false
-      if(product.in_stock==1){
-        stock_available_bool=true
-        if(product.manage_stock==1){
-          stock_available_bool=false
-          if(product.stock_qty>0){
-            stock_available_bool=true
-          }
-        }
-      }
-      if(stock_available_bool===true){
-        this.$store.commit('cart/add', {item: product,quantity: 1, redirect: redirect})
-      }else{
-        this.$store.commit('cart/lowstock', {item: product})
-      }
-    },
     linkGen(pageNum) {
       return pageNum === 1 ? '?' : `?page=${pageNum}`
     },
     getProducts(){
       this.loading = true
       let slug = this.$route.params.slug
-      this.$axios.get('brands/'+slug+'?page='+this.page).then(e=>{
+      let query = '?page='+this.page;
+      query += '&orderBy='+this.sortBy;
+      query += '&sortBy='+this.selected;
+      this.$axios.get('brands/'+slug+query).then(e=>{
         this.loading = false
         this.totalProducts = e.data.products.total
         this.totalPages = e.data.products.last_page
