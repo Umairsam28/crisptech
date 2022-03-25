@@ -1004,14 +1004,6 @@ ul.mid-links {
 }
 
 
-/* Mega menu Css Start */
-/* .menu-blk {
-    position: absolute;
-    width: 100%;
-}
-.category.current .menu-blk {
-    opacity: 1;
-} */
 .menu-btn div#collapse-1 {
     position: absolute;
     z-index: 9;
