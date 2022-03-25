@@ -454,11 +454,13 @@ footer {
 }
 
 /* END FOOTER */
-
+.pagination .nuxt-link-exact-active {
+    color: #fff !important;
+}
 /* SIDEBAR */
 .side-heading {
     margin: 0;
-    padding: 18px 25px;
+    padding: 18px;
     text-transform: uppercase;
     font-size: 14px;
     background-color: #f0f0f0;
@@ -475,7 +477,7 @@ footer {
 }
 
 .sidebar .accordion {
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .sidebar .accordion > div {
@@ -541,7 +543,7 @@ footer {
     margin: 0 20px;
 }
 .top-banner {
-    padding: 0 0 60px;
+    padding: 0 0 30px;
 }
 .breadcrumb li > * {font-weight: 600;}
 .bread-crumbs {
@@ -965,7 +967,7 @@ a {
 
 .cart-logo span {
     background-color: #017CBA;
-    color: #000;
+    color: #fff;
     width: 20px;
     position: absolute;
     height: 20px;
@@ -977,7 +979,7 @@ a {
     right: -7px;
 }
 .cart-info span {
-    color: #017CBA;
+    color: #fff;
     font-size: 15px;
     font-weight: 600;
     line-height: 19px;
@@ -1180,8 +1182,26 @@ ul.mid-links {
     padding: 0;
     margin-right: 0;
 }
+
+.p-area .img-holder {
+    padding: 20px;
+}
 ul.login-links {
     margin-right: 40px;
+}
+.menu-btn {
+    position: relative;
+}
+
+.menu-btn:after {
+    height: 35px;
+    width: 1px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    content: '';
+    position: absolute;
+    background: #ffffff0d;
 }
 .menu-blk {
     width: 236px;
@@ -1263,7 +1283,7 @@ ul.login-links {
 .cart-items > div {
     border-bottom: 1px solid #eaeaea;
     padding: 0 0 10px;
-    margin-bottom: 0px;
+    margin-bottom: 6px;
 }
 ul.edit-pro button, ul.edit-pro a {
     color: #707070 !important;

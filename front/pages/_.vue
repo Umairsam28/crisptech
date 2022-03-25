@@ -12,7 +12,7 @@
     <div class="products-listing">
       <b-container>
         <b-row>
-          <b-col md="3" class="sidebar">
+          <b-col md="2" class="sidebar">
             <h4 class="side-heading">Shop By</h4>
             <div class="accordion" role="tablist">
               <b-card v-if="category.children&&category.children.length>0" no-body class="mb-1">
@@ -98,7 +98,7 @@
             </div>
           </b-col>
 
-          <b-col md="9" class="p-area"> 
+          <b-col md="10" class="p-area"> 
             <div class="cat-name">
               <h4>{{category.name}}</h4>
             </div>
