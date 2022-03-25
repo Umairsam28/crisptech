@@ -26,9 +26,9 @@
                 </div>
                 <div class="pro-info">
                   <ul>
-                    <li><strong>Part No:</strong> <span>{{product.part_number}}</span></li>
-                    <li><strong> Manufacturer:</strong> <span>{{product.brand.name}}</span></li>
-                    <li><strong> Category: </strong><span>{{product.category.name}}</span></li>
+                    <li><strong>Part No</strong> <span>{{product.part_number}}</span></li>
+                    <li><strong> Manufacturer</strong> <span>{{product.brand.name}}</span></li>
+                    <li><strong> Category</strong><span>{{product.category.name}}</span></li>
                     <li>
                       <strong>AVAILABILITY</strong>
                       <span v-if="stock_available" class="i-stock">IN STOCK</span>

@@ -5,6 +5,16 @@
         <img :src="product.home_image" alt="" />
       </div>
     </nuxt-link>
+    <div class="cat-info">
+                    <b-row>
+                      <b-col md="7">
+                        Brand: <nuxt-link to="">Samsung</nuxt-link>
+                      </b-col>
+                      <b-col md="5">
+                        <nuxt-link to="">View Category</nuxt-link>
+                      </b-col>
+                    </b-row>
+                  </div>
     <div class="p-details">
       <div class="pro-name">
         <h6>

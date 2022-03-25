@@ -54,7 +54,7 @@
             </ul>
           </div>
           <div class="rquote">
-            <b-button v-b-modal.modal-1><i aria-hidden="true" class="fa fa-quote-right"></i> Request For Quote</b-button>
+            <b-button v-b-modal.modal-1>Request For Quote</b-button>
           </div>
         </div>
       </b-container>

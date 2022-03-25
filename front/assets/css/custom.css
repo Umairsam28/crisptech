@@ -20,6 +20,10 @@ body{
 .text-black{
     color: black;
 }
+.top-bar p {
+    font-size: 16px;
+    font-weight: 500;
+}
 /* HEADER */
 header {
     background-color: #017CBA;
@@ -32,7 +36,7 @@ header {
 .header-logo {
     background-color: #fff;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 0;
 }
 .top-bar {
     text-align: center;
@@ -745,9 +749,29 @@ footer {
 }
 .pro-info li strong{
     color: #707070;
-    margin-right: 10px;
+    margin-right: 40px;
     font-size: 13px;
-    line-height: 24px;
+    line-height: 30px;
+    width: 150px;
+    display: inline-block;
+    position: relative;
+    padding: 0px 0 0px 11px;
+}
+.pro-info li strong:before {
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 7px;
+    height: 7px;
+    background: #007cba;
+    content: '';
+    border-radius: 50%;
+}
+.pro-info li strong:after {
+    content: ':';
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .pro-info li{
@@ -1836,6 +1860,20 @@ box-shadow: inset 0 0 5px #d3d3d3;}
 .nav-mid {
     background-color: #fff;
 }
+.cat-info .row > div {
+    margin: 0;
+    text-align: left;
+    font-size: 10px;
+}
+
+.cat-info a {
+    color: #007cba !important;
+}
+
+.cat-info {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 0 0 10px;
+}
 
 /* SCROLL BAR */
 /* width */
@@ -1857,6 +1895,9 @@ box-shadow: inset 0 0 5px #d3d3d3;}
   ::-webkit-scrollbar-thumb:hover {
     background: #232E38; 
   }
+  .p-area .cat-info {
+    padding: 0 15px 10px;
+}
 
 
 /* RESPONSIVE */

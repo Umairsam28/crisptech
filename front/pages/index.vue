@@ -74,6 +74,16 @@
                         <img :src="featured_product.home_image" alt="" />
                       </div>
                     </nuxt-link>
+                  <div class="cat-info">
+                    <b-row>
+                      <b-col md="7">
+                        Brand: <nuxt-link to="">Samsung</nuxt-link>
+                      </b-col>
+                      <b-col md="5">
+                        <nuxt-link to="">View Category</nuxt-link>
+                      </b-col>
+                    </b-row>
+                  </div>
                   <div class="p-details">
                     <nuxt-link :to="'/product/'+featured_product.slug">
                   <div class="pro-name">
@@ -156,6 +166,16 @@
                       <img :src="most_selling_product.product.image_url" alt=""/>
                     </nuxt-link>
                   
+                  </div>
+                  <div class="cat-info">
+                    <b-row>
+                      <b-col md="7">
+                        Brand: <nuxt-link to="">Samsung</nuxt-link>
+                      </b-col>
+                      <b-col md="5">
+                        <nuxt-link to="">View Category</nuxt-link>
+                      </b-col>
+                    </b-row>
                   </div>
                   <div class="p-details">
                     <nuxt-link :to="'/product/'+most_selling_product.product.slug">
