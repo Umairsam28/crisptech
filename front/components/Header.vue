@@ -41,12 +41,15 @@
           <div class="contact-info">
             <ul>
               <li>
+                <nuxt-link to="">
                 <i aria-hidden="true" class="fa fa-phone"></i>
-                <span>+1 (832) 344 - 0072</span>
+                <span>+1 (832) 344 - 0072</span></nuxt-link>
               </li>
               <li>
+                <nuxt-link to="">
                 <i aria-hidden="true" class="fa fa-commenting-o"></i>
                 <span>Chat Now</span>
+                </nuxt-link>
               </li>
             </ul>
           </div>

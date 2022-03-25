@@ -986,6 +986,9 @@ a {
     letter-spacing: 2px;
     display: block;
 }
+.contact-info a {
+    color: #fff !important;
+}
 
 .cart-info {margin: 0 0 0 14px;}
 .last-bar ul {
