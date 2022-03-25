@@ -95,7 +95,7 @@
       </b-container>
     </div>
     <div class="footer-bottom">
-        <p>Copyright © 2021 NextHDD. All rights reserved.</p>
+        <p>Copyright © 2021 CrispTechllc. All rights reserved.</p>
     </div>
   </footer>
 </template>

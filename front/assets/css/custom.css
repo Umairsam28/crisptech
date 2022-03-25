@@ -1731,12 +1731,15 @@ ul.mid-links li i {
     margin-right: 5px;
 }
 .price_container .old-price {
-    color: red;
+    
     text-decoration: line-through;
     font-size: 16px;
-    color: red;
+    color: #959595;
     font-weight: 600;
     text-align: left;
+}
+.product-side .p-ob {
+    margin-left: 0 !important;
 }
 .price_container {
     display: flex;
