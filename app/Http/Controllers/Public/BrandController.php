@@ -47,11 +47,11 @@ class BrandController extends Controller
         $baseQuery = Product::where('is_active',1);
         if($request->q){
             $filter_columns = ['name','slug','part_number','sku'];
-            $q = $request->q;
+            $q = implode('|',explode(' ',trim($request->q)));
             $baseQuery = $baseQuery->Where(
                 function($query) use ($filter_columns, $q) {
                 foreach($filter_columns as $filter_column){
-                    $query->orWhere($filter_column, 'like', '%'.$q.'%');
+                    $query->orWhere($filter_column, 'REGEXP', $q);
                 }
             });
         }
