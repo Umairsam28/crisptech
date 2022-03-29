@@ -18,7 +18,7 @@ class File extends Model
     }
     public function getFullUrlAttribute()
     {
-        return asset($this->url);
+        return 'https://d3djghvtckqcal.cloudfront.net/'.($this->url);
     }
     public function getCreatedAtFormattedAttribute(){
         return date('Y-m-d h:i a',strtotime($this->created_at));
