@@ -159,19 +159,26 @@ lazy-validation
     :src="form.image_url"
   ></v-img>
 </v-col>
-<v-col cols="4" sm="4" class="pb-0">
+<v-col cols="3" sm="3" class="pb-0">
   <v-checkbox
     v-model="form.is_featured"
     label="Is Featured?"
   ></v-checkbox>
 </v-col>
-<v-col cols="4" sm="4" class="pb-0">
+<v-col cols="3" sm="3" class="pb-0">
+  <v-checkbox
+    v-model="form.most_selling"
+    label="Most Selling?"
+  ></v-checkbox>
+</v-col>
+
+<v-col cols="3" sm="3" class="pb-0">
   <v-checkbox
     v-model="form.is_active"
     label="Is Active?"
   ></v-checkbox>
 </v-col>
-<v-col cols="4" sm="4" class="pb-0">
+<v-col cols="3" sm="3" class="pb-0">
   <v-checkbox
     v-model="form.google_feed"
     label="Send in Google Feed?"
@@ -383,6 +390,7 @@ export default {
             in_stock: (res.in_stock==1?true:false),
             manage_stock: (res.manage_stock==1?true:false),
             is_featured: (res.is_featured==1?true:false),
+            most_selling: (res.most_selling==1?true:false),
             is_active: (res.is_active==1?true:false),
             google_feed: (res.google_feed==1?true:false),
             id: this.$route.params.id,
@@ -431,6 +439,7 @@ export default {
           related_products: [],
           image: [],
           is_featured: [],
+          most_selling: [],
           is_active: [],
           google_feed: [],
           category_id: [],
@@ -461,6 +470,7 @@ export default {
         formdata.append("condition", this.form.condition);
         formdata.append("part_number", this.form.part_number);
         formdata.append("is_featured", (this.form.is_featured==true?1:0));
+        formdata.append("most_selling", (this.form.most_selling==true?1:0));
         formdata.append("is_active", (this.form.is_active==true?1:0));
         formdata.append("google_feed", (this.form.google_feed==true?1:0));
         formdata.append("in_stock", (this.form.in_stock==true?1:0));
@@ -514,6 +524,9 @@ export default {
             }
             if(res.data.is_featured){
                 this.errors.is_featured = res.data.is_featured
+            }
+            if(res.data.most_selling){
+                this.errors.most_selling = res.data.most_selling
             }
             if(res.data.is_active){
                 this.errors.is_active = res.data.is_active
@@ -593,6 +606,7 @@ export default {
           image: undefined,
           related_products: [],
           is_featured: false,
+          most_selling: false,
           is_active: true,
           google_feed: true,
           category_id: undefined,
@@ -616,6 +630,7 @@ export default {
           image: [],
           related_products: [],
           is_featured: [],
+          most_selling: [],
           is_active: [],
           google_feed: [],
           category_id: [],

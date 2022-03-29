@@ -8,6 +8,8 @@ use App\Models\{Order, Country, City, State};
 use App\Http\Requests\OrderRequestFront;
 use Stripe;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminOrder as AdminOrderMail;
 class OrderController extends Controller
 {
     public function index(Request $request){
@@ -115,6 +117,7 @@ class OrderController extends Controller
                     $total = ($total+$order->tax_amount);
                     $order->total = ($total-$order->discount_amount);
                     $order->save();
+                    Mail::to('orders@crisptechllc.com')->send(new AdminOrderMail($order));
                     return response()->json(['data'=>$order]);
                 }else{
                     $error['errors']['card.number'] = ['Unable to Authoize Payment'];

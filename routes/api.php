@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, ProductQuoteController, OrderController, StateController, UserExemptionController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, NewsletterController, ProductQuoteController, OrderController, StateController, UserExemptionController, QuoteFormController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
@@ -98,7 +98,9 @@ Route::group(['middleware' => ['cors', 'json.response', 'auth:api']], function (
     Route::apiResource('states', StateController::class);
     Route::apiResource('cities', CityController::class);
     Route::apiResource('product-quotes', ProductQuoteController::class);
+    Route::apiResource('quote-forms', QuoteFormController::class);
     Route::apiResource('orders', OrderController::class);
+    Route::apiResource('newsletters', NewsletterController::class);
 
     Route::get('/order-stripedetails/{order}', [OrderController::class, 'stripedetails']);
     Route::get('/capture-order/{order}', [OrderController::class, 'capture']);

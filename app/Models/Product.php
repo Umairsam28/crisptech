@@ -9,13 +9,13 @@ class Product extends Model
 {
     use HasFactory;
     protected $appends = ['image_url','home_image','detail_image', 'actual_price', 'discount_amount'];
-    protected $with = ['image'];
+    protected $with = ['image','brand','category'];
     protected $fillable = [
         'name','slug','price','description','short_description',
         'is_featured','category_id','sale_price','brand_id',
         'crawl_url','crawl_site','in_stock','manage_stock','stock_qty',
         'part_number','condition','sku',
-        'is_active','weight','google_feed'
+        'is_active','weight','google_feed','most_selling'
     ];
     public function related(){
         return $this->hasMany(RelatedProduct::class);

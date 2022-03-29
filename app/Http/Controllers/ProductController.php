@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         Gate::authorize('create', Product::class);
-        $product = Product::create($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price', 'brand_id', 'crawl_site', 'in_stock', 'manage_stock', 'stock_qty', 'part_number', 'sku', 'condition', 'is_active', 'weight', 'google_feed'));
+        $product = Product::create($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price', 'brand_id', 'crawl_site', 'in_stock', 'manage_stock', 'stock_qty', 'part_number', 'sku', 'condition', 'is_active', 'weight', 'google_feed', 'most_selling'));
         if (isset($request->related) && count($request->related) > 0) {
             $related = array_map(function ($rel_id) {
                 return ['reference_product' => $rel_id];
@@ -89,7 +89,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
-        $product->update($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price', 'brand_id', 'crawl_site', 'in_stock', 'manage_stock', 'stock_qty', 'part_number', 'sku', 'condition', 'is_active', 'weight', 'google_feed'));
+        $product->update($request->only('name', 'slug', 'price', 'description', 'short_description', 'category_id', 'is_featured', 'sale_price', 'brand_id', 'crawl_site', 'in_stock', 'manage_stock', 'stock_qty', 'part_number', 'sku', 'condition', 'is_active', 'weight', 'google_feed', 'most_selling'));
         $product->related()->delete();
         if (isset($request->related_products) && count($request->related_products) > 0) {
             $related = array_map(function ($rel_id) {
@@ -129,7 +129,6 @@ class ProductController extends Controller
     {
         ExportProductJob::dispatch(User::find($request->user()->id))->onQueue('high');
     }
-
     public function filterProducts($products){
         if (!empty($_GET['search'])) {
             $products = $products->Where(

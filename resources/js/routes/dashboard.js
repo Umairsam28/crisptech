@@ -239,6 +239,25 @@ export default [
         beforeEnter: admin,
     },
     {
+        path: '/quote-forms/',
+        name: 'auth.quote_forms',
+        component: ()=> import('@/views/QuoteForm/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/QuoteForm/List.vue'),
+                name: 'auth.quote_forms.listing'
+            },
+            {
+                path: 'view/:id',
+                component: ()=> import('@/views/QuoteForm/View.vue'),
+                name: 'auth.quote_forms.view'
+            }
+        ],
+        beforeEnter: admin,
+    },
+    
+    {
         path: '/orders/',
         name: 'auth.orders',
         component: ()=> import('@/views/Order/Main.vue'),

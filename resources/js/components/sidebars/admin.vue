@@ -488,6 +488,35 @@
         <v-list-item
           class="pa-0"
           link
+          :to="{ name: (permissions.indexOf(184)>=0?'auth.quote_forms.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-format-quote-close-outline'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Quotes</v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
           :to="{ name: (permissions.indexOf(158)>=0?'auth.productscsv':'auth.dashboard') }"
         >
           <v-menu

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\{ProductQuoteRequest, QuoteFormRequest};
 use App\Models\{Product, Category, ProductQuote, Brand, QuoteForm};
+use App\Mail\QuoteForm as QuoteFormMail;
+use Illuminate\Support\Facades\Mail;
 class ProductController extends Controller
 {
     public function categories(){
@@ -70,6 +72,7 @@ class ProductController extends Controller
     }
     public function quote(ProductQuoteRequest $request){
         $quote = ProductQuote::create($request->only('email','qty','product_id','message'));
+        Mail::to('rfq@crisptechllc.com')->send(new QuoteFormMail(url('product-quotes/view/'.$quote->id)));
         return response()->json(['quote'=>$quote]);
     }
     public function quoteform(QuoteFormRequest $request){
@@ -81,6 +84,7 @@ class ProductController extends Controller
             'quantity',
             'phone',
         ));
+        Mail::to('rfq@crisptechllc.com')->send(new QuoteFormMail(url('quote-forms/view/'.$quote->id)));
         return response()->json(['quote'=>$quote]);
     }
     public static function getParents($category, $arr = []){
