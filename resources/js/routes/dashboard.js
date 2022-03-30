@@ -256,6 +256,42 @@ export default [
         ],
         beforeEnter: admin,
     },
+    {
+        path: '/newsletters/',
+        name: 'auth.newsletters',
+        component: ()=> import('@/views/Newsletter/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/Newsletter/List.vue'),
+                name: 'auth.newsletters.listing'
+            },
+            {
+                path: 'view/:id',
+                component: ()=> import('@/views/Newsletter/View.vue'),
+                name: 'auth.newsletters.view'
+            }
+        ],
+        beforeEnter: admin,
+    },
+    {
+        path: '/track-order-forms/',
+        name: 'auth.track_order_forms',
+        component: ()=> import('@/views/TrackOrderForm/Main.vue'),
+        children: [
+            {
+                path: '',
+                component: ()=> import('@/views/TrackOrderForm/List.vue'),
+                name: 'auth.track_order_forms.listing'
+            },
+            {
+                path: 'view/:id',
+                component: ()=> import('@/views/TrackOrderForm/View.vue'),
+                name: 'auth.track_order_forms.view'
+            }
+        ],
+        beforeEnter: admin,
+    },
     
     {
         path: '/orders/',

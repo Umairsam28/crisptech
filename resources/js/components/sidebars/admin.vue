@@ -517,6 +517,64 @@
         <v-list-item
           class="pa-0"
           link
+          :to="{ name: (permissions.indexOf(187)>=0?'auth.newsletters.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-send'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Newsletters</v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
+          :to="{ name: (permissions.indexOf(192)>=0?'auth.track_order_forms.listing':'auth.dashboard') }"
+        >
+          <v-menu
+            open-on-hover
+            offset-x
+            style="max-width: 600px"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-list-item-icon
+                color="primary"
+                dark
+                class="d-block"
+                style="width: 100%; text-align: center"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon v-text="'mdi-truck-fast'"></v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>Track Order Requests</v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-menu>
+        </v-list-item>
+        <v-list-item
+          class="pa-0"
+          link
           :to="{ name: (permissions.indexOf(158)>=0?'auth.productscsv':'auth.dashboard') }"
         >
           <v-menu
@@ -645,7 +703,7 @@ export default {
         name: 'Order',
         to: 'auth.orders.add',
         permission_id: 178,
-      },      
+      },
     ]
   }),
   methods: {

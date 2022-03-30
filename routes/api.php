@@ -3,13 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, NewsletterController, ProductQuoteController, OrderController, StateController, UserExemptionController, QuoteFormController};
+use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, NewsletterController, ProductQuoteController, OrderController, StateController, UserExemptionController, QuoteFormController, TrackOrderFormController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
 use App\Http\Controllers\Public\CouponController as CouponFrontController;
 use App\Http\Controllers\Public\CartController as CartFrontController;
 use App\Http\Controllers\Public\BrandController as BrandFrontController;
+use App\Http\Controllers\Public\InquiryController as InquiryFrontController;
 use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 
 
@@ -45,6 +46,8 @@ Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], 
     Route::get('/product-search', [BrandFrontController::class, 'search']);
     Route::get('/products/{slug}', [ProductFrontController::class, 'get']);
     Route::post('/products/quote', [ProductFrontController::class, 'quote']);
+    Route::post('/newsletter', [InquiryFrontController::class, 'newsletter']);
+    Route::post('/track-your-order', [InquiryFrontController::class, 'trackyourorder']);
     Route::post('/quote-form', [ProductFrontController::class, 'quoteform']);
     Route::post('/coupon', [CouponFrontController::class, 'view']);
     Route::post('/orders', [OrderFrontController::class, 'store']);
@@ -101,6 +104,7 @@ Route::group(['middleware' => ['cors', 'json.response', 'auth:api']], function (
     Route::apiResource('quote-forms', QuoteFormController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('newsletters', NewsletterController::class);
+    Route::apiResource('track-order',TrackOrderFormController::class);
 
     Route::get('/order-stripedetails/{order}', [OrderController::class, 'stripedetails']);
     Route::get('/capture-order/{order}', [OrderController::class, 'capture']);
