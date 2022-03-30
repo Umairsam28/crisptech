@@ -16,7 +16,7 @@ class File extends Model
     {
         return $this->morphTo();
     }
-    public function getFullUrlAttribute()
+    public function getFullUrlAttribute() 
     {
         return 'https://d3djghvtckqcal.cloudfront.net/'.($this->url);
     }
