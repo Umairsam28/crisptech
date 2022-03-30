@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\WithEvents;
-use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Str;
@@ -11,10 +10,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Events\AfterImport;
-use App\Models\User;
+use App\Models\{User, File, Product};
 use App\Notifications\ProductImports;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Concerns\Importable;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class ProductsImport implements ToModel, WithChunkReading, ShouldQueue, WithHeadingRow, WithEvents
 {
@@ -34,6 +35,11 @@ class ProductsImport implements ToModel, WithChunkReading, ShouldQueue, WithHead
      */
     public function model(array $row)
     {
+        $image_sizes = [
+            ['width' => 264, 'height' => 199],
+            ['width' => 456, 'height' => 344],
+            ['width' => 264, 'height' => 264],
+        ];
         $saleprice = str_replace('$','',$row['sale_price']);
         $price = str_replace('$','',$row['price']);
         $in_stock = Str::contains(strtolower($row['availability']), 'instock');
@@ -108,6 +114,31 @@ class ProductsImport implements ToModel, WithChunkReading, ShouldQueue, WithHead
                 );
                 $product->sku = 'CRIS-'.$product->id;
                 $product->save();
+                if($row['image_url']){
+                    $contents = file_get_contents($row['image_url']);
+                    $ext = pathinfo($row['image_url'], PATHINFO_EXTENSION);
+                    $path = 'products_furl/'.md5($product->id).'.'.$ext;
+                    Storage::put($path, $contents);
+                    $updatedArray['part_number'] = $row['part_number'];
+                    $fileData = File::create([
+                        'url'=>$path,
+                        'fileable_id'=>$product->id,
+                        'fileable_type'=>'App\Models\Product',
+                        'table_name'=>'products',
+                        'extension'=>$ext,
+                    ]);
+                    foreach($image_sizes as $size){
+                        $img = Image::make(Storage::get($path));
+                        $name = $size['height'].'x'.$size['width'].'.'.$ext;
+                        if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
+                            Storage::delete('resized/'.$fileData->id.'-'.$name);
+                        }
+                        $img->resize($size['height'], $size['width'], function ($const) {
+                            $const->aspectRatio();
+                        });
+                        Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
+                    }
+                }
                 return $product;
             }
         }
