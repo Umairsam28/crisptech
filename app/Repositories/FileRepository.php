@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\File;
 use App\Helpers\ImageUtil;
+use Image;
+use Illuminate\Support\Facades\Storage;
 class FileRepository implements BaseRepository {
     protected $model;
     public function __construct(File $model)
@@ -50,7 +52,17 @@ class FileRepository implements BaseRepository {
             ]);
             $result[] = $fileData;
             foreach($sizes as $size){
-                ImageUtil::getHref($path,$size['height'],$size['width'],$fileData->id);
+                $img = Image::make(Storage::get($path));
+                $name = $size['height'].'x'.$size['width'].'.'.$file->getClientOriginalExtension();
+                if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
+                    Storage::delete('resized/'.$fileData->id.'-'.$name);
+                }
+                $img->resize($size['height'], $size['width'], function ($const) {
+                    $const->aspectRatio();
+                });
+                Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
+                // ->save('resized/'.$fileData->id.'-'.$name);
+                // ImageUtil::getHref($path,$size['height'],$size['width'],$fileData->id);
             }
             $iteration++;
             if($iteration==1&&$type==1){

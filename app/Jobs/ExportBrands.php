@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\BrandsExportXLXS;
 use App\Models\{User};
 use App\Notifications\ExportBrands as ExportBrandsNotification;
+use Illuminate\Support\Facades\Storage;
 class ExportBrands implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -36,16 +37,9 @@ class ExportBrands implements ShouldQueue
     public function handle()
     {
         $filename = 'brands'.time().'.xlsx';
-        $path = public_path('storage/brand_exports/'.$filename);
-        if(!file_exists(public_path('storage/brand_exports'))){
-            mkdir(public_path('storage/brand_exports'));
-        }
-        if(!file_exists($path)){
-            $myfile = fopen($path, "w");
-            fclose($myfile);
-        }
-        // $filename = 'brands.xlsx';
-        Excel::store(new BrandsExportXLXS, $path);//$filename);
-        $this->user->notify(new ExportBrandsNotification(['file'=>asset('brand_exports/'.$filename)]));
+        $path = ('brand_exports/'.$filename);
+        Storage::put('brand_exports/'.$filename,'');
+        Excel::store(new BrandsExportXLXS, $path, 's3');//$filename);
+        $this->user->notify(new ExportBrandsNotification(['file'=>'https://d3djghvtckqcal.cloudfront.net/'.('brand_exports/'.$filename)]));
     }
 }

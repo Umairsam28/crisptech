@@ -12,6 +12,7 @@ use App\Exports\CategoryExportXLXS;
 use App\Models\{User};
 use App\Notifications\ExportCategory as ExportCategoryNotification;
 use Excel;
+use Illuminate\Support\Facades\Storage;
 
 class ExportCategory implements ShouldQueue
 {
@@ -36,16 +37,10 @@ class ExportCategory implements ShouldQueue
     public function handle()
     {
         $filename = 'category'.time().'.xlsx';
-        $path = public_path('storage/category_exports/'.$filename);
-        if(!file_exists(public_path('storage/category_exports'))){
-            mkdir(public_path('storage/category_exports'));
-        }
-        if(!file_exists($path)){
-            $myfile = fopen($path, "w");
-            fclose($myfile);
-        }
-        // $filename = 'brands.xlsx';
-        Excel::store(new CategoryExportXLXS, $path);//$filename);
-        $this->user->notify(new ExportCategoryNotification(['file'=>asset('category_exports/'.$filename)]));
+        $path = ('category_exports/'.$filename);
+        Storage::put('category_exports/'.$filename,'');
+
+        Excel::store(new CategoryExportXLXS, $path,'s3');//$filename);
+        $this->user->notify(new ExportCategoryNotification(['file'=>'https://d3djghvtckqcal.cloudfront.net/'.('category_exports/'.$filename)]));
     }
 }

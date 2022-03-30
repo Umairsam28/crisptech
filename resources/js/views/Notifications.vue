@@ -23,6 +23,7 @@
         <v-col cols="12">
           {{notification.data.message}}
           <v-btn
+            v-if="notification.data.file"
             color="info"
             dark
             x-small

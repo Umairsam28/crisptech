@@ -44,13 +44,13 @@ class Product extends Model
     }
     public function getHomeImageAttribute(){
         if($this->image){
-            return asset('resized/'.$this->image->id.'-264x264.'.$this->image->extension);
+            return 'https://d3djghvtckqcal.cloudfront.net/'.('resized/'.$this->image->id.'-264x264.'.$this->image->extension);
         }
         return $this->image_url;
     }
     public function getDetailImageAttribute(){
         if($this->image){
-            return asset('resized/'.$this->image->id.'-344x456.'.$this->image->extension);
+            return 'https://d3djghvtckqcal.cloudfront.net/'.('resized/'.$this->image->id.'-344x456.'.$this->image->extension);
         }
         return $this->image_url;
     }

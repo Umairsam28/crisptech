@@ -56,8 +56,8 @@ class ProductImports extends Notification
     public function toArray($notifiable)
     {
         return [
-            'file'=>$this->comment['file'],
-            'message'=>'File Uploaded',
+            // 'file'=>$this->comment['file'],
+            'message'=>'Products Imported '.date('Y-m-d h:i a'),
         ];
     }
 }

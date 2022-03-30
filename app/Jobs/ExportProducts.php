@@ -12,6 +12,7 @@ use App\Exports\ProductExportXLXS;
 use App\Models\{User};
 use App\Notifications\ExportProduct as ExportProductNotification;
 use Excel;
+use Illuminate\Support\Facades\Storage;
 
 class ExportProducts implements ShouldQueue
 {
@@ -35,16 +36,9 @@ class ExportProducts implements ShouldQueue
     public function handle()
     {
         $filename = 'product'.time().'.xlsx';
-        $path = public_path('storage/product_exports/'.$filename);
-        if(!file_exists(public_path('storage/product_exports'))){
-            mkdir(public_path('storage/product_exports'));
-        }
-        if(!file_exists($path)){
-            $myfile = fopen($path, "w");
-            fclose($myfile);
-        }
-        // $filename = 'brands.xlsx';
-        Excel::store(new ProductExportXLXS, $path);//$filename);
-        $this->user->notify(new ExportProductNotification(['file'=>asset('product_exports/'.$filename)]));
+        $path = ('product_exports/'.$filename);
+        Storage::put('product_exports/'.$filename,'');
+        Excel::store(new ProductExportXLXS, $path, 's3');//$filename);
+        $this->user->notify(new ExportProductNotification(['file'=>'https://d3djghvtckqcal.cloudfront.net/'.('product_exports/'.$filename)]));
     }
 }
