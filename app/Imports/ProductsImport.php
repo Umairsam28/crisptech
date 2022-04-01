@@ -133,9 +133,7 @@ class ProductsImport implements ToModel, WithChunkReading, ShouldQueue, WithHead
                         if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
                             Storage::delete('resized/'.$fileData->id.'-'.$name);
                         }
-                        $img->resize($size['height'], $size['width'], function ($const) {
-                            $const->aspectRatio();
-                        });
+                        $img->resize($size['height'], $size['width']);
                         Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
                     }
                 }

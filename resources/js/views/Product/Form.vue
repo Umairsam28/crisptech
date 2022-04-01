@@ -303,6 +303,7 @@ lazy-validation
 </v-col>
 
 <v-col
+v-if="categories.length>0"
   cols="12"
   sm="12"
   class="pb-0"
@@ -401,6 +402,7 @@ export default {
         }
         this.default_category = []
         this.default_category.push(res.category_id)
+        this.form.category_id = res.category_id
         this.bread.push({
           text: "Edit",
           to: { name: "auth.products.edit", params: {id: this.$route.params.id} },

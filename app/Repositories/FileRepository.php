@@ -57,9 +57,7 @@ class FileRepository implements BaseRepository {
                 if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
                     Storage::delete('resized/'.$fileData->id.'-'.$name);
                 }
-                $img->resize($size['height'], $size['width'], function ($const) {
-                    $const->aspectRatio();
-                });
+                $img->resize($size['height'], $size['width']);
                 Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
                 // ->save('resized/'.$fileData->id.'-'.$name);
                 // ImageUtil::getHref($path,$size['height'],$size['width'],$fileData->id);

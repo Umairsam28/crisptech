@@ -403,6 +403,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -433,7 +434,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
               if (!_this.$route.params.id) {
-                _context.next = 17;
+                _context.next = 18;
                 break;
               }
 
@@ -477,6 +478,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               _this.default_category.push(res.category_id);
 
+              _this.form.category_id = res.category_id;
+
               _this.bread.push({
                 text: "Edit",
                 to: {
@@ -489,16 +492,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 exact: true
               });
 
-              _context.next = 14;
+              _context.next = 15;
               return _this.$nextTick();
 
-            case 14:
+            case 15:
               _this.form.slug = res.slug;
-              _context.next = 20;
+              _context.next = 21;
               break;
 
-            case 17:
-              _context.next = 19;
+            case 18:
+              _context.next = 20;
               return _services_auth_product__WEBPACK_IMPORTED_MODULE_1__["default"].getlist('?perpage=1').then(function (e) {
                 if (e.data.length > 0) {
                   _this.form.sku = e.data[0].id + 1;
@@ -507,7 +510,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
               });
 
-            case 19:
+            case 20:
               _this.bread.push({
                 text: "Add",
                 to: {
@@ -517,7 +520,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 exact: true
               });
 
-            case 20:
+            case 21:
             case "end":
               return _context.stop();
           }
@@ -1990,52 +1993,55 @@ var render = function () {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "v-col",
-                        {
-                          staticClass: "pb-0",
-                          attrs: { cols: "12", sm: "12" },
-                        },
-                        [
-                          _c("label", [_vm._v("Primary Category")]),
-                          _vm._v(" "),
-                          _vm.errors.category_id.length > 0
-                            ? _c(
-                                "v-alert",
-                                {
-                                  attrs: {
-                                    dense: "",
-                                    outlined: "",
-                                    type: "error",
-                                  },
+                      _vm.categories.length > 0
+                        ? _c(
+                            "v-col",
+                            {
+                              staticClass: "pb-0",
+                              attrs: { cols: "12", sm: "12" },
+                            },
+                            [
+                              _c("label", [_vm._v("Primary Category")]),
+                              _vm._v(" "),
+                              _vm.errors.category_id.length > 0
+                                ? _c(
+                                    "v-alert",
+                                    {
+                                      attrs: {
+                                        dense: "",
+                                        outlined: "",
+                                        type: "error",
+                                      },
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n  " +
+                                          _vm._s(
+                                            _vm.errors.category_id.join(", ")
+                                          ) +
+                                          "\n"
+                                      ),
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("v-treeview", {
+                                attrs: {
+                                  activatable: "",
+                                  dense: "",
+                                  items: _vm.categories,
+                                  active: _vm.default_category,
+                                  open: _vm.default_category,
                                 },
-                                [
-                                  _vm._v(
-                                    "\n  " +
-                                      _vm._s(
-                                        _vm.errors.category_id.join(", ")
-                                      ) +
-                                      "\n"
-                                  ),
-                                ]
-                              )
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("v-treeview", {
-                            attrs: {
-                              activatable: "",
-                              dense: "",
-                              items: _vm.categories,
-                              active: _vm.default_category,
-                              open: _vm.default_category,
-                            },
-                            on: {
-                              "update:active": _vm.getCurrentSelectionParent,
-                            },
-                          }),
-                        ],
-                        1
-                      ),
+                                on: {
+                                  "update:active":
+                                    _vm.getCurrentSelectionParent,
+                                },
+                              }),
+                            ],
+                            1
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "v-col",
