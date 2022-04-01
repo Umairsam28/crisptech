@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-file-input v-model="file" label="Product CSV"></v-file-input>
+      <v-file-input persistent-hint hint="Supported format is: xlsx" v-model="file" label="Product File"></v-file-input>
     </v-col>
     <v-col cols="12">
       <v-btn

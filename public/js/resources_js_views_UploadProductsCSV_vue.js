@@ -3616,7 +3616,11 @@ var render = function () {
         { attrs: { cols: "12" } },
         [
           _c("v-file-input", {
-            attrs: { label: "Product CSV" },
+            attrs: {
+              "persistent-hint": "",
+              hint: "Supported format is: xlsx",
+              label: "Product File",
+            },
             model: {
               value: _vm.file,
               callback: function ($$v) {
