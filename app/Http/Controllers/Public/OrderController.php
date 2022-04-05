@@ -145,7 +145,7 @@ class OrderController extends Controller
             // yourself an email
             $error['errors']['card.number'] = [$e->getError()->message];
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            // echo $e->getMessage();
             // Something else happened, completely unrelated to Stripe
             $error['errors']['card.number'] = ['Something Happened'];
         }

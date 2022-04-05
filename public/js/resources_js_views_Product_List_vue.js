@@ -189,6 +189,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         sortable: true,
         value: "name"
       }, {
+        text: "Sale Price",
+        align: "start",
+        sortable: true,
+        value: "actual_price"
+      }, {
         text: "Actions",
         value: "actions",
         sortable: false

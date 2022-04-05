@@ -166,6 +166,12 @@ export default {
           sortable: true,
           value: "name",
         },
+        {
+          text: "Sale Price",
+          align: "start",
+          sortable: true,
+          value: "actual_price",
+        },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };

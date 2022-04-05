@@ -9,8 +9,7 @@ use App\Http\Resources\ProductResource;
 use App\Http\Requests\ProductRequest;
 use App\Repositories\FileRepository;
 use App\Jobs\ExportProducts as ExportProductJob;
-use Excel;
-use App\Imports\ProductsImport;
+use App\Jobs\ImportProductsSheet;
 
 class ProductController extends Controller
 {
@@ -124,7 +123,7 @@ class ProductController extends Controller
     public function uploadcsv(Request $request)
     {
         $result = $this->file->create([$request->file], 'importproductsheet', time(), 1);
-        Excel::queueImport(new ProductsImport, $result[0]->url,'s3');
+        ImportProductsSheet::dispatch($result[0], User::find($request->user()->id))->onQueue('high');
     }
     public function export(Request $request)
     {

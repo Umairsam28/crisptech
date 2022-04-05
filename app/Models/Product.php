@@ -15,7 +15,9 @@ class Product extends Model
         'is_featured','category_id','sale_price','brand_id',
         'crawl_url','crawl_site','in_stock','manage_stock','stock_qty',
         'part_number','condition','sku',
-        'is_active','weight','google_feed','most_selling'
+        'is_active','weight','google_feed','most_selling',
+        'meta_title',
+        'meta_description'
     ];
     public function related(){
         return $this->hasMany(RelatedProduct::class);

@@ -4,6 +4,16 @@
       >Invoice #<b>{{ invoice.id }}</b></v-card-title
     >
     <v-card-text>
+      <v-btn v-if="order_status==1" @click="voidCustomer" depressed color="error" class="text-white">
+        Void Order
+      </v-btn>
+      <v-btn v-if="order_status==1" @click="chargeCustomer" depressed color="info" class="text-white">
+        Charge Now
+      </v-btn>
+      <v-chip class="ma-2" color="primary">Amount Allowed to Capture: {{amountAllowedForCapture}}</v-chip>
+      <v-chip class="ma-2" color="info">Amount Captured: {{amountReceivedFromCapture}}</v-chip>
+      <v-chip class="ma-2" color="success">Stripe Status: {{stripeStatus}}</v-chip>      
+      
       <v-row align="center">
         <v-col cols="4">
           <v-list-item>
@@ -42,39 +52,6 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="text-h6">
-                Update Order Status
-              </v-list-item-title>
-              <v-btn-toggle
-                tile
-                color="deep-purple accent-3"
-                group
-              >
-                <!-- <v-btn small value="1">
-                  Pending
-                </v-btn> -->
-
-                <v-btn @click="captureOrder" v-if="order_status==1" small value="2">
-                  Processing
-                </v-btn>
-
-                <v-btn v-if="order_status==1" small value="3">
-                  Holded
-                </v-btn>
-
-                <v-btn v-if="order_status==1" small value="4">
-                  Canceled
-                </v-btn>
-
-                <v-btn v-if="order_status==2" small value="5">
-                  Completed/Delivered
-                </v-btn>
-              </v-btn-toggle>
-            </v-list-item-content>
-          </v-list-item>
-
         </v-col>
         <v-col cols="4">
           <v-toolbar color="pink" dark>
@@ -241,6 +218,30 @@
           </v-list>
         </v-col>
         <v-col cols="12">
+          <label for="">Update Order Status</label>
+          <v-btn-toggle
+            tile
+            color="deep-purple accent-3"
+            group
+          >
+            <v-btn @click="updateStatus(1)" small value="1">
+              Pending
+            </v-btn>
+            <v-btn @click="updateStatus(2)" small value="2">
+              Processing
+            </v-btn>
+            <v-btn @click="updateStatus(3)" small value="3">
+              Hold
+            </v-btn>
+            <v-btn @click="updateStatus(4)" small value="4">
+              Canceled
+            </v-btn>
+            <v-btn @click="updateStatus(5)" small value="5">
+              Completed/Delivered
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+        <v-col cols="12">
           <v-divider></v-divider>
         </v-col>
         <v-col cols="12">
@@ -262,13 +263,15 @@
                   <th class="text-left">Product</th>
                   <th class="text-left">Qty</th>
                   <th class="text-left">Total</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="item in invoice.products" :key="item.id">
                   <td>{{ item.product?item.product.sku:'N/A' }}</td>
-                  <td>{{ item.quantity }}</td>
+                  <td>{{item.quantity}}</td>
                   <td>$ {{ item.rowtotal }}</td>
+                  <td><v-btn @click="updateRowQantity(item)" x-small color="accent">Update Quantity</v-btn></td>
                 </tr>
               </tbody>
             </template>
@@ -326,19 +329,60 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <v-dialog
+      v-model="updateQtyModal"
+      persistent
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Update Order Product Quantity</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Quantity*"
+                  min="1"
+                  type="number"
+                  v-model="selectedItem.quantity"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="updateQtyModal = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="updateQty"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 <script>
 import defaultservice from "@services/auth/default";
+import ordersservice from "@services/auth/orders";
 import OrderStatus from "@/components/orders/status.vue";
+import Swal from "sweetalert2";
 const service = new defaultservice("orders");
 export default {
   async mounted() {
-    this.invoice = await service.get(this.$route.params.id).then((e) => {
-      this.loading = false;
-      this.order_status = e.order_status
-      return e;
-    });
+    this.getInv()
   },
   data() {
     return {
@@ -346,17 +390,102 @@ export default {
       invoice: {},
       loading: true,
       tracking_id: "",
+      updateQtyModal: false,
+      selectedItem: {},
+      amountAllowedForCapture: 0,
+      amountReceivedFromCapture: 0,
+      stripeStatus: '',
     };
   },
   components: {
     OrderStatus,
   },
   methods: {
+    async getInv(){
+      this.invoice = await service.get(this.$route.params.id).then((e) => {
+        this.loading = false;
+        this.order_status = e.order_status
+        return e;
+      });
+      this.amountAllowedForCapture = 0
+      this.amountReceivedFromCapture = 0
+      ordersservice.getStripeIntentDetails(this.$route.params.id).then(e=>{
+        if(e){
+          if(e.amount_capturable){
+            this.amountAllowedForCapture = (e.amount_capturable/100)
+          }
+          if(e.amount_received){
+            this.amountReceivedFromCapture = (e.amount_received/100)
+          }
+          this.stripeStatus = e.status
+        }
+      })
+    },
+    updateRowQantity(item){
+      Object.assign(this.selectedItem, item)
+      this.updateQtyModal = true
+    },
+    async updateQty(){
+      await ordersservice.updateQty(this.invoice.id, this.selectedItem)
+      this.updateQtyModal = false
+      this.getInv()
+    },
+    async chargeCustomer(){
+      const isConfirmed = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Charge this Order",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return true;
+        }
+      });
+      if (isConfirmed) {
+        let res = await ordersservice.captureOrder(this.invoice.id)
+        if(!res.status){
+          Swal.fire("Error!", res.data, "error");
+        }else{
+          Swal.fire("Success!", "Your order has been charged.", "success");
+        }
+        this.getInv()
+      }
+    },
+    async voidCustomer(){
+      const isConfirmed = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Void this Order",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return true;
+        }
+      });
+      if (isConfirmed) {
+        let res = await ordersservice.voidOrder(this.invoice.id)
+        if(!res.status){
+          Swal.fire("Error!", res.data, "error");
+        }else{
+          Swal.fire("Success!", "Your order has been voided.", "success");
+        }        
+        this.getInv()
+      }
+    },
     sendTrackingCode() {
       alert("her");
     },
-    captureOrder(){
-
+    async updateStatus(status){
+      let formData = new FormData()
+      formData.append('order_status',status)
+      await service.update(formData,this.invoice.id);
+      this.getInv()
     },
     copyToClipboard(id){
       const copyText = document.getElementById(id).textContent

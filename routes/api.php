@@ -103,12 +103,15 @@ Route::group(['middleware' => ['cors', 'json.response', 'auth:api']], function (
     Route::apiResource('product-quotes', ProductQuoteController::class);
     Route::apiResource('quote-forms', QuoteFormController::class);
     Route::apiResource('orders', OrderController::class);
+    
     Route::apiResource('newsletters', NewsletterController::class);
     Route::apiResource('track-order',TrackOrderFormController::class);
 
+    Route::post('/update-qty/{orderProduct}', [OrderController::class, 'updateQty']);
     Route::get('/order-stripedetails/{order}', [OrderController::class, 'stripedetails']);
-    Route::get('/capture-order/{order}', [OrderController::class, 'capture']);
-    Route::get('/refund-order/{order}', [OrderController::class, 'refund']);
+    Route::get('/capture-order/{order}', [OrderController::class, 'captureOrder']);
+    Route::get('/void-order/{order}', [OrderController::class, 'voidOrder']);
+    Route::get('/refund-order/{order}', [OrderController::class, 'refundOrder']);
 
     //additional
     Route::post('/a/products/uploadcsv', [ProductController::class, 'uploadcsv']);
