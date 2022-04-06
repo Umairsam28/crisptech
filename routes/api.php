@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\{BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, NewsletterController, ProductQuoteController, OrderController, StateController, UserExemptionController, QuoteFormController, TrackOrderFormController};
+use App\Http\Controllers\{FileController, SiteMapController, BannerController, BrandController, CategoryController, CityController, CountryController, RoleController, PermissionController, ProductController, UserController, CouponController, FaqController, InquiryController, NewsletterController, ProductQuoteController, OrderController, StateController, UserExemptionController, QuoteFormController, TrackOrderFormController};
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Public\ProductController as ProductFrontController;
 use App\Http\Controllers\Public\OrderController as OrderFrontController;
@@ -24,7 +23,7 @@ use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('/sitemap', [SiteMapController::class, 'index']);
 // ------------------------------------------------ Frontend Routes-------->>>
 Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], function () {
     Route::get('/countries', [CountryCityStateController::class, 'countries']);
