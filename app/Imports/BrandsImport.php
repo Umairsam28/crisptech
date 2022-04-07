@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-
+ 
 class BrandsImport implements ToModel, WithChunkReading, ShouldQueue
 {
     /**
