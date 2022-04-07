@@ -19,23 +19,12 @@ use App\Notifications\ProductImports;
 use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 use Maatwebsite\Excel\Events\AfterImport;
 
-class ProductsImport implements ToModel, WithHeadingRow, SkipsOnFailure, WithChunkReading, ShouldQueue, WithEvents
+class ProductsImport implements ToModel, WithHeadingRow, SkipsOnFailure
 {
-    use Importable, RegistersEventListeners;
-    public static function afterImport(AfterImport $event){
-        $admins = User::where('role_id',1)->get();
-        foreach($admins as $admin){
-            $admin->notify(new ProductImports(''));
-        }
-    }
+    use Importable;
     public function onFailure(Failure ...$failures)
     {
         // Handle the failures how you'd like.
-    }
-
-    public function chunkSize(): int
-    {
-        return 50;
     }
 
     /**
