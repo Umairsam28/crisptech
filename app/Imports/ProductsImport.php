@@ -133,29 +133,29 @@ class ProductsImport implements ToModel, WithHeadingRow, SkipsOnFailure,ShouldQu
                     );
                     $product->sku = 'CRIS-'.$product->id;
                     $product->save();
-                    // if($row['image_url']){
-                    //     $contents = file_get_contents($row['image_url']);
-                    //     $ext = pathinfo($row['image_url'], PATHINFO_EXTENSION);
-                    //     $path = 'products_furl/'.md5($product->id).'.'.$ext;
-                    //     Storage::put($path, $contents);
-                    //     $updatedArray['part_number'] = $row['part_number'];
-                    //     $fileData = File::create([
-                    //         'url'=>$path,
-                    //         'fileable_id'=>$product->id,
-                    //         'fileable_type'=>'App\Models\Product',
-                    //         'table_name'=>'products',
-                    //         'extension'=>$ext,
-                    //     ]);
-                    //     foreach($image_sizes as $size){
-                    //         $img = Image::make(Storage::get($path));
-                    //         $name = $size['height'].'x'.$size['width'].'.'.$ext;
-                    //         if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
-                    //             Storage::delete('resized/'.$fileData->id.'-'.$name);
-                    //         }
-                    //         $img->resize($size['height'], $size['width']);
-                    //         Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
-                    //     }
-                    // }
+                    if($row['image_url']){
+                        $contents = file_get_contents($row['image_url']);
+                        $ext = pathinfo($row['image_url'], PATHINFO_EXTENSION);
+                        $path = 'products_furl/'.md5($product->id).'.'.$ext;
+                        Storage::put($path, $contents);
+                        $updatedArray['part_number'] = $row['part_number'];
+                        $fileData = File::create([
+                            'url'=>$path,
+                            'fileable_id'=>$product->id,
+                            'fileable_type'=>'App\Models\Product',
+                            'table_name'=>'products',
+                            'extension'=>$ext,
+                        ]);
+                        foreach($image_sizes as $size){
+                            $img = Image::make(Storage::get($path));
+                            $name = $size['height'].'x'.$size['width'].'.'.$ext;
+                            if(Storage::exists('resized/'.$fileData->id.'-'.$name)){
+                                Storage::delete('resized/'.$fileData->id.'-'.$name);
+                            }
+                            $img->resize($size['height'], $size['width']);
+                            Storage::put('resized/'.$fileData->id.'-'.$name,$img->stream());
+                        }
+                    }
                     return $product;
                 }
             }
