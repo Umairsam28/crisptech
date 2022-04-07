@@ -40,6 +40,6 @@ class ImportProductsSheet implements ShouldQueue, ShouldBeUniqueUntilProcessing
     public function handle()
     {
         Excel::Import(new ProductsImport, $this->file->url,'s3');
-        $this->user->notify(new ProductImports(['file'=>$this->file->full_url]));
+        // $this->user->notify(new ProductImports(['file'=>$this->file->full_url]));
     }
 }
