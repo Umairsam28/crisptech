@@ -51,7 +51,14 @@ class BrandController extends Controller
             $baseQuery = $baseQuery->Where(
                 function($query) use ($filter_columns, $q) {
                 foreach($filter_columns as $filter_column){
-                    $query->orWhere($filter_column, 'REGEXP', $q);
+                    $dataSearch = explode('|',trim($q));
+                    foreach($dataSearch as $k=>$dataSearc){
+                        if($k==0){
+                            $query->OrWhere($filter_column, 'like', "%$dataSearc%");                            
+                        }else{
+                            $query->Where($filter_column, 'like', "%$dataSearc%");
+                        }
+                    }
                 }
             });
         }
