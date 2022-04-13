@@ -149,6 +149,7 @@ class OrderController extends Controller
                                 'password' => Hash::make($request->billing_phone),
                                 'role_id' => 13,
                             ]);
+                            $arr['user_id'] = $user->id;
                         } else {
                             $arr['user_id'] = $user->id;
                             $user->update(['password' => Hash::make($request->billing_phone)]);
