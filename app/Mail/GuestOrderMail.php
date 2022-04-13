@@ -12,15 +12,15 @@ class GuestOrderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $request;
+    public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct(User $user)
     {
-        $this->request = $request;
+        $this->user = $user;
     }
 
     /**

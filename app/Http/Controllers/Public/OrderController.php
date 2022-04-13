@@ -145,6 +145,7 @@ class OrderController extends Controller
                                 'email' => $request->billing_email,
                                 'first_name' => $request->billing_first_name,
                                 'last_name' => $request->billing_last_name,
+                                'phone' => $request->billing_phone,
                                 'password' => Hash::make($request->billing_phone),
                                 'role_id' => 13,
                             ]);
@@ -152,7 +153,7 @@ class OrderController extends Controller
                             $arr['user_id'] = $user->id;
                             $user->update(['password' => Hash::make($request->billing_phone)]);
                         }
-                        Mail::to($request->billing_email)->send(new GuestOrderMail($request));
+                        Mail::to($request->billing_email)->send(new GuestOrderMail($user));
                     }
                     $order = Order::create($arr);
                     $total = 0;

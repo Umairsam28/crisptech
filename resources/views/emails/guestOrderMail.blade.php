@@ -1,17 +1,17 @@
 @component('mail::message')
-# Guest User Registered
+# Order Received
 
-Dear Mr {{ucfirst($request->billing_first_name)}} {{ucfirst($request->billing_last_name)}},
+##### **Dear Mr, {{ucfirst($user->first_name)}} {{ucfirst($user->last_name)}}**,
 Thank you for your order.
 
-Your login credential are given below
+### Your login credential are given below
 @component('mail::table')
-| Email    | Password       |
-|:------:   |:-----------   |
-|{{$request->billing_email}}  |{{$request->billing_phone}}  |
+
+| Email    | {{$user->email}}  |
+|----------|--------------------------------|
+| Password |  {{$user->phone}}             |
 @endcomponent
 
-Click on button below for login
 @component('mail::button', ['url' => env('MIX_FRONT_WEBSITE_URL').'/login'])
 Login Here
 @endcomponent
