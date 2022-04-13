@@ -136,6 +136,7 @@ class OrderController extends Controller
                     try{
                         $arr['user_id'] = $request->user()->id;
                     }catch(\Exception $ex){
+                        
                     }
                     $order = Order::create($arr);
                     $total = 0;
