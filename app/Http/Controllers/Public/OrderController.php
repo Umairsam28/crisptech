@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Order, Country, City, State};
+use App\Models\{Order, Country, City, State, User};
 use App\Http\Requests\OrderRequestFront;
 use Stripe;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminOrder as AdminOrderMail;
+use App\Mail\GuestOrderMail;
+use Illuminate\Support\Facades\Hash;
+
 class OrderController extends Controller
 {
     public function index(Request $request){
@@ -136,7 +139,20 @@ class OrderController extends Controller
                     try{
                         $arr['user_id'] = $request->user()->id;
                     }catch(\Exception $ex){
-                        
+                        $user = User::where('email', $request->billing_email)->first();
+                        if (is_null($user)) {
+                            $user = User::create([
+                                'email' => $request->billing_email,
+                                'first_name' => $request->billing_first_name,
+                                'last_name' => $request->billing_last_name,
+                                'password' => Hash::make($request->billing_phone),
+                                'role_id' => 13,
+                            ]);
+                        } else {
+                            $arr['user_id'] = $user->id;
+                            $user->update(['password' => Hash::make($request->billing_phone)]);
+                        }
+                        Mail::to($request->billing_email)->send(new GuestOrderMail($request));
                     }
                     $order = Order::create($arr);
                     $total = 0;
