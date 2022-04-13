@@ -488,6 +488,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
       selectedItem: {},
       amountAllowedForCapture: 0,
       amountReceivedFromCapture: 0,
+      amountRefundedFromCapture: 0,
       stripeStatus: ''
     };
   },
@@ -514,21 +515,26 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
                 _this2.invoice = _context2.sent;
                 _this2.amountAllowedForCapture = 0;
                 _this2.amountReceivedFromCapture = 0;
+                _this2.amountRefundedFromCapture = 0;
                 _services_auth_orders__WEBPACK_IMPORTED_MODULE_2__["default"].getStripeIntentDetails(_this2.$route.params.id).then(function (e) {
                   if (e) {
-                    if (e.amount_capturable) {
-                      _this2.amountAllowedForCapture = e.amount_capturable / 100;
+                    if (e.amount) {
+                      _this2.amountAllowedForCapture = e.amount / 100;
                     }
 
-                    if (e.amount_received) {
-                      _this2.amountReceivedFromCapture = e.amount_received / 100;
+                    if (e.amount_captured) {
+                      _this2.amountReceivedFromCapture = e.amount_captured / 100;
+                    }
+
+                    if (e.amount_refunded) {
+                      _this2.amountRefundedFromCapture = e.amount_refunded / 100;
                     }
 
                     _this2.stripeStatus = e.status;
                   }
                 });
 
-              case 6:
+              case 7:
               case "end":
                 return _context2.stop();
             }
@@ -4692,18 +4698,15 @@ var render = function () {
             : _vm._e(),
           _vm._v(" "),
           _c("v-chip", { staticClass: "ma-2", attrs: { color: "primary" } }, [
-            _vm._v(
-              "Amount Allowed to Capture: " +
-                _vm._s(_vm.amountAllowedForCapture)
-            ),
+            _vm._v("Amount to Capture: " + _vm._s(_vm.amountAllowedForCapture)),
           ]),
           _vm._v(" "),
           _c("v-chip", { staticClass: "ma-2", attrs: { color: "info" } }, [
             _vm._v("Amount Captured: " + _vm._s(_vm.amountReceivedFromCapture)),
           ]),
           _vm._v(" "),
-          _c("v-chip", { staticClass: "ma-2", attrs: { color: "success" } }, [
-            _vm._v("Stripe Status: " + _vm._s(_vm.stripeStatus)),
+          _c("v-chip", { staticClass: "ma-2", attrs: { color: "error" } }, [
+            _vm._v("Amount Refunded: " + _vm._s(_vm.amountRefundedFromCapture)),
           ]),
           _vm._v(" "),
           _c(

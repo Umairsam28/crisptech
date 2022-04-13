@@ -46,10 +46,10 @@ class OrderRequestFront extends FormRequest
             'billing_company'=>'max:255',
             'billing_zipcode'=>'required|max:20',
             'billing_phone'=>'required|max:100',
-            'card.number'=>'required',
-            'card.month'=>'required',
-            'card.year'=>'required',
-            'card.cvv'=>'required',
+            // 'card.number'=>'required',
+            // 'card.month'=>'required',
+            // 'card.year'=>'required',
+            // 'card.cvv'=>'required',
         ];
     }
 }

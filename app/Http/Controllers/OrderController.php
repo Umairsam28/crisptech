@@ -147,8 +147,8 @@ class OrderController extends Controller
         $stripe = new \Stripe\StripeClient(
             env('STRIPE_SK')
         );
-        $intent = $stripe->paymentIntents->retrieve($order->stripe_charge_id, []);
-        return $intent;
+        $charge = $stripe->charges->retrieve($order->stripe_charge_id,[]);
+        return $charge;
     }
     public function captureOrder(Order $order){
         try {
@@ -156,10 +156,11 @@ class OrderController extends Controller
                 env('STRIPE_SK')
             );
             // $intent = $stripe->paymentIntents->confirm($order->stripe_charge_id, []);
-            $intent = $stripe->paymentIntents->capture($order->stripe_charge_id, []);
+            $charge = $stripe->charges->capture($order->stripe_charge_id,['amount'=>ceil($order->total*100)]);
+            // $intent = $stripe->paymentIntents->capture($order->stripe_charge_id, []);
             $order->order_status = 2;
             $order->save();
-            return response()->json(['status'=>1,'data'=>$intent]);
+            return response()->json(['status'=>1,'data'=>$charge]);
         }catch(\Stripe\Exception\CardException $e) {
             return response()->json(['status'=>0,'data'=>$e->getError()->message]);
         }catch (\Stripe\Exception\RateLimitException $e) {
@@ -188,10 +189,11 @@ class OrderController extends Controller
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SK')
             );
-            $intent = $stripe->paymentIntents->cancel($order->stripe_charge_id, []);
+            $charge= $stripe->refunds->create(['charge' => $order->stripe_charge_id,]);
+            // $intent = $stripe->paymentIntents->cancel($order->stripe_charge_id, []);
             $order->order_status = 4;
             $order->save();
-            return response()->json(['status'=>1,'data'=>$intent]);
+            return response()->json(['status'=>1,'data'=>$charge]);
         }catch(\Stripe\Exception\CardException $e) {
             return response()->json(['status'=>0,'data'=>$e->getError()->message]);
         }catch (\Stripe\Exception\RateLimitException $e) {

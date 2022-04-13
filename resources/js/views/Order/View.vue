@@ -10,9 +10,9 @@
       <v-btn v-if="order_status==1" @click="chargeCustomer" depressed color="info" class="text-white">
         Charge Now
       </v-btn>
-      <v-chip class="ma-2" color="primary">Amount Allowed to Capture: {{amountAllowedForCapture}}</v-chip>
+      <v-chip class="ma-2" color="primary">Amount to Capture: {{amountAllowedForCapture}}</v-chip>
       <v-chip class="ma-2" color="info">Amount Captured: {{amountReceivedFromCapture}}</v-chip>
-      <v-chip class="ma-2" color="success">Stripe Status: {{stripeStatus}}</v-chip>      
+      <v-chip class="ma-2" color="error">Amount Refunded: {{amountRefundedFromCapture}}</v-chip>      
       
       <v-row align="center">
         <v-col cols="4">
@@ -394,6 +394,7 @@ export default {
       selectedItem: {},
       amountAllowedForCapture: 0,
       amountReceivedFromCapture: 0,
+      amountRefundedFromCapture: 0,
       stripeStatus: '',
     };
   },
@@ -409,13 +410,17 @@ export default {
       });
       this.amountAllowedForCapture = 0
       this.amountReceivedFromCapture = 0
+      this.amountRefundedFromCapture = 0
       ordersservice.getStripeIntentDetails(this.$route.params.id).then(e=>{
         if(e){
-          if(e.amount_capturable){
-            this.amountAllowedForCapture = (e.amount_capturable/100)
+          if(e.amount){
+            this.amountAllowedForCapture = (e.amount/100)
           }
-          if(e.amount_received){
-            this.amountReceivedFromCapture = (e.amount_received/100)
+          if(e.amount_captured){
+            this.amountReceivedFromCapture = (e.amount_captured/100)
+          }
+          if(e.amount_refunded){
+            this.amountRefundedFromCapture = (e.amount_refunded/100)
           }
           this.stripeStatus = e.status
         }

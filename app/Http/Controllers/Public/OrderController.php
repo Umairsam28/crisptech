@@ -28,43 +28,79 @@ class OrderController extends Controller
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SK')
             );
-            $method = $stripe->paymentMethods->create([
-                'type' => 'card',
-                'card' => [
-                    'number' => $request->card['number'],
-                    'exp_month' => $request->card['month'],
-                    'exp_year' => $request->card['year'],
-                    'cvc' => $request->card['cvv'],
-                ],
-                'billing_details'=>[
-                    'email'=>$request->billing_email,
+            $stripeCustomersCheck = $stripe->customers->all(['limit' => 1, 'email'=>$request->billing_email]);
+            $stripeCustomer = [];
+            if(count($stripeCustomersCheck->data)==0){
+                $stripeCustomer = $stripe->customers->create([
+                    'email' => $request->billing_email,
                     'name'=>$request->billing_first_name.' '.$request->billing_last_name,
+                    'phone'=>$request->billing_phone,
+                    'shipping'=>[
+                        'name'=>$request->shipping_first_name.' '.$request->shipping_last_name,
+                        'phone'=>$request->shipping_phone,
+                        'address'=>[
+                            'city'=>$request->shipping_city,
+                            'country'=>Country::find($request->shipping_country)->iso_code,
+                            'state'=>State::find($request->shipping_state)->name,
+                            'postal_code'=>$request->shipping_zip,
+                            'line1'=>$request->shipping_address,
+                        ]
+                    ],
                     'address'=>[
                         'country'=>Country::find($request->billing_country)->iso_code,
                         'city'=>$request->billing_city,
                         'state'=>State::find($request->billing_state)->name,
                         'postal_code'=>$request->billing_zipcode,
                         'line1'=>$request->billing_address,
-                    ]
-                ]
-            ]);
-            if($method->id){
-                $total = 0;
+                    ],
+                    'source'=>$request->token['id'],
+                  ]);
+            }else{
+                $stripeCustomer = $stripeCustomersCheck->data[0];
+                $attachSource = $stripe->customers->update(
+                    $stripeCustomer->id,
+                    ['source' => $request->token['id']]
+                );
+            }
+            if($stripeCustomer->id){
+                $stripeTotal = 0;
                 foreach($request->items as $key=>$value){
                     $qty = intval($value['quantity']);
                     $price = floatval($value['product']['actual_price']);
-                    $total+=($price*$qty);
+                    $stripeTotal+=($price*$qty);
                 }
-                $intent = $stripe->paymentIntents->create([
-                    'amount' => ($total*100),
+                $stripeTotal = ($stripeTotal+$request->tax_amount);
+                $stripeTotal = ceil($stripeTotal-$request->discount_amount);
+                $chargeStripe = $stripe->charges->create([
+                    'amount' => ($stripeTotal*100),
                     'currency' => 'usd',
-                    // 'confirmation_method' => 'manual',
-                    'payment_method_types' => ['card'],
-                    'capture_method' => 'manual',
-                    'payment_method' => $method->id,
-                    'confirm' => true,
+                    // 'source' => $request->token['id'],
+                    'capture' => false,
+                    'description' => 'Charge Against Order',
+                    'customer'=>$stripeCustomer->id,
+                    'shipping'=>[
+                        'name'=>$request->shipping_first_name.' '.$request->shipping_last_name,
+                        'phone'=>$request->shipping_phone,
+                        'address'=>[
+                            'city'=>$request->shipping_city,
+                            'country'=>Country::find($request->shipping_country)->iso_code,
+                            'state'=>State::find($request->shipping_state)->name,
+                            'postal_code'=>$request->shipping_zip,
+                            'line1'=>$request->shipping_address,
+                        ]
+                    ],
                 ]);
-                if($intent->id){
+                // return $chargeStripe;
+                // $intent = $stripe->paymentIntents->create([
+                //     'amount' => ($total*100),
+                //     'currency' => 'usd',
+                //     // 'confirmation_method' => 'manual',
+                //     'payment_method_types' => ['card'],
+                //     'capture_method' => 'manual',
+                //     'payment_method' => $method->id,
+                //     'confirm' => true,
+                // ]);
+                if($chargeStripe->id){
                     // $capture = $stripe->paymentIntents->capture(
                     //     $intent->id,
                     //     []
@@ -96,7 +132,7 @@ class OrderController extends Controller
                     'tax_amount',
                     'tax_percent',
                     );
-                    $arr['stripe_charge_id'] = $intent->id;
+                    $arr['stripe_charge_id'] = $chargeStripe->id;
                     try{
                         $arr['user_id'] = $request->user()->id;
                     }catch(\Exception $ex){
