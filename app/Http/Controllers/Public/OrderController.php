@@ -73,9 +73,9 @@ class OrderController extends Controller
                     $stripeTotal+=($price*$qty);
                 }
                 $stripeTotal = ($stripeTotal+$request->tax_amount);
-                $stripeTotal = ceil($stripeTotal-$request->discount_amount);
+                $stripeTotal = ($stripeTotal-$request->discount_amount);
                 $chargeStripe = $stripe->charges->create([
-                    'amount' => ($stripeTotal*100),
+                    'amount' => ceil(($stripeTotal*100)),
                     'currency' => 'usd',
                     // 'source' => $request->token['id'],
                     'capture' => false,
