@@ -29,12 +29,12 @@ class ApiAuthController extends Controller
                 $response = ['token' => $token];
                 return response($response, 200);
             } else {
-                $response = ["message" => "Password mismatch"];
-                return response($response, 422);
+                $response =  ["password" => "Password mismatch"];
+                return response(['errors' => $response], 422);
             }
         } else {
-            $response = ["message" =>'User does not exist'];
-            return response($response, 422);
+            $response = ["email" => 'User with this email does not exist'];
+            return response(['errors' => $response], 422);
         }
     }
     public function register(RegisterRequest $request) {
