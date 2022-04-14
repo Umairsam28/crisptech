@@ -30,6 +30,7 @@ class GuestOrderMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.guestOrderMail');
+        return $this->markdown('emails.guestOrderMail')
+        ->subject("CrisptechLLC Registration Email");
     }
 }

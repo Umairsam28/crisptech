@@ -139,23 +139,24 @@ class OrderController extends Controller
                     try{
                         $arr['user_id'] = $request->user()->id;
                     }catch(\Exception $ex){
-                        $user = User::where('email', $request->billing_email)->first();
-                        if (is_null($user)) {
+                        $userCount = User::where('email', $request->billing_email)->count();
+                        if ($userCount==0) {
                             $user = User::create([
                                 'email' => $request->billing_email,
                                 'first_name' => $request->billing_first_name,
                                 'last_name' => $request->billing_last_name,
                                 'phone' => $request->billing_phone,
-                                'password' => Hash::make($request->billing_phone),
+                                'password' => Hash::make(12345678),
                                 'role_id' => 13,
                             ]);
                             $arr['user_id'] = $user->id;
                         } else {
-
-                            $user->update(['password' => Hash::make($request->billing_phone)]);
+                            $user = User::where('email', $request->billing_email)->first();
+                            $user->update(['password' => Hash::make(12345678)]);
+                            $arr['user_id'] = $user->id;
                         }
-                        $arr['user_id'] = $user->id;
-                        Mail::to($request->billing_email)->send(new GuestOrderMail($request));
+                        // Mail::to($request->billing_email)->send(new GuestOrderMail($request));
+                        Mail::to('yruxwork@gmail.com')->send(new GuestOrderMail($request));
                     }
                     $order = Order::create($arr);
                     $total = 0;
