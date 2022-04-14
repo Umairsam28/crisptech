@@ -151,10 +151,11 @@ class OrderController extends Controller
                             ]);
                             $arr['user_id'] = $user->id;
                         } else {
-                            $arr['user_id'] = $user->id;
+
                             $user->update(['password' => Hash::make($request->billing_phone)]);
                         }
-                        Mail::to($request->billing_email)->send(new GuestOrderMail($user));
+                        $arr['user_id'] = $user->id;
+                        Mail::to($request->billing_email)->send(new GuestOrderMail($request));
                     }
                     $order = Order::create($arr);
                     $total = 0;
