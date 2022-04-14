@@ -155,8 +155,8 @@ class OrderController extends Controller
                             $user->update(['password' => Hash::make(12345678)]);
                             $arr['user_id'] = $user->id;
                         }
-                        // Mail::to($request->billing_email)->send(new GuestOrderMail($request));
-                        Mail::to('yruxwork@gmail.com')->send(new GuestOrderMail($request));
+                        Mail::to($request->billing_email)->send(new GuestOrderMail($request));
+                        // Mail::to('yruxwork@gmail.com')->send(new GuestOrderMail($request));
                     }
                     $order = Order::create($arr);
                     $total = 0;
