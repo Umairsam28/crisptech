@@ -24,6 +24,7 @@ use App\Http\Controllers\Public\{HomeController, CountryCityStateController};
 |
 */
 Route::get('/sitemap', [SiteMapController::class, 'index']);
+Route::get('/sitemap/products', [SiteMapController::class, 'products']);
 // ------------------------------------------------ Frontend Routes-------->>>
 Route::group(['prefix' => '/front', 'middleware' => ['cors', 'json.response']], function () {
     Route::get('/countries', [CountryCityStateController::class, 'countries']);
