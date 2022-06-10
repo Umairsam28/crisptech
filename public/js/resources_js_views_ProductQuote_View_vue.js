@@ -105,7 +105,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
+      MIX_FRONT_WEBSITE_URL: "https://crisptechllc.com",
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
         email: '',

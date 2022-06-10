@@ -120,7 +120,7 @@ var service = new _services_auth_default__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      MIX_FRONT_WEBSITE_URL: "http://localhost:3000",
+      MIX_FRONT_WEBSITE_URL: "https://crisptechllc.com",
       form: {
         id: this.$route.params.id ? this.$route.params.id : 0,
         email: '',
